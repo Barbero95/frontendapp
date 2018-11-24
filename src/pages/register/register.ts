@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { Usuario } from '../../app/usuario';
+import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
 
 /**
  * Generated class for the RegisterPage page.
@@ -16,11 +18,29 @@ import { HomePage } from '../home/home';
 })
 export class RegisterPage {
 
+  nombre: string = "";
+  apellido: string = "";
   username: string = "";
   password: string = "";
   repassword: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  usuario: Usuario;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public frontendService: FrontendServicesProvider) {
+    this.usuario = {
+      nombre:this.nombre,
+      apellido:this.apellido,
+      nick:this.username,
+      email:"",
+      estrellas:0,
+      tags: [""],
+      imagen:"",
+      password:"",
+      actividadesPropietario:[],
+      actividadesCliente:[],
+      _id:0,
+      __v:0
+    }
   }
 
   ionViewDidLoad() {
@@ -35,7 +55,9 @@ export class RegisterPage {
       alert("La contraseña no es igual");
     }
     else{
-      this.navCtrl.push(HomePage);
+      this.usuario.password = this.password;
+      this.usuario.nick = this.username;
+      this.frontendService.postUsuario(this.usuario).subscribe( data => {this.navCtrl.push(HomePage)}, err => console.error('Ops: ' + err.message));
     }
   }
 }

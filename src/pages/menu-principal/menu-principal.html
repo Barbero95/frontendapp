@@ -14,8 +14,12 @@
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-
   <ion-content>
+    <ion-item>
+      <ion-avatar>
+        <ion-img class ="profile-image" src="../../assets/imgs/arbusto.png"></ion-img>
+      </ion-avatar>
+    </ion-item>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
@@ -33,6 +37,12 @@
   </p>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
+
+  <ion-item>
+      <ion-avatar>
+        <ion-img class ="profile-image" src="../../assets/imgs/arbusto.png"></ion-img>
+      </ion-avatar>
+    </ion-item>
 </ion-content>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
