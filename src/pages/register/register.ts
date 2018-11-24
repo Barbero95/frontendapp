@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MenuprincipalPage } from '../menuprincipal/menuprincipal';
 import { HomePage } from '../home/home';
 
 /**
@@ -37,7 +36,6 @@ export class RegisterPage {
     }
     else{
       this.navCtrl.push(HomePage);
-      
     }
   }
 }

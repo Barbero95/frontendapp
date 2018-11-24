@@ -7,14 +7,22 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
-import { MenuprincipalPage } from '../pages/menuprincipal/menuprincipal';
+import { MenuPrincipalPage } from '../pages/menu-principal/menu-principal';
+import { CatalogoPage } from '../pages/catalogo/catalogo';
+import { CrearActividadPage } from '../pages/crear-actividad/crear-actividad';
+import { PerfilPage } from '../pages/perfil/perfil';
+import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     RegisterPage,
-    MenuprincipalPage
+    MenuPrincipalPage,
+    CatalogoPage,
+    CrearActividadPage,
+    EditarPerfilPage,
+    PerfilPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +33,11 @@ import { MenuprincipalPage } from '../pages/menuprincipal/menuprincipal';
     MyApp,
     HomePage,
     RegisterPage,
-    MenuprincipalPage
+    MenuPrincipalPage,
+    CatalogoPage,
+    EditarPerfilPage,
+    CrearActividadPage,
+    PerfilPage
   ],
   providers: [
     StatusBar,

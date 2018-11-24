@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
-import { MenuprincipalPage } from '../menuprincipal/menuprincipal';
+import { MenuPrincipalPage } from '../menu-principal/menu-principal';
 
 @Component({
   selector: 'page-home',
@@ -9,6 +9,7 @@ import { MenuprincipalPage } from '../menuprincipal/menuprincipal';
 })
 export class HomePage {
 
+  //La pagina home que es la predefinida por ionic es el Login
   username: string;
   password: string;
 
@@ -19,7 +20,7 @@ export class HomePage {
   login(){
     console.log("Username: " + this.username);
     console.log("Password: " + this.password);
-    this.navCtrl.push(MenuprincipalPage);
+    this.navCtrl.setRoot(MenuPrincipalPage);
 
   }
   goRegister(){
