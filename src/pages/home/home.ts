@@ -7,6 +7,7 @@ import { FrontendServicesProvider } from '../../providers/frontend-services/fron
 import { Login } from '../../app/login';
 import { Usuario } from '../../app/usuario';
 import { Storage } from '@ionic/storage';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -20,29 +21,42 @@ export class HomePage {
   login: Login;
   usuario: Usuario;
 
-  constructor(public navCtrl: NavController, private forntendServices: FrontendServicesProvider, private storage: Storage) {
+  constructor(public navCtrl: NavController, private forntendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
+  }
+  ponerDatos(){
     this.login = {
-      nick:"",
-      password:""
+      nick:this.username,
+      password:this.password
     }
+    this.storage.set('nick', this.login.nick);
+    console.log("Nivel Login:" + this.login.nick);
   }
 
   gologin(){
     console.log("Username: " + this.username);
     console.log("Password: " + this.password);
-    this.login.nick = this.username;
-    this.login.password = this.password;
-    this.forntendServices.validarUser(this.login).subscribe(data => this.usuario = data);
-    if (this.usuario == null){
-
-    }else{
-      this.storage.set('nick', this.username);
-      this.navCtrl.setRoot(SideMenuPage);
-    }
+    this.ponerDatos();
+    this.forntendServices.validarUser(this.login).subscribe( (data) => {
+      if (data == null){
+        this.showAlert();
+      }else{
+        
+        this.navCtrl.setRoot(SideMenuPage);
+      }
+    });
+    
     
 
   }
   goRegister(){
     this.navCtrl.push(RegisterPage);
+  }
+  showAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Login',
+      subTitle: 'Usuario o contraseña incorrectos',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }
