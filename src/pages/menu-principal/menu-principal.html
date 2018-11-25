@@ -8,27 +8,41 @@
 </ion-header>
 
 <ion-content padding>
+  
+  <ion-toolbar color="primary">
+		<ion-searchbar placeholder="Busqueda.." [(ngModel)] = "searchTag"></ion-searchbar>
+		<ion-buttons end>
+			<button ion-button (click)="goSearch()">Buscar</button>
+		</ion-buttons>
+  </ion-toolbar>
+  
+  
   <ion-list>
-    <ion-item>
-      <ion-input placeholder="Busqueda.." type="text" [(ngModel)] = "searchTag"></ion-input>
-    </ion-item>
-    <button>
-      <ion-icon name="search" (click)="goSearch()"></ion-icon>
-    </button>
-    
-    
+    <ion-item-sliding *ngFor="let item of actividades">Actividades
+      <ion-card>
+        <ion-card-header>
+          {{item.titulo}}
+        </ion-card-header>
+        <ion-card-content>
+          Descripción: {{item.descripcion}} <hr>
+          Tags: {{item.tags}} <hr>
+        </ion-card-content>
+      </ion-card>
+    </ion-item-sliding>
   </ion-list>
-  
-  
-  
+  <!--
   <ion-list>
+    <hr>
+    <h2>Actividades:</h2>
     <button ion-item *ngFor="let item of actividades" (click)="itemTapped($event, item)">
-      <!--  <ion-icon [name]="item.icon" item-start></ion-icon>  -->
       Título: {{item.titulo}} <hr>
       Descripción: {{item.descripcion}} <hr>
       Tags: {{item.tags}}
     </button>
   </ion-list>
+  -->
+  
+
   <div *ngIf="selectedItem" padding>
     You navigated here from <b>{{selectedItem.title}}</b>
   </div>

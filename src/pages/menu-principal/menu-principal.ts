@@ -28,6 +28,7 @@ export class MenuPrincipalPage {
   actividad1: Actividad;
   tagsBusqueda: string[] = [];
   tagABuscar: string = "";
+  searchTag: string = "";
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
@@ -97,6 +98,15 @@ export class MenuPrincipalPage {
     });
     
   }
+  
+  //Barra de busqueda: buscamos por palabra clave
+  goSearch(){
+    if(this.searchTag.length == 0){
+
+    }else{
+      this.frontendServices.getActividadesPorTagPerfil(this.searchTag).subscribe( (acts) => this.actividades = acts);
+    }
+  }
 
   //cuando selecionamos una actividad
   itemTapped(event, item) {
@@ -110,7 +120,15 @@ export class MenuPrincipalPage {
   showAlert1() {
     const alert = this.alertCtrl.create({
       title: 'Menu Principal',
-      subTitle: 'Si quieres que te salga una busqueda sobre los tags que te interesam deberias ir al perfil y editarlo.',
+      subTitle: 'Si quieres que te salga una busqueda sobre los tags que te interesan deberías ir al perfil y editarlo.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  showAlert2() {
+    const alert = this.alertCtrl.create({
+      title: 'Menu Principal',
+      subTitle: 'Para buscar actividades introduce algún dato.',
       buttons: ['OK']
     });
     alert.present();
