@@ -2,11 +2,13 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
 
 import { CatalogoPage } from '../catalogo/catalogo';
 import { MenuPrincipalPage } from '../menu-principal/menu-principal';
 import { CrearActividadPage } from '../crear-actividad/crear-actividad';
 import { PerfilPage } from '../perfil/perfil';
+import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
 
 /**
  * Generated class for the SideMenuPage page.
@@ -26,17 +28,29 @@ export class SideMenuPage {
   rootPage: any = MenuPrincipalPage;
   pages: Array<{title: string, component: any, icon: string}>;
 
+  propietario: string = "";
+  nick: string = "";
+  estrellas: number = 0;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController,public statusBar: StatusBar,
-    public splashScreen: SplashScreen, public platform: Platform) {
-      this.initializeApp();
+    public splashScreen: SplashScreen, public platform: Platform, private frontendServices: FrontendServicesProvider, public storage: Storage) {
+      //this.initializeApp();
       this.pages = [
       { title: 'Menu Principal', component: MenuPrincipalPage, icon:"home" },
       { title: 'Catálogo', component: CatalogoPage, icon: "book"},
       { title: 'Crear Actividad', component: CrearActividadPage, icon:"add-circle"}
-    ];
+      ];
+
+    this.storage.get('nick').then( (propietario) => {
+      //this.propietario = val;
+      console.log("propietario valor directo de storage: " + propietario);
+      this.propietario = propietario;
+      console.log("propietario valor ya guardado: " + this.propietario);
+      this.inicio();
+    });
     
   }
-
+  /*
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -45,6 +59,7 @@ export class SideMenuPage {
       this.splashScreen.hide();
     });
   }
+  */
 
   openPage(page) {
     // close the menu when clicking a link from the menu
@@ -54,7 +69,17 @@ export class SideMenuPage {
   }
 
   goPerfil(){
+    this.menu.close();
     this.nav.setRoot(PerfilPage);
+  }
+
+  inicio(){
+    this.frontendServices.getUsuario(this.propietario).subscribe( data => {
+      this.nick = data.nick;
+      //modifico estrellas para probar
+      //this.estrellas = data.estrellas;
+      this.estrellas = 3.2;
+    });
   }
 
 }

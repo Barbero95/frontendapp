@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule }    from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { StarRatingModule } from 'ionic3-star-rating';
 
 
 import { MyApp } from './app.component';
@@ -36,6 +37,7 @@ import { MostrarActividadPage } from '../pages/mostrar-actividad/mostrar-activid
   imports: [
     BrowserModule,
     HttpClientModule,
+    StarRatingModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],

@@ -9,11 +9,38 @@
 
 
 <ion-content padding>
-  <ion-list>
+  <ion-list align="center">
+    <div class="item item-avatar">
+      <img align="center" src="/assets/images/logoUpc.jpg" class="profile-image">
+      <ion-icon margin-top="15px" name="settings" (click)="goEditarPerfil()"></ion-icon>
+      <h2>{{nick}}</h2>
+      <p>{{estrellas}}</p>
+      <ionic3-star-rating 
+        activeIcon = "ios-star"
+        defaultIcon = "ios-star-outline"
+        activeColor = "#488aff" 
+        defaultColor = "#f4f4f4"
+        readonly="true"
+        [rating]= "estrellas">
+      </ionic3-star-rating>
+    </div>
+
+    
     <ion-item>
-        <ion-avatar>
-          <ion-img class="profile-image" src="/assets/images/logoUpc.jpg"></ion-img>
-        </ion-avatar>
+      <ion-label>Nombre: </ion-label>
+      <ion-label>{{nombre}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Apellido: </ion-label>
+      <ion-label>{{apellido}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Email: </ion-label>
+      <ion-label>{{email}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tags: </ion-label>
+      <ion-label>{{tags}}</ion-label>
     </ion-item>
     
   </ion-list>
