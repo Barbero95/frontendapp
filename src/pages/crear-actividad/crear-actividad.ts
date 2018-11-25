@@ -29,13 +29,6 @@ export class CrearActividadPage {
   localizacion: number[];
   propietario: string = "";
 
-  //Para alertas
-  alert1: boolean = false;
-  alert2: boolean = false;
-  alert3: boolean = false;
-  alert4: boolean = false;
-  alert5: boolean = false;
-
   //GPS
   latitude: number = 41.27530691061249;
   longitude: number = 1.9866693019866941;
@@ -46,16 +39,19 @@ export class CrearActividadPage {
     });
     console.log("propietario nivel crear actividad" + this.propietario);
   }
-  getNick(){
+
+  //Ponemos todos los valores del formulario en la actividad y cogemos el nick en el local storage
+  ponerDatos(){
+    //obtenemos el nick del local storage
     this.storage.get('nick').then(val => {
       this.propietario = val;
     });
     console.log("propietario nivel crear actividad" + this.propietario);
-  }
-  ponerDatos(){
-    this.getNick();
+
+    //introducimos la posición donde estamos
     this.localizacion = [this.latitude,this.longitude];
-    //hacer set del storage y meter el nick
+
+    //guardamos todas las variables en la actividad
     this.actividad = {
       _id:"",
       __v:0,
@@ -70,6 +66,69 @@ export class CrearActividadPage {
     };
   }
 
+  //Cuando le damos al botón de crear
+  crearActividad(){
+    //llamamos a introducir todos los datos en actividad
+    this.ponerDatos();
+
+    //comprobamos que todos los campos esta rellenos
+    if(this.titulo.length == 0 || this.descripcion.length == 0 || this.tags.length == 0 || this.ciudad.length == 0 ){
+      //alert("Introduce todo los datos!");
+      this.showAlert3();
+    }
+    else{
+      //comprobamos que el titulo no exista ya para este usuario
+      if(this.titulo.length != 0 ){
+        this.frontendServices.getActividadDePropietario(this.actividad).subscribe( (data) => {
+          if(data == null){
+            //ahora creamos la actividad ya que hemos comprobado que no existe dicho titulo
+            this.frontendServices.postActividad(this.actividad).subscribe( act => {
+              if(act == null){
+                //por alguna razon no se ha podido crear esta actividad => mirar base de datos si pasa este paso
+                this.showAlert2();
+              }
+              else{this.navCtrl.setRoot(SideMenuPage);}  
+            }, err => console.error('Ops: ' + err.message)); 
+          }else{
+            this.showAlert1();
+          }
+        });
+      }
+    }
+    
+  }
+
+  //alerta cuando ya existe la misma actividad se comprueba por el titulo
+  //un mismo usuario solo puede tener x actividades si el titulo es diferente
+  showAlert1() {
+    const alert = this.alertCtrl.create({
+      title: 'Actividad',
+      subTitle: 'Esta actividad ya la tienes en tu catálogo',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  //Error al guardar la actividad en la base de datos
+  showAlert2() {
+    const alert = this.alertCtrl.create({
+      title: 'Actividad',
+      subTitle: 'Error al crear la actividad',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  //alerta porque faltan campos por rellenar
+  showAlert3() {
+    const alert = this.alertCtrl.create({
+      title: 'Actividad',
+      subTitle: 'Rellena todos los campos',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  /*
+  //del frontend web
   crearActividad(){
     this.ponerDatos();
     if(this.titulo == ""){this.alert2 = true;
@@ -96,21 +155,6 @@ export class CrearActividadPage {
       }, err => console.error('Ops: ' + err.message)); 
     }
   }
-  showAlert1() {
-    const alert = this.alertCtrl.create({
-      title: 'Actividad',
-      subTitle: 'Esta actividad ya la tienes en tu catálogo',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-  showAlert2() {
-    const alert = this.alertCtrl.create({
-      title: 'Actividad',
-      subTitle: 'Error al crear la actividad',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
+  */
 
 }

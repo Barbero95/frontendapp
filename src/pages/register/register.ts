@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Usuario } from '../../app/usuario';
 import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the RegisterPage page.
@@ -26,7 +27,7 @@ export class RegisterPage {
 
   usuario: Usuario;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public frontendService: FrontendServicesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private frontendService: FrontendServicesProvider, public alertCtrl: AlertController) {
     this.usuario = {
       nombre:this.nombre,
       apellido:this.apellido,
@@ -59,5 +60,33 @@ export class RegisterPage {
       this.usuario.nick = this.username;
       this.frontendService.postUsuario(this.usuario).subscribe( data => {this.navCtrl.push(HomePage)}, err => console.error('Ops: ' + err.message));
     }
+  }
+
+  //rellenar todos los campos
+  showAlert1() {
+    const alert = this.alertCtrl.create({
+      title: 'Registro',
+      subTitle: 'Rellena todos los campos',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  //la contraseña no es la misma
+  showAlert2() {
+    const alert = this.alertCtrl.create({
+      title: 'Registro',
+      subTitle: 'La contraseña no coincide',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  //este nick ya existe
+  showAlert3() {
+    const alert = this.alertCtrl.create({
+      title: 'Registro',
+      subTitle: 'Este usuario ya existe',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

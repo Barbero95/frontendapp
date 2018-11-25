@@ -17,6 +17,7 @@ import { PerfilPage } from '../pages/perfil/perfil';
 import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 import { FrontendServicesProvider } from '../providers/frontend-services/frontend-services';
 import { SideMenuPage } from '../pages/side-menu/side-menu';
+import { MostrarActividadPage } from '../pages/mostrar-actividad/mostrar-actividad';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SideMenuPage } from '../pages/side-menu/side-menu';
     CrearActividadPage,
     EditarPerfilPage,
     PerfilPage,
-    SideMenuPage
+    SideMenuPage,
+    MostrarActividadPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { SideMenuPage } from '../pages/side-menu/side-menu';
     EditarPerfilPage,
     CrearActividadPage,
     PerfilPage,
-    SideMenuPage
+    SideMenuPage,
+    MostrarActividadPage
   ],
   providers: [
     StatusBar,

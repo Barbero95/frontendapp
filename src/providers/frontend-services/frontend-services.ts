@@ -30,8 +30,8 @@ export class FrontendServicesProvider {
       const url = `${this.actividadesUrl}/${titulo}`;
       return this.http.get<Actividad>(url);
     }
-    getUsuario(username: string): Observable<Usuario> {
-      const url = `${this.usuariosUrl}/${username}`;
+    getUsuario(nick: string): Observable<Usuario> {
+      const url = `${this.usuariosUrl}/${nick}`;
       return this.http.get<Usuario>(url);
     }
     getLogin(username: string , password: string): Observable<Usuario> {
@@ -42,17 +42,13 @@ export class FrontendServicesProvider {
     //get de todas las actividades de un usuario
     getActividadesPropietario(actividad: Actividad): Observable<Actividad[]> {
       const url = `${this.actividadesUrl}/propietario/${actividad.propietario}`;
-      return this.http.get<Actividad[]>(url)
-      //.pipe(
-      //  tap(_ => this.log(`El propietario=${actividad.propietario}`)),
-       // catchError(this.handleError<Actividad>(`error`))
-   //   );
-   ;
+      return this.http.get<Actividad[]>(url);
     }
-  
-    validarUser(log: Login): Observable<Usuario> {
-      const url = `${this.usuariosUrl}/validacion`
-      return this.http.post<Usuario>(url, log, httpOptions);
+
+    //es una busqueda para el menu principal de las actividades relacionadas con los tags que te gustan
+    getActividadesPorTagPerfil (tagPerfil: string): Observable<Actividad[]> {
+      const url = `${this.actividadesUrl}/porPerfil/${tagPerfil}`;
+      return this.http.get<Actividad[]>(url);
     }
   
     /*POST: Crear usuario o crear actividad*/
@@ -60,6 +56,11 @@ export class FrontendServicesProvider {
     //crear actividad
     postActividad (actividad: Actividad): Observable<Actividad> {
       return this.http.post<Actividad>(this.actividadesUrl, actividad, httpOptions);
+    }
+
+    validarUser(log: Login): Observable<Usuario> {
+      const url = `${this.usuariosUrl}/validacion`
+      return this.http.post<Usuario>(url, log, httpOptions);
     }
     
     ////GPS dame todas las actividades cerca de mi y con este tag

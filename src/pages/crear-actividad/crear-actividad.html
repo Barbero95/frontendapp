@@ -14,25 +14,21 @@
       <ion-item>
         <ion-label>Título</ion-label>
         <ion-input type="text" [(ngModel)]="titulo"></ion-input>
-        <div *ngIf="alert2" style="color:#FF0000">Debes añadir un Título</div>
       </ion-item>
       
       <ion-item>
         <ion-label>Descripción</ion-label>
         <ion-input type="text" [(ngModel)]="descripcion"></ion-input>
-        <div *ngIf="alert3" style="color:#FF0000">Debes añadir una descripción.</div>
       </ion-item>
 
       <ion-item>
         <ion-label>Tags</ion-label>
         <ion-input type="text" [(ngModel)]="tags"></ion-input>
-        <div *ngIf="alert4" style="color:#FF0000">Debes añadir un Tag.</div>
       </ion-item>
 
       <ion-item>
         <ion-label>Ciudad</ion-label>
         <ion-input type="text" [(ngModel)]="ciudad"></ion-input>
-        <div *ngIf="alert5" style="color:#FF0000">Debes añadir una ciudad.</div>
       </ion-item>
       
     </ion-list>
