@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule }    from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 import { MyApp } from './app.component';
@@ -15,6 +16,8 @@ import { CrearActividadPage } from '../pages/crear-actividad/crear-actividad';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 import { FrontendServicesProvider } from '../providers/frontend-services/frontend-services';
+import { SideMenuPage } from '../pages/side-menu/side-menu';
+
 
 @NgModule({
   declarations: [
@@ -25,12 +28,14 @@ import { FrontendServicesProvider } from '../providers/frontend-services/fronten
     CatalogoPage,
     CrearActividadPage,
     EditarPerfilPage,
-    PerfilPage
+    PerfilPage,
+    SideMenuPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,7 +46,8 @@ import { FrontendServicesProvider } from '../providers/frontend-services/fronten
     CatalogoPage,
     EditarPerfilPage,
     CrearActividadPage,
-    PerfilPage
+    PerfilPage,
+    SideMenuPage
   ],
   providers: [
     StatusBar,

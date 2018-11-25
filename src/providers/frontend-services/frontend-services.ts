@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import {Usuario} from '../../app/usuario';
-import {Actividad} from '../../app/actividad';
+import { Usuario } from '../../app/usuario';
+import { Actividad } from '../../app/actividad';
+import { Login } from '../../app/login';
 
 /*
   Generated class for the FrontendServicesProvider provider.
@@ -49,9 +50,9 @@ export class FrontendServicesProvider {
    ;
     }
   
-    validarUser(usuario: Usuario): Observable<Usuario> {
-      const url = `http://localhost:3000/users/validacion`;
-      return this.http.post<Usuario>(url, usuario, httpOptions);
+    validarUser(log: Login): Observable<Usuario> {
+      const url = `${this.usuariosUrl}/validacion`
+      return this.http.post<Usuario>(url, log, httpOptions);
     }
   
     /*POST: Crear usuario o crear actividad*/

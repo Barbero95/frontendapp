@@ -7,28 +7,6 @@
   </ion-navbar>
 </ion-header>
 
-
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-item>
-      <ion-avatar>
-        <ion-img class ="profile-image" src="../../assets/imgs/arbusto.png"></ion-img>
-      </ion-avatar>
-    </ion-item>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-    </ion-list>
-  </ion-content>
-
-</ion-menu>
-
 <ion-content padding>
   <h3>Ionic Menu Starter</h3>
 
@@ -38,13 +16,7 @@
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
 
-  <ion-item>
-      <ion-avatar>
-        <ion-img class ="profile-image" src="../../assets/imgs/arbusto.png"></ion-img>
-      </ion-avatar>
-    </ion-item>
 </ion-content>
 
-<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
 
