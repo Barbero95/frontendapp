@@ -34,7 +34,7 @@ export class RegisterPage {
       nick:this.username,
       email:"",
       estrellas:0,
-      tags: [""],
+      tags: ["uni"],
       imagen:"",
       password:"",
       actividadesPropietario:[],

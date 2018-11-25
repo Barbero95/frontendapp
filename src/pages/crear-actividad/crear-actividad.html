@@ -21,10 +21,25 @@
         <ion-input type="text" [(ngModel)]="descripcion"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Tags</ion-label>
-        <ion-input type="text" [(ngModel)]="tags"></ion-input>
-      </ion-item>
+      <ion-toolbar>
+        <hr>
+        <ion-label>Tag:</ion-label>
+        <ion-input type="text" [(ngModel)]="tag"></ion-input>
+        <ion-buttons end>
+          <button ion-button color="primary" (click)="addTag()">Añadir</button>
+        </ion-buttons>
+        
+      </ion-toolbar>
+
+      <ion-list>
+          <ion-label>Tags Añadidos:</ion-label>
+          <ion-item class="listaTags" *ngFor="let item of arrayTags">
+              - {{item}}
+              <button ion-button color="danger" (click)="deleteTag(item)">Eliminar</button>
+          </ion-item>
+      </ion-list>
+
+      
 
       <ion-item>
         <ion-label>Ciudad</ion-label>

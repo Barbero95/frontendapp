@@ -22,8 +22,8 @@ export class CrearActividadPage {
 
   titulo: string = "";
   descripcion: string = "";
-  tags: string = "";
-  arrayTags: string[];
+  tag: string = "";
+  arrayTags: string[] = [];
   ciudad: string = "";
   actividad: Actividad;
   localizacion: number[];
@@ -72,7 +72,7 @@ export class CrearActividadPage {
     this.ponerDatos();
 
     //comprobamos que todos los campos esta rellenos
-    if(this.titulo.length == 0 || this.descripcion.length == 0 || this.tags.length == 0 || this.ciudad.length == 0 ){
+    if(this.titulo.length == 0 || this.descripcion.length == 0 || this.arrayTags[0].length == 0 || this.ciudad.length == 0 ){
       //alert("Introduce todo los datos!");
       this.showAlert3();
     }
@@ -96,6 +96,22 @@ export class CrearActividadPage {
       }
     }
     
+  }
+  //añadir los tags
+  addTag(){
+    if(this.tag.length == 0){
+      //no hay tag a añadir
+      this.showAlert4();
+    }else{
+      this.arrayTags.push(this.tag);
+      this.tag = "";
+    }
+    
+  }
+  //borrar un tag
+  deleteTag(item): void {
+    var pos = this.arrayTags.indexOf(item);
+    this.arrayTags.splice(pos,1);
   }
 
   //alerta cuando ya existe la misma actividad se comprueba por el titulo
@@ -122,6 +138,15 @@ export class CrearActividadPage {
     const alert = this.alertCtrl.create({
       title: 'Actividad',
       subTitle: 'Rellena todos los campos',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  //alerta no hay tag para añadir la casilla esta vacia
+  showAlert4() {
+    const alert = this.alertCtrl.create({
+      title: 'Actividad',
+      subTitle: 'No hay tag para añadir',
       buttons: ['OK']
     });
     alert.present();
