@@ -8,7 +8,7 @@
   <ion-content class="background">
     <div class="item item-avatar" align="center">
       <img src="/assets/images/logoUpc.jpg" class="profile-image" (click)="goPerfil()">
-      <h2>{{nick}}</h2>
+      <h4>{{nick}}</h4>
       <p>{{estrellas}}</p>
       <ionic3-star-rating 
         activeIcon = "ios-star"
@@ -26,6 +26,12 @@
         {{p.title}}
       </button>
     </ion-list>
+    <ion-buttons end class="background-list">
+      <button menuClose ion-item color="primary" (click)="goExit()">
+        <ion-icon item-left name="{{pageExit.icon}}"></ion-icon>
+        {{pageExit.title}}
+      </button>
+    </ion-buttons>
   </ion-content>
 
 </ion-menu>

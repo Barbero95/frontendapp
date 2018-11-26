@@ -9,10 +9,10 @@
 
 
 <ion-content padding>
+  <ion-icon class="button-setings" name="settings" (click)="goEditarPerfil()"></ion-icon>
   <ion-list align="center">
     <div class="item item-avatar">
-      <img align="center" src="/assets/images/logoUpc.jpg" class="profile-image">
-      <ion-icon margin-top="15px" name="settings" (click)="goEditarPerfil()"></ion-icon>
+      <img align="center" src="/assets/images/logoUpc.jpg" class="profile-image-perfil">
       <h2>{{nick}}</h2>
       <p>{{estrellas}}</p>
       <ionic3-star-rating 
@@ -24,8 +24,8 @@
         [rating]= "estrellas">
       </ionic3-star-rating>
     </div>
-
-    
+  </ion-list>
+  <ion-list align="center" margin-top="10px">  
     <ion-item>
       <ion-label>Nombre: </ion-label>
       <ion-label>{{nombre}}</ion-label>
