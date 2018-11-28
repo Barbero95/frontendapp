@@ -6,6 +6,7 @@
   </ion-header>
 
   <ion-content class="background">
+    
     <div class="item item-avatar" align="center">
       <img src="/assets/images/logoUpc.jpg" class="profile-image" (click)="goPerfil()">
       <h4>{{nick}}</h4>
@@ -19,6 +20,7 @@
         [rating]= "estrellas">
       </ionic3-star-rating>
     </div>
+    
 
     <ion-list class="background-list">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" color="primary">

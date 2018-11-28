@@ -5,5 +5,29 @@ page-home {
     }
     .regis{
         background-color: #4CAF50;
+        text-align: center;
+        border: none;
+        padding: 15px 80px;
+        text-decoration: none;
+        font-size: 13px;
+        transition: all 0.3s ease-in-out;
+        height: 35px;
+        color: #ffffff;    
+    }
+
+    .login{
+        margin-top: 10px;
+        text-align: center;
+        border: none;
+        padding: 15px 80px;
+        text-decoration: none;
+        font-size: 13px;
+        transition: all 0.3s ease-in-out;
+        height: 35px;
+        color: #ffffff;
+    }
+
+    .input-data{
+        text-align: center;
     }
 }
