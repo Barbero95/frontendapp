@@ -42,20 +42,6 @@ export class EditarPerfilPage {
   }
 
   inicio(){
-    this.usuario = {
-      nombre:"",
-      apellido:"",
-      nick:"",
-      email:"",
-      estrellas:0,
-      tags: [""],
-      imagen:"",
-      password:"",
-      actividadesPropietario:[],
-      actividadesCliente:[],
-      _id:0,
-      __v:0
-    }
     this.frontendServices.getUsuario(this.propietario).subscribe( data => {
       this.usuario = data;
       this.nombre = this.usuario.nombre;

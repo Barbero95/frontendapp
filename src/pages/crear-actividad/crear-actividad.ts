@@ -50,20 +50,6 @@ export class CrearActividadPage {
 
     //introducimos la posición donde estamos
     this.localizacion = [this.latitude,this.longitude];
-
-    //guardamos todas las variables en la actividad
-    this.actividad = {
-      _id:"",
-      __v:0,
-      titulo:this.titulo,
-      descripcion:this.descripcion,
-      estrellas:0,
-      propietario: this.propietario,
-      tags:this.arrayTags,
-      clientes:[],
-      ubicacion:this.ciudad,
-      localizacion: this.localizacion
-    };
   }
 
   //Cuando le damos al botón de crear
@@ -151,35 +137,5 @@ export class CrearActividadPage {
     });
     alert.present();
   }
-
-  /*
-  //del frontend web
-  crearActividad(){
-    this.ponerDatos();
-    if(this.titulo == ""){this.alert2 = true;
-    }else{
-      this.frontendServices.getActividadDePropietario(this.actividad).subscribe( (data) => {
-        if(data == null){
-          console.log("he entrado aqui");
-        }else{
-          this.showAlert1();
-        }
-      });
-      this.alert2 = false;
-    }
-    if(this.descripcion == ""){this.alert3 = true;}else{this.alert3 = false;}
-    if(this.tags == ""){this.alert4 = true;}else{this.alert4 = false;}
-    if(this.ciudad == ""){this.alert5 = true;}else{this.alert5 = false;}
-
-    if(this.titulo != "" && this.descripcion != "" && this.tags != "" && this.ciudad != ""){
-      this.frontendServices.postActividad(this.actividad).subscribe( act => {
-        if(act == null){
-          this.showAlert2();
-        }
-        else{this.navCtrl.setRoot(SideMenuPage);}  
-      }, err => console.error('Ops: ' + err.message)); 
-    }
-  }
-  */
 
 }

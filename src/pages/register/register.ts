@@ -28,20 +28,7 @@ export class RegisterPage {
   usuario: Usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private frontendService: FrontendServicesProvider, public alertCtrl: AlertController) {
-    this.usuario = {
-      nombre:this.nombre,
-      apellido:this.apellido,
-      nick:this.username,
-      email:"",
-      estrellas:0,
-      tags: ["uni"],
-      imagen:"",
-      password:"",
-      actividadesPropietario:[],
-      actividadesCliente:[],
-      _id:0,
-      __v:0
-    }
+
   }
 
   register(){
