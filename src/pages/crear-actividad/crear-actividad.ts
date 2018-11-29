@@ -28,43 +28,59 @@ export class CrearActividadPage {
   actividad: Actividad;
   localizacion: number[];
   propietario: string = "";
+  contadorEstrellasActividad: number = 0;
+  horasActividad: number = 0;
 
   //GPS
   latitude: number = 41.27530691061249;
   longitude: number = 1.9866693019866941;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
-    this.storage.get('nick').then(val => {
-      this.propietario = val;
+    /*
+   this.storage.get('nick').then(val => {
+    this.propietario = val;
+    console.log("propietario nivel crear actividad inici " + val);
     });
-    console.log("propietario nivel crear actividad" + this.propietario);
-  }
-
-  //Ponemos todos los valores del formulario en la actividad y cogemos el nick en el local storage
-  ponerDatos(){
-    //obtenemos el nick del local storage
-    this.storage.get('nick').then(val => {
-      this.propietario = val;
-    });
-    console.log("propietario nivel crear actividad" + this.propietario);
-
-    //introducimos la posición donde estamos
-    this.localizacion = [this.latitude,this.longitude];
+    console.log("propietario nivel crear actividad inici " + this.propietario);
+    */
+   this.actividad = new Actividad();
+   this.localizacion = [this.latitude,this.longitude];
   }
 
   //Cuando le damos al botón de crear
   crearActividad(){
-    //llamamos a introducir todos los datos en actividad
-    this.ponerDatos();
+      this.storage.get('nick').then(val => {
+        this.propietario = val;
+        this.actividad.propietario = val;
+        //this.actividad 
+        /*
+          _id:"",
+          __v:0,
+          titulo:this.titulo,
+          descripcion:this.descripcion,
+          estrellas:0,
+          propietario: this.propietario,
+          tags:this.arrayTags,
+          clientes:[],
+          horasActividad: this.horasActividad,
+          contadorEstrellasActividad: this.contadorEstrellasActividad,
+          ubicacion:this.ciudad,
+          localizacion: this.localizacion
+        };*/
+        this.comprobacion();
+        console.log("ha entrado al if de que no tenia propietario valor" + this.propietario);
+      });
+  }
 
-    //comprobamos que todos los campos esta rellenos
-    if(this.titulo.length == 0 || this.descripcion.length == 0 || this.arrayTags[0].length == 0 || this.ciudad.length == 0 ){
+  //comprobamos que todos los campos esta rellenos
+  comprobacion(){
+    if(this.actividad.titulo.length == 0 || this.actividad.descripcion.length == 0 || this.actividad.tags.length == 0 || this.actividad.ubicacion.length == 0 ){
       //alert("Introduce todo los datos!");
       this.showAlert3();
     }
     else{
       //comprobamos que el titulo no exista ya para este usuario
-      if(this.titulo.length != 0 ){
+      if(this.actividad.titulo.length != 0 ){
         this.frontendServices.getActividadDePropietario(this.actividad).subscribe( (data) => {
           if(data == null){
             //ahora creamos la actividad ya que hemos comprobado que no existe dicho titulo
@@ -81,7 +97,6 @@ export class CrearActividadPage {
         });
       }
     }
-    
   }
   //añadir los tags
   addTag(){
@@ -89,7 +104,8 @@ export class CrearActividadPage {
       //no hay tag a añadir
       this.showAlert4();
     }else{
-      this.arrayTags.push(this.tag);
+      //this.arrayTags.push(this.tag);
+      this.actividad.tags.push(this.tag);
       this.tag = "";
     }
     

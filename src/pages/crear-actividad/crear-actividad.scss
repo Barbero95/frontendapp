@@ -1,6 +1,14 @@
 page-crear-actividad {
+    .add-tag{
+        text-align: center;
+        width: 85%;
+        height: 25px;
+    }
     .listaTags{
         margin-left: 20px;
+    }
+    .tag-eliminar{
+        background-color: rgba(109, 101, 101, 0.6);
     }
 
 }
