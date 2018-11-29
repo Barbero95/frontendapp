@@ -42,7 +42,7 @@ export class CatalogoPage {
     //this.inicialitzer();
 
     //pedimos el usuario
-    this.frontendServices.getActividadesPropietarioDani(this.propietario).subscribe( (activitats) => {
+    this.frontendServices.getActividadesPropietario(this.propietario).subscribe( (activitats) => {
       this.actividades = activitats;
 
     });
