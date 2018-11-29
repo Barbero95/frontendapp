@@ -45,6 +45,14 @@ export class FrontendServicesProvider {
       return this.http.get<Actividad[]>(url);
     }
 
+  //get de todas las actividades de un usuario
+    getActividadesPropietarioDani (propietario: String): Observable<Actividad[]>
+    {
+      const url = `${this.actividadesUrl}/propietario/${propietario}`
+
+      return this.http.get<Actividad[]>(url);
+    }
+
     //es una busqueda para el menu principal de las actividades relacionadas con los tags que te gustan
     getActividadesPorTagPerfil (tagPerfil: string): Observable<Actividad[]> {
       const url = `${this.actividadesUrl}/porPerfil/${tagPerfil}`;

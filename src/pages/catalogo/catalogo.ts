@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { Storage } from '@ionic/storage';
+import { Usuario } from '../../app/usuario';
+import { Actividad } from '../../app/actividad';
+import { MostrarActividadPage } from '../mostrar-actividad/mostrar-actividad';
 
-/**
- * Generated class for the CatalogoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -15,33 +15,39 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CatalogoPage {
 
-  selectedItem: any;
-  icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+  propietario: string = "";
+  usuario: Usuario;
+  actividades: Actividad[];
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
 
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
-  }
-
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(CatalogoPage, {
-      item: item
+  constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage) {
+    //es como iniciaar el local storage si no no obtenemos lso datos
+    this.storage.get('nick').then( (propietario) => {
+      //this.propietario = val;
+      console.log("propietario valor directo de storage: " + propietario);
+      this.propietario = propietario;
+      console.log("propietario valor ya guardado: " + this.propietario);
+      this.inicio();
     });
   }
+
+
+
+
+  //al iniciar
+  inicio(){
+
+    //this.inicialitzer();
+
+    //pedimos el usuario
+    this.frontendServices.getActividadesPropietarioDani(this.propietario).subscribe( (activitats) => {
+      this.actividades = activitats;
+
+    });
+
+  }
+
 
 }
