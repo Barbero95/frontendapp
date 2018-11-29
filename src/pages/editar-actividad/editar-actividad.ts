@@ -22,7 +22,7 @@ export class EditarActividadPage {
   actividad:Actividad;
 
 
-
+  tag: string="";
 
 
 
@@ -37,6 +37,30 @@ export class EditarActividadPage {
 
   }
 
+  addTag(){
+    if(this.tag.length == 0){
+      //no hay tag a añadir
+      this.showAlert4();
+    }else{
+      //this.arrayTags.push(this.tag);
+      this.actividad.tags.push(this.tag);
+      this.tag = "";
+    }
 
+  }
+  //borrar un tag
+  deleteTag(item): void {
+    var pos = this.actividad.tags.indexOf(item);
+    this.actividad.tags.splice(pos,1);
+  }
+
+  showAlert4() {
+    const alert = this.alertCtrl.create({
+      title: 'Actividad',
+      subTitle: 'No hay tag para añadir',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
 }
