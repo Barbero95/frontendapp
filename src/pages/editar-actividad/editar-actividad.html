@@ -19,38 +19,34 @@
 
     <ion-item>
       <ion-label>Título</ion-label>
-      <ion-input type="text" [(ngModel)]="titulo"></ion-input>
+      <ion-input type="text" [(ngModel)]="actividad.titulo"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>Descripción</ion-label>
-      <ion-input type="text" [(ngModel)]="descripcion"></ion-input>
+      <ion-input type="text" [(ngModel)]="actividad.descripcion"></ion-input>
     </ion-item>
-
-    <ion-toolbar>
-      <hr>
-      <ion-label>Tag:</ion-label>
-      <ion-input type="text" [(ngModel)]="tag"></ion-input>
-      <ion-buttons end>
-        <button ion-button color="primary" (click)="addTag()">Añadir</button>
-      </ion-buttons>
-
-    </ion-toolbar>
-
-    <ion-list>
-      <ion-label>Tags Añadidos:</ion-label>
-      <ion-item class="listaTags" *ngFor="let item of arrayTags">
-        - {{item}}
-        <button ion-button color="danger" (click)="deleteTag(item)">Eliminar</button>
-      </ion-item>
-    </ion-list>
-
-
 
     <ion-item>
       <ion-label>Ciudad</ion-label>
-      <ion-input type="text" [(ngModel)]="ciudad"></ion-input>
+      <ion-input type="text" [(ngModel)]="actividad.ubicacion"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label>Tag:</ion-label>
+      <ion-input type="text" [(ngModel)]="tag"></ion-input>
+    </ion-item>
+    <ion-buttons align="center">
+      <button ion-button color="primary" class="add-tag" (click)="addTag()">Añadir</button>
+    </ion-buttons>
+    <ion-list>
+      <hr>
+      <ion-label>Tags Añadidos:</ion-label>
+      <ion-item class="listaTags" *ngFor="let item of actividad.tags">
+        <button ion-button class="tag-eliminar" (click)="deleteTag(item)">{{item}}</button>
+      </ion-item>
+    </ion-list>
+
 
   </ion-list>
 

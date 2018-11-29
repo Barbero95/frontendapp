@@ -19,10 +19,7 @@ export class EditarActividadPage {
 
 
   actividadAnterior: Actividad;
-  titulo: string ="";
-  descripcion: string ="";
-  tags: string[] = [""];
-  ciudad: string ="";
+  actividad:Actividad;
 
 
 
@@ -31,8 +28,11 @@ export class EditarActividadPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,  private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
 
+    this.actividad = new Actividad();
+
     this.actividadAnterior = this.navParams.get('actividad');
 
+    this.actividad = this.navParams.get('actividad');
 
 
   }
