@@ -9,6 +9,8 @@ export class Usuario {
     tags: string[];
     estrellas: number;
     imagen: string;
+    horasUsuario: number;
+    contadorEstrellasUsuario: number;
     actividadesPropietario: number[];
     actividadesCliente: number[];
 }

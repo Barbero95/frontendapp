@@ -1,14 +1,20 @@
 
-<ion-content padding text-center>
+<ion-content padding text-center class="background">
   <ion-title>Time4Time</ion-title>
-  <ion-list>
+  <!--
+  <div class="item item-avatar">
+      <img align="center" src="/assets/imgs/logoea.png" class="profile-image-perfil">
+  </div>
+  -->
+  
+  
     <ion-item>
       <ion-input placeholder="Username" type="text" [(ngModel)]="username"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item margin-top="2px">
         <ion-input placeholder="Password" class="input-data" type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
-  </ion-list>
+  
   <button ion-button full class="login" (click)="gologin()">Login</button>
   <button ion-button full class="regis" (click)="goRegister()">Register</button>
 </ion-content>

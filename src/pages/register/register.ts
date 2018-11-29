@@ -44,16 +44,14 @@ export class RegisterPage {
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
-  }
-
   register(){
     if(this.username.length==0 || this.password.length==0 || this.repassword.length==0){
-      alert("Introduce todo los datos!");
+      this.showAlert1();
+      //alert("Introduce todo los datos!");
     }
     else if(this.password != this.repassword ){
-      alert("La contraseña no es igual");
+      this.showAlert2();
+      //alert("La contraseña no es igual");
     }
     else{
       this.usuario.password = this.password;

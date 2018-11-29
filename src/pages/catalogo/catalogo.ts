@@ -24,11 +24,8 @@ export class CatalogoPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage) {
     //es como iniciaar el local storage si no no obtenemos lso datos
-    this.storage.get('nick').then( (propietario) => {
-      //this.propietario = val;
-      console.log("propietario valor directo de storage: " + propietario);
-      this.propietario = propietario;
-      console.log("propietario valor ya guardado: " + this.propietario);
+    this.storage.get('nick').then( (nick) => {
+      this.propietario = nick;
       this.inicio();
     });
   }
@@ -44,7 +41,6 @@ export class CatalogoPage {
     //pedimos el usuario
     this.frontendServices.getActividadesPropietario(this.propietario).subscribe( (activitats) => {
       this.actividades = activitats;
-
     });
 
   }
