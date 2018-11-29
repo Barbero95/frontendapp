@@ -20,29 +20,16 @@ import { SideMenuPage } from '../side-menu/side-menu';
 })
 export class CrearActividadPage {
 
-  titulo: string = "";
-  descripcion: string = "";
   tag: string = "";
-  arrayTags: string[] = [];
-  ciudad: string = "";
   actividad: Actividad;
   localizacion: number[];
-  propietario: string = "";
-  contadorEstrellasActividad: number = 0;
-  horasActividad: number = 0;
+  
 
   //GPS
   latitude: number = 41.27530691061249;
   longitude: number = 1.9866693019866941;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
-    /*
-   this.storage.get('nick').then(val => {
-    this.propietario = val;
-    console.log("propietario nivel crear actividad inici " + val);
-    });
-    console.log("propietario nivel crear actividad inici " + this.propietario);
-    */
    this.actividad = new Actividad();
    this.localizacion = [this.latitude,this.longitude];
   }
@@ -50,25 +37,8 @@ export class CrearActividadPage {
   //Cuando le damos al botón de crear
   crearActividad(){
       this.storage.get('nick').then(val => {
-        this.propietario = val;
         this.actividad.propietario = val;
-        //this.actividad 
-        /*
-          _id:"",
-          __v:0,
-          titulo:this.titulo,
-          descripcion:this.descripcion,
-          estrellas:0,
-          propietario: this.propietario,
-          tags:this.arrayTags,
-          clientes:[],
-          horasActividad: this.horasActividad,
-          contadorEstrellasActividad: this.contadorEstrellasActividad,
-          ubicacion:this.ciudad,
-          localizacion: this.localizacion
-        };*/
         this.comprobacion();
-        console.log("ha entrado al if de que no tenia propietario valor" + this.propietario);
       });
   }
 
@@ -112,8 +82,8 @@ export class CrearActividadPage {
   }
   //borrar un tag
   deleteTag(item): void {
-    var pos = this.arrayTags.indexOf(item);
-    this.arrayTags.splice(pos,1);
+    var pos = this.actividad.tags.indexOf(item);
+    this.actividad.tags.splice(pos,1);
   }
 
   //alerta cuando ya existe la misma actividad se comprueba por el titulo
