@@ -5,6 +5,10 @@ import { Storage } from '@ionic/storage';
 import { Usuario } from '../../app/usuario';
 import { Actividad } from '../../app/actividad';
 import { MostrarActividadPage } from '../mostrar-actividad/mostrar-actividad';
+import {HomePage} from "../home/home";
+import { AlertController } from 'ionic-angular';
+import {EditarActividadPage} from "../editar-actividad/editar-actividad";
+
 
 
 
@@ -22,7 +26,7 @@ export class CatalogoPage {
   actividades: Actividad[];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
     //es como iniciaar el local storage si no no obtenemos lso datos
     this.storage.get('nick').then( (nick) => {
       this.propietario = nick;
@@ -45,5 +49,45 @@ export class CatalogoPage {
 
   }
 
+  eliminarActivity(actividad: Actividad): void{
+    // es un showConfirm
+
+      const confirm = this.alertCtrl.create({
+        title: 'Eliminar Activitat',
+        message: '¿Estas seguro que quieres eliminar la actividad?',
+        buttons: [
+          {
+            text: 'Disagree',
+            handler: () => {
+              console.log('Disagree clicked');
+            }
+          },
+          {
+            text: 'Agree',
+            handler: () => {
+              console.log('Agree clicked');
+              this.frontendServices.deleteActividad(actividad).subscribe(act => {
+                if (act != null){
+                  this.inicio();
+                }
+                else {
+                  //he de posar una alerta
+                }
+              }, err => console.error('Ops: ' + err.message));
+            }
+          }
+        ]
+      });
+      confirm.present();
+
+
+
+  }
+
+  goToEditarActividad(actividad: Actividad){
+    this.navCtrl.push(EditarActividadPage, actividad);
+
+
+  }
 
 }
