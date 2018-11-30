@@ -19,6 +19,8 @@ import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 import { FrontendServicesProvider } from '../providers/frontend-services/frontend-services';
 import { SideMenuPage } from '../pages/side-menu/side-menu';
 import { MostrarActividadPage } from '../pages/mostrar-actividad/mostrar-actividad';
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import { MostrarActividadPage } from '../pages/mostrar-actividad/mostrar-activid
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FrontendServicesProvider
+    FrontendServicesProvider,
+    UserServiceProvider,
+    ActivityServiceProvider
   ]
 })
 export class AppModule {}

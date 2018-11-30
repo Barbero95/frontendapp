@@ -81,7 +81,7 @@ export class SideMenuPage {
       this.nick = data.nick;
       //modifico estrellas para probar
       //this.estrellas = data.estrellas;
-      this.estrellas = 3.2;
+      this.estrellas = data.estrellas;
     });
   }
   goExit(){
