@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { Usuario } from '../../app/usuario';
@@ -31,7 +31,7 @@ export class PerfilPage {
   imagen: string = "";
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
     
     this.storage.get('nick').then( (propietario) => {
       //this.propietario = val;
@@ -43,7 +43,7 @@ export class PerfilPage {
   }
 
   inicio(){
-    this.frontendServices.getUsuario(this.propietario).subscribe( data => {
+    this.userServiceProvider.getUsuario(this.propietario).subscribe( data => {
       this.nick = data.nick;
       this.nombre = data.nombre;
       this.apellido = data.apellido;

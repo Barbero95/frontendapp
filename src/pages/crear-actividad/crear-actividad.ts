@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Actividad } from '../../app/actividad';
-import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { SideMenuPage } from '../side-menu/side-menu';
@@ -29,7 +29,7 @@ export class CrearActividadPage {
   latitude: number = 41.27530691061249;
   longitude: number = 1.9866693019866941;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
    this.actividad = new Actividad();
    this.localizacion = [this.latitude,this.longitude];
   }
@@ -51,10 +51,10 @@ export class CrearActividadPage {
     else{
       //comprobamos que el titulo no exista ya para este usuario
       if(this.actividad.titulo.length != 0 ){
-        this.frontendServices.getActividadDePropietario(this.actividad).subscribe( (data) => {
+        this.activityServiceProvider.getActividadDePropietario(this.actividad).subscribe( (data) => {
           if(data == null){
             //ahora creamos la actividad ya que hemos comprobado que no existe dicho titulo
-            this.frontendServices.postActividad(this.actividad).subscribe( act => {
+            this.activityServiceProvider.postActividad(this.actividad).subscribe( act => {
               if(act == null){
                 //por alguna razon no se ha podido crear esta actividad => mirar base de datos si pasa este paso
                 this.showAlert2();

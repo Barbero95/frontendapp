@@ -9,7 +9,7 @@ import { CatalogoPage } from '../catalogo/catalogo';
 import { MenuPrincipalPage } from '../menu-principal/menu-principal';
 import { CrearActividadPage } from '../crear-actividad/crear-actividad';
 import { PerfilPage } from '../perfil/perfil';
-import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { HomePage } from '../home/home';
 import { Usuario } from '../../app/usuario';
 
@@ -36,7 +36,7 @@ export class SideMenuPage {
   usuario: Usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController,public statusBar: StatusBar, 
-    public splashScreen: SplashScreen, public platform: Platform, private frontendServices: FrontendServicesProvider, public storage: Storage,public alertCtrl: AlertController) {
+    public splashScreen: SplashScreen, public platform: Platform, private userServiceProvider: UserServiceProvider, public storage: Storage,public alertCtrl: AlertController) {
       
       console.log("**** CONSTRUCTOR ****");
 
@@ -68,7 +68,7 @@ export class SideMenuPage {
   }
 
   inicio(){
-    this.frontendServices.getUsuario(this.nick).subscribe( data => {
+    this.userServiceProvider.getUsuario(this.nick).subscribe( data => {
       console.log("**** GET USUARIO *****", JSON.stringify(data));
       this.usuario = data;
       this.nick = this.usuario.nick;

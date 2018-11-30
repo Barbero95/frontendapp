@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
-import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
 import { PerfilPage } from '../perfil/perfil';
 import { Actividad } from '../../app/actividad';
 
@@ -26,7 +26,7 @@ export class EditarActividadPage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
 
     this.actividad = new Actividad();
 

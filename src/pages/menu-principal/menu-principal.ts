@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { Usuario } from '../../app/usuario';
@@ -31,13 +32,13 @@ export class MenuPrincipalPage {
   searchTag: string = "";
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
-    //es como iniciaar el local storage si no no obtenemos lso datos
-    this.storage.get('nick').then( (propietario) => {
-      //this.propietario = val;
-      console.log("propietario valor directo de storage: " + propietario);
-      this.propietario = propietario;
-      console.log("propietario valor ya guardado: " + this.propietario);
+  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
+
+    this.usuario = new Usuario();
+    this.storage.get('nick').then( (nick) => {
+      console.log("propietario valor directo de storage: " + nick);
+      this.propietario = nick;
+
       this.inicio();
     });
     
@@ -46,10 +47,10 @@ export class MenuPrincipalPage {
   //al iniciar
   inicio(){
     //pedimos el usuario
-    this.frontendServices.getUsuario(this.propietario).subscribe( (data) => {
+    this.userServiceProvider.getUsuario(this.propietario).subscribe( (data) => {
       this.usuario = data;
       console.log("paso 1: " + this.usuario.nick);
-      if(this.usuario.tags[0].length == 0){
+      if(this.usuario.tags.length == 0){
         this.showAlert1();
       }else{
         this.tagsBusqueda = this.usuario.tags;
@@ -57,7 +58,7 @@ export class MenuPrincipalPage {
           this.tagABuscar = this.tagsBusqueda[i];
           console.log( "paso2: " + this.tagABuscar);
         }
-        this.frontendServices.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
+        this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
     });
     
@@ -68,7 +69,7 @@ export class MenuPrincipalPage {
     if(this.searchTag.length == 0){
 
     }else{
-      this.frontendServices.getActividadesPorTagPerfil(this.searchTag).subscribe( (acts) => this.actividades = acts);
+      this.activityServiceProvider.getActividadesPorTagPerfil(this.searchTag).subscribe( (acts) => this.actividades = acts);
     }
   }
 

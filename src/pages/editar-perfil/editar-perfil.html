@@ -12,17 +12,17 @@
   
         <ion-item>
           <ion-label>Nombre:</ion-label>
-          <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+          <ion-input type="text" [(ngModel)]="usuario.nombre"></ion-input>
         </ion-item>
         
         <ion-item>
           <ion-label>Apellido</ion-label>
-          <ion-input type="text" [(ngModel)]="apellido"></ion-input>
+          <ion-input type="text" [(ngModel)]="usuario.apellido"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label>Email</ion-label>
-          <ion-input type="text" [(ngModel)]="email"></ion-input>
+          <ion-input type="text" [(ngModel)]="usuario.email"></ion-input>
         </ion-item>
   
         <ion-item>
@@ -36,7 +36,7 @@
       <ion-list>
           <hr>
           <ion-label>Tags Añadidos:</ion-label>
-          <ion-item class="listaTags" *ngFor="let item of arrayTags">
+          <ion-item class="listaTags" *ngFor="let item of usuario.tags">
             <button ion-button class="tag-eliminar" (click)="deleteTag(item)">{{item}}</button>
           </ion-item>
       </ion-list>

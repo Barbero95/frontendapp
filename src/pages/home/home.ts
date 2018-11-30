@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
-//import { MenuPrincipalPage } from '../menu-principal/menu-principal';
 import { SideMenuPage } from '../side-menu/side-menu';
 import { MenuPrincipalPage } from '../menu-principal/menu-principal';
-import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Login } from '../../app/login';
 import { Usuario } from '../../app/usuario';
 import { Storage } from '@ionic/storage';
@@ -22,7 +21,7 @@ export class HomePage {
   login: Login;
   usuario: Usuario;
 
-  constructor(public navCtrl: NavController, private forntendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
   }
   ponerDatos(){
     this.login = {
@@ -37,7 +36,7 @@ export class HomePage {
     console.log("Username: " + this.username);
     console.log("Password: " + this.password);
     this.ponerDatos();
-    this.forntendServices.validarUser(this.login).subscribe( (data) => {
+    this.userServiceProvider.validarUser(this.login).subscribe( (data) => {
       if (data == null){
         this.showAlert();
       }else{

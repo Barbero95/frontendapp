@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
 import { Storage } from '@ionic/storage';
 import { Usuario } from '../../app/usuario';
 import { Actividad } from '../../app/actividad';
@@ -26,7 +26,7 @@ export class CatalogoPage {
   actividades: Actividad[];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private frontendServices: FrontendServicesProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
     //es como iniciaar el local storage si no no obtenemos lso datos
     this.storage.get('nick').then( (nick) => {
       this.propietario = nick;
@@ -43,7 +43,7 @@ export class CatalogoPage {
     //this.inicialitzer();
 
     //pedimos el usuario
-    this.frontendServices.getActividadesPropietario(this.propietario).subscribe( (activitats) => {
+    this.activityServiceProvider.getActividadesPropietario(this.propietario).subscribe( (activitats) => {
       this.actividades = activitats;
     });
 
@@ -66,7 +66,7 @@ export class CatalogoPage {
             text: 'Agree',
             handler: () => {
               console.log('Agree clicked');
-              this.frontendServices.deleteActividad(actividad).subscribe(act => {
+              this.activityServiceProvider.deleteActividad(actividad).subscribe(act => {
                 if (act != null){
                   this.inicio();
                 }

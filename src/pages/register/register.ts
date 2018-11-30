@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Usuario } from '../../app/usuario';
-import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { AlertController } from 'ionic-angular';
 
 /**
@@ -19,31 +19,26 @@ import { AlertController } from 'ionic-angular';
 })
 export class RegisterPage {
 
-  nombre: string = "";
-  apellido: string = "";
-  username: string = "";
-  password: string = "";
+  usuario: Usuario;
   repassword: string = "";
 
-  usuario: Usuario;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private frontendService: FrontendServicesProvider, public alertCtrl: AlertController) {
 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, public alertCtrl: AlertController) {
+    this.usuario = new Usuario();
   }
 
   register(){
-    if(this.username.length==0 || this.password.length==0 || this.repassword.length==0){
+    if(this.usuario.nick.length==0 || this.usuario.password.length==0 || this.repassword.length==0){
       this.showAlert1();
       //alert("Introduce todo los datos!");
     }
-    else if(this.password != this.repassword ){
+    else if(this.usuario.password != this.repassword ){
       this.showAlert2();
       //alert("La contraseña no es igual");
     }
     else{
-      this.usuario.password = this.password;
-      this.usuario.nick = this.username;
-      this.frontendService.postUsuario(this.usuario).subscribe( data => {this.navCtrl.push(HomePage)}, err => console.error('Ops: ' + err.message));
+      this.userServiceProvider.postUsuario(this.usuario).subscribe( data => {this.navCtrl.push(HomePage)}, err => console.error('Ops: ' + err.message));
     }
   }
 
