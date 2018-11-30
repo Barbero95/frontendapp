@@ -1,0 +1,58 @@
+<!--
+  Generated template for the EditarActividadPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>editar-actividad</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Título</ion-label>
+      <ion-input type="text" [(ngModel)]="actividad.titulo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Descripción</ion-label>
+      <ion-input type="text" [(ngModel)]="actividad.descripcion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ciudad</ion-label>
+      <ion-input type="text" [(ngModel)]="actividad.ubicacion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tag:</ion-label>
+      <ion-input type="text" [(ngModel)]="tag"></ion-input>
+    </ion-item>
+    <ion-buttons align="center">
+      <button ion-button color="primary" class="add-tag" (click)="addTag()">Añadir</button>
+    </ion-buttons>
+    <ion-list>
+      <hr>
+      <ion-label>Tags Añadidos:</ion-label>
+      <ion-item class="listaTags" *ngFor="let item of actividad.tags">
+        <button ion-button class="tag-eliminar" (click)="deleteTag(item)">{{item}}</button>
+      </ion-item>
+    </ion-list>
+
+
+  </ion-list>
+
+  <div padding align="center">
+    <button ion-button color="secondary" (click)="save()">Guardar</button>
+    <button ion-button color="danger" (click)="cancel()">Cancelar</button>
+  </div>
+
+</ion-content>

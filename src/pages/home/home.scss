@@ -1,9 +1,36 @@
 page-home {
+    .background{
+        //background-color: rgba(121, 235, 182, 0.61);
+    }
     ion-title * {
         margin-top: 30vh;
         margin-bottom: 5vh;
     }
     .regis{
         background-color: #4CAF50;
+        text-align: center;
+        border: none;
+        padding: 15px 80px;
+        text-decoration: none;
+        font-size: 13px;
+        transition: all 0.3s ease-in-out;
+        height: 35px;
+        color: #ffffff;    
+    }
+
+    .login{
+        margin-top: 25px;
+        text-align: center;
+        border: none;
+        padding: 15px 80px;
+        text-decoration: none;
+        font-size: 13px;
+        transition: all 0.3s ease-in-out;
+        height: 35px;
+        color: #ffffff;
+    }
+
+    .input-data{
+        text-align: center;
     }
 }

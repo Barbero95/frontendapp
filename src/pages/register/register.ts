@@ -28,32 +28,17 @@ export class RegisterPage {
   usuario: Usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private frontendService: FrontendServicesProvider, public alertCtrl: AlertController) {
-    this.usuario = {
-      nombre:this.nombre,
-      apellido:this.apellido,
-      nick:this.username,
-      email:"",
-      estrellas:0,
-      tags: ["uni"],
-      imagen:"",
-      password:"",
-      actividadesPropietario:[],
-      actividadesCliente:[],
-      _id:0,
-      __v:0
-    }
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
   }
 
   register(){
     if(this.username.length==0 || this.password.length==0 || this.repassword.length==0){
-      alert("Introduce todo los datos!");
+      this.showAlert1();
+      //alert("Introduce todo los datos!");
     }
     else if(this.password != this.repassword ){
-      alert("La contraseña no es igual");
+      this.showAlert2();
+      //alert("La contraseña no es igual");
     }
     else{
       this.usuario.password = this.password;

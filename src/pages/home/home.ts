@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
 //import { MenuPrincipalPage } from '../menu-principal/menu-principal';
 import { SideMenuPage } from '../side-menu/side-menu';
+import { MenuPrincipalPage } from '../menu-principal/menu-principal';
 import { FrontendServicesProvider } from '../../providers/frontend-services/frontend-services';
 import { Login } from '../../app/login';
 import { Usuario } from '../../app/usuario';
@@ -40,8 +41,9 @@ export class HomePage {
       if (data == null){
         this.showAlert();
       }else{
-        
+        //cambio a la app
         this.navCtrl.setRoot(SideMenuPage);
+        //this.navCtrl.setRoot(MenuPrincipalPage);
       }
     });
     

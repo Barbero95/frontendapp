@@ -42,45 +42,9 @@ export class MenuPrincipalPage {
     });
     
   }
-
-  //inicializar las variables y obtener el nick del local storage
-  inicialitzer(){
-    //pedimos al local storage que nos pase el nick
-    this.actividad1 = {
-      _id:"",
-      __v:0,
-      titulo:"",
-      descripcion:"",
-      estrellas:0,
-      propietario: "",
-      tags:[""],
-      clientes:[],
-      ubicacion:"",
-      localizacion: []
-    };
-    this.actividades = [this.actividad1];
-    this.usuario = {
-      nombre:"",
-      apellido:"",
-      nick:"",
-      email:"",
-      estrellas:0,
-      tags: [""],
-      imagen:"",
-      password:"",
-      actividadesPropietario:[],
-      actividadesCliente:[],
-      _id:0,
-      __v:0
-    }
-  }
-
-
+  
   //al iniciar
   inicio(){
-    
-    //this.inicialitzer();
-    
     //pedimos el usuario
     this.frontendServices.getUsuario(this.propietario).subscribe( (data) => {
       this.usuario = data;
