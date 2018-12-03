@@ -85,7 +85,7 @@ export class CatalogoPage {
   }
 
   goToEditarActividad(actividad: Actividad){
-    this.navCtrl.push(EditarActividadPage, actividad);
+    this.navCtrl.push(EditarActividadPage, {'act': actividad});
 
 
   }

@@ -6,12 +6,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Usuario } from '../../app/usuario';
 import { PerfilPage } from '../perfil/perfil';
 
-/**
- * Generated class for the EditarPerfilPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({

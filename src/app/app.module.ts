@@ -20,6 +20,7 @@ import { SideMenuPage } from '../pages/side-menu/side-menu';
 import { MostrarActividadPage } from '../pages/mostrar-actividad/mostrar-actividad';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
+import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad'
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ActivityServiceProvider } from '../providers/activity-service/activity-
     EditarPerfilPage,
     PerfilPage,
     SideMenuPage,
-    MostrarActividadPage
+    MostrarActividadPage,
+    EditarActividadPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ import { ActivityServiceProvider } from '../providers/activity-service/activity-
     CrearActividadPage,
     PerfilPage,
     SideMenuPage,
-    MostrarActividadPage
+    MostrarActividadPage,
+    EditarActividadPage
   ],
   providers: [
     StatusBar,
