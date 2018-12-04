@@ -5,6 +5,7 @@ import { ActivityServiceProvider } from '../../providers/activity-service/activi
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { SideMenuPage } from '../side-menu/side-menu';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the CrearActividadPage page.
@@ -22,16 +23,34 @@ export class CrearActividadPage {
 
   tag: string = "";
   actividad: Actividad;
-  localizacion: number[];
+  localizacion: number[] = [];
   
 
   //GPS
   latitude: number = 41.27530691061249;
   longitude: number = 1.9866693019866941;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController, private geolocation: Geolocation) {
    this.actividad = new Actividad();
-   this.localizacion = [this.latitude,this.longitude];
+   console.log ('******* Crear Actividad ********');
+   this.inicio();
+  }
+
+  inicio(){
+    //cogemos la posicion de la persona
+    this.geolocation.getCurrentPosition().then((resp) => {
+      // resp.coords.latitude
+      this.latitude = resp.coords.latitude;
+      // resp.coords.longitude
+      this.longitude = resp.coords.longitude;
+      //guardamos la posicion dentro de la actividad;
+      this.localizacion = [this.latitude,this.longitude];
+      this.actividad.localizacion = this.localizacion;
+      console.log ('loc: ' + this.localizacion);
+      console.log ('loc dentro de la actividad: ' + this.actividad.localizacion);
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
   }
 
   //Cuando le damos al botón de crear

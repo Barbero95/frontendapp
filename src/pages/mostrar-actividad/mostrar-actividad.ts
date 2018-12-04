@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Actividad } from '../../app/actividad';
 /**
  * Generated class for the MostrarActividadPage page.
  *
@@ -15,11 +15,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MostrarActividadPage {
 
+  actividad: Actividad;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.actividad = new Actividad();
+    this.actividad = this.navParams.get('act');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MostrarActividadPage');
-  }
+  
 
 }

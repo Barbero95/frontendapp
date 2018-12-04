@@ -4,8 +4,6 @@ import { ActivityServiceProvider } from '../../providers/activity-service/activi
 import { Storage } from '@ionic/storage';
 import { Usuario } from '../../app/usuario';
 import { Actividad } from '../../app/actividad';
-import { MostrarActividadPage } from '../mostrar-actividad/mostrar-actividad';
-import {HomePage} from "../home/home";
 import { AlertController } from 'ionic-angular';
 import {EditarActividadPage} from "../editar-actividad/editar-actividad";
 

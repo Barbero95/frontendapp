@@ -15,16 +15,18 @@
 			<button ion-button (click)="goSearch()">Buscar</button>
     </ion-buttons>
   </ion-toolbar>
+
   <ion-item>
-    <ion-range min="0" max="150" [(ngModel)]="distancia" color="secondary">
+    <ion-range min="0" max="150" [(ngModel)]="distancia" color="secondary" pin="true">
       <ion-label range-left>0km</ion-label>
       <ion-label range-right>150km</ion-label>
     </ion-range>
   </ion-item>
-  
+
+  <ion-label align="center">Distancia seleccionada = {{distancia}}</ion-label>
   
   <ion-list>
-    <ion-card *ngFor="let item of actividades">
+    <ion-card *ngFor="let item of actividades" (click)="goMostrarActividad(item)">
       <ion-card-header>
         {{item.titulo}}
       </ion-card-header>

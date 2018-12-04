@@ -8,7 +8,7 @@ import { Usuario } from '../../app/usuario';
 import { Actividad } from '../../app/actividad';
 import { MostrarActividadPage } from '../mostrar-actividad/mostrar-actividad';
 import { Busqueda } from '../../app/busqueda';
-import { Geolocation } from '@ionic-native/geolocation'
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 
@@ -95,23 +95,18 @@ export class MenuPrincipalPage {
 
     }else{
       //buscamos la palabra por tag
-      this.activityServiceProvider.getActividadesPorTagPerfil(this.searchString).subscribe( (acts) => this.actividades = acts);
+      //this.activityServiceProvider.getActividadesPorTagPerfil(this.searchString).subscribe( (acts) => this.actividades = acts);
       
       //buscamos la palabra por distancia (gps) y tag
       this.search.tag = this.searchString;
-      //this.search.latitude = this.latitude;
-      //this.search.longitude = this.longitude;
       this.search.distance = this.distancia;
-      //this.activityServiceProvider.postActividadesGPS(this.search).subscribe( (acts) => this.actividades = acts);
+      this.activityServiceProvider.postActividadesGPS(this.search).subscribe( (acts) => this.actividades = acts);
     }
   }
 
   //cuando selecionamos una actividad
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(MostrarActividadPage, {
-      item: item
-    });
+  goMostrarActividad (actividad: Actividad){
+    this.navCtrl.push(MostrarActividadPage, {'act': actividad});
   }
 
   //Debes rellenar el perfil
