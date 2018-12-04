@@ -10,11 +10,17 @@
 <ion-content padding>
   
   <ion-toolbar color="primary">
-		<ion-searchbar placeholder="Busqueda.." [(ngModel)] = "searchTag"></ion-searchbar>
+		<ion-searchbar placeholder="Busqueda.." [(ngModel)] = "searchString"></ion-searchbar>
 		<ion-buttons end>
 			<button ion-button (click)="goSearch()">Buscar</button>
-		</ion-buttons>
+    </ion-buttons>
   </ion-toolbar>
+  <ion-item>
+    <ion-range min="0" max="150" [(ngModel)]="distancia" color="secondary">
+      <ion-label range-left>0km</ion-label>
+      <ion-label range-right>150km</ion-label>
+    </ion-range>
+  </ion-item>
   
   
   <ion-list>

@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule }    from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { StarRatingModule } from 'ionic3-star-rating';
-
+import { Geolocation } from '@ionic-native/geolocation'
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -63,7 +63,8 @@ import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad'
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
-    ActivityServiceProvider
+    ActivityServiceProvider,
+    Geolocation
   ]
 })
 export class AppModule {}

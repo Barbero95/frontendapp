@@ -7,6 +7,8 @@ import { AlertController } from 'ionic-angular';
 import { Usuario } from '../../app/usuario';
 import { Actividad } from '../../app/actividad';
 import { MostrarActividadPage } from '../mostrar-actividad/mostrar-actividad';
+import { Busqueda } from '../../app/busqueda';
+import { Geolocation } from '@ionic-native/geolocation'
 
 
 
@@ -26,15 +28,27 @@ export class MenuPrincipalPage {
   propietario: string = "";
   usuario: Usuario;
   actividades: Actividad[];
+  actividades2: Actividad[];
+  search: Busqueda;
   actividad1: Actividad;
+  
+  //coge los tags del usuario en tagsBusqueda y tagABuscra coge cada tga del array de tags del usuario
   tagsBusqueda: string[] = [];
   tagABuscar: string = "";
-  searchTag: string = "";
+
+  //Es el search que encontramos en la pagina, busca lo que pongamos
+  searchString: string = "";
+
+  //GPS
+  distancia: number = 0;
+  latitude: number = 41.27530691061249;
+  longitude: number = 1.9866693019866941;
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController, private geolocation: Geolocation) {
 
     this.usuario = new Usuario();
+    this.search = new Busqueda();
     this.storage.get('nick').then( (nick) => {
       console.log("propietario valor directo de storage: " + nick);
       this.propietario = nick;
@@ -46,6 +60,16 @@ export class MenuPrincipalPage {
   
   //al iniciar
   inicio(){
+    //cogemos la posicion de la persona
+    this.geolocation.getCurrentPosition().then((resp) => {
+      // resp.coords.latitude
+      this.search.latitude = resp.coords.latitude;
+      // resp.coords.longitude
+      this.search.longitude = resp.coords.longitude;
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+
     //pedimos el usuario
     this.userServiceProvider.getUsuario(this.propietario).subscribe( (data) => {
       this.usuario = data;
@@ -66,10 +90,19 @@ export class MenuPrincipalPage {
   
   //Barra de busqueda: buscamos por palabra clave
   goSearch(){
-    if(this.searchTag.length == 0){
+    if(this.searchString.length == 0){
+      this.actividades = [];
 
     }else{
-      this.activityServiceProvider.getActividadesPorTagPerfil(this.searchTag).subscribe( (acts) => this.actividades = acts);
+      //buscamos la palabra por tag
+      this.activityServiceProvider.getActividadesPorTagPerfil(this.searchString).subscribe( (acts) => this.actividades = acts);
+      
+      //buscamos la palabra por distancia (gps) y tag
+      this.search.tag = this.searchString;
+      //this.search.latitude = this.latitude;
+      //this.search.longitude = this.longitude;
+      this.search.distance = this.distancia;
+      //this.activityServiceProvider.postActividadesGPS(this.search).subscribe( (acts) => this.actividades = acts);
     }
   }
 

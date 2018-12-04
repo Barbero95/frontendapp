@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { Busqueda } from '../../app/busqueda';
 import { Actividad } from '../../app/actividad';
 
 /*
@@ -70,12 +70,10 @@ export class ActivityServiceProvider {
   }
 
   //GPS
-  /*
   postActividadesGPS (busqueda: Busqueda): Observable<Actividad[]> {
     const url = `${this.actividadesUrl}/busqueda/GPS`;
     return this.http.post<Actividad[]>(url, busqueda, httpOptions);
   }
-  */
 
 
 
