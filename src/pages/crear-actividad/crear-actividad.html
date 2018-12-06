@@ -33,16 +33,27 @@
       <ion-buttons align="center">
         <button ion-button color="primary" class="add-tag" (click)="addTag()">Añadir</button>
       </ion-buttons>
+
+    </ion-list>
+    <!-- Listamos los tags que añadimos-->
+    <ion-chip class="listaTags" *ngFor="let item of actividad.tags">
+      <ion-label>{{item}}</ion-label>
+      <button ion-button clear color="dark" (click)="deleteTag(item)">
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+    </ion-chip>
+      
+    <div padding align="center">
+      <button ion-button color="secondary" (click)="crearActividad()">Crear</button>
+    </div>
+</ion-content>
+
+<!--
       <ion-list>
         <hr>
         <ion-label>Tags Añadidos:</ion-label>
         <ion-item class="listaTags" *ngFor="let item of actividad.tags">
           <button ion-button class="tag-eliminar" (click)="deleteTag(item)">{{item}}</button>
         </ion-item>
-      </ion-list>
-    </ion-list>
-      
-    <div padding align="center">
-      <button ion-button color="secondary" (click)="crearActividad()">Crear</button>
-    </div>
-</ion-content>
+      </ion-list>  
+-->
