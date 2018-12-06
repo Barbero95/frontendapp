@@ -101,6 +101,7 @@ export class MenuPrincipalPage {
       this.search.tag = this.searchString;
       this.search.distance = this.distancia;
       this.activityServiceProvider.postActividadesGPS(this.search).subscribe( (acts) => this.actividades = acts);
+      this.activityServiceProvider.postBusquedaGeoEnDescripcion(this.search).subscribe( (acts2) => this.actividades2 = acts2);
     }
   }
 

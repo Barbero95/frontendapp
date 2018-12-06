@@ -74,6 +74,11 @@ export class ActivityServiceProvider {
     const url = `${this.actividadesUrl}/busqueda/GPS`;
     return this.http.post<Actividad[]>(url, busqueda, httpOptions);
   }
+  //GPS busqueda en descripción
+  postBusquedaGeoEnDescripcion (busqueda: Busqueda): Observable<Actividad[]> {
+    const url = `${this.actividadesUrl}/busqueda/En/Descripcion`;
+    return this.http.post<Actividad[]>(url, busqueda, httpOptions);
+  }
 
 
 
