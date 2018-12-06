@@ -20,7 +20,8 @@ import { SideMenuPage } from '../pages/side-menu/side-menu';
 import { MostrarActividadPage } from '../pages/mostrar-actividad/mostrar-actividad';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
-import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad'
+import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad';
+import { Camera } from '@ionic-native/camera';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad'
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
+    Camera,
     ActivityServiceProvider,
     Geolocation
   ]

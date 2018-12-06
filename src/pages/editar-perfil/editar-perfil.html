@@ -9,7 +9,11 @@
   
   <ion-content padding>
       <ion-list>
-  
+        
+          <ion-avatar>
+            <img align="center" src="/assets/images/logoUpc.jpg" class="profile-image-perfil" (click)="openGallery()">
+          </ion-avatar>
+        
         <ion-item>
           <ion-label>Nombre:</ion-label>
           <ion-input type="text" [(ngModel)]="usuario.nombre"></ion-input>

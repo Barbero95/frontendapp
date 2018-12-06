@@ -5,6 +5,8 @@ import { AlertController } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Usuario } from '../../app/usuario';
 import { PerfilPage } from '../perfil/perfil';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 
 
 
@@ -18,7 +20,7 @@ export class EditarPerfilPage {
   usuario: Usuario;
   tagAdd: string ="";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController, private  camera: Camera) {
     
     this.usuario = new Usuario();
 
@@ -64,6 +66,27 @@ export class EditarPerfilPage {
   cancel(){
     this.navCtrl.pop();
   }
+
+  openGallery(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+     }, (err) => {
+      // Handle error
+     });
+  }
+
+
+
   //alerta no hay tag para añadir la casilla esta vacia
   showAlert4() {
     const alert = this.alertCtrl.create({
