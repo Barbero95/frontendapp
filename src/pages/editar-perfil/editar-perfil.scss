@@ -6,7 +6,8 @@ page-editar-perfil {
         height: 25px;
     }
     .listaTags{
-        margin-left: 20px;
+        margin-left: 15px;
+        margin-top: 20px;
     }
     .tag-eliminar{
         background-color: rgba(109, 101, 101, 0.6);
@@ -14,8 +15,8 @@ page-editar-perfil {
     .profile-image-perfil{
         border-radius: 50%;
         border: 4px solid $SIDEMENU_TRANSPARENCY;
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
     }
 
 }

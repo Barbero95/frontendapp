@@ -8,11 +8,11 @@
   
   
   <ion-content padding>
-      <ion-list>
+      <ion-list align="center">
         
-          <ion-avatar>
-            <img align="center" src="/assets/images/dav.png" class="profile-image-perfil">
-          </ion-avatar>
+        <p align="center">
+          <img src="{{foto}}" class="profile-image-perfil">
+        </p>
 
         <input type="file" (change)="onFileSelected($event)">
         <button ion-button color="secondary" (click)="upload()">Cargar</button>
@@ -39,18 +39,30 @@
         <ion-buttons align="center">
           <button ion-button color="primary" class="add-tag" (click)="addTag()">Añadir</button>
         </ion-buttons>
+
+          <!-- Listamos los tags que añadimos-->
+        <ion-chip class="listaTags" *ngFor="let item of usuario.tags">
+          <ion-label>{{item}}</ion-label>
+          <button ion-button clear color="dark" (click)="deleteTag(item)">
+            <ion-icon name="close-circle"></ion-icon>
+          </button>
+        </ion-chip>
       </ion-list>
-      <ion-list>
-          <hr>
-          <ion-label>Tags Añadidos:</ion-label>
-          <ion-item class="listaTags" *ngFor="let item of usuario.tags">
-            <button ion-button class="tag-eliminar" (click)="deleteTag(item)">{{item}}</button>
-          </ion-item>
-      </ion-list>
+    
         
       <div padding align="center">
         <button ion-button color="secondary" (click)="save()">Guardar</button>
         <button ion-button color="danger" (click)="cancel()">Cancelar</button>
       </div>
   </ion-content>
+
+  <!--
+          <ion-list>
+          <hr>
+          <ion-label>Tags Añadidos:</ion-label>
+          <ion-item class="listaTags" *ngFor="let item of usuario.tags">
+            <button ion-button class="tag-eliminar" (click)="deleteTag(item)">{{item}}</button>
+          </ion-item>
+      </ion-list>
+  -->
   

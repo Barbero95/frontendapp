@@ -63,7 +63,7 @@ export class CrearActividadPage {
 
   //comprobamos que todos los campos esta rellenos
   comprobacion(){
-    if(this.actividad.titulo.length == 0 || this.actividad.descripcion.length == 0 || this.actividad.tags.length == 0 || this.actividad.ubicacion.length == 0 ){
+    if(this.actividad.titulo.length == 0 || this.actividad.descripcion.length == 0 || this.actividad.tags.length == 0 || this.actividad.ubicacion.length == 0 || this.actividad.horasActividad == 0){
       //alert("Introduce todo los datos!");
       this.showAlert3();
     }

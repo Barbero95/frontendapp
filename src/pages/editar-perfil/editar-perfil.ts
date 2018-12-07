@@ -22,6 +22,7 @@ export class EditarPerfilPage {
   usuario: Usuario;
   tagAdd: string ="";
   base64Image;
+  foto: File = null;
   selectedFile: File = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController, private  camera: Camera, public http: HttpClient) {
@@ -40,6 +41,12 @@ export class EditarPerfilPage {
     this.userServiceProvider.getUsuario(this.usuario.nick).subscribe( data => {
       this.usuario = data;
       //console.log("perfil data: " + usuario.nombre);
+    });
+    //this.foto = "/assets/images/dav.png";
+    this.userServiceProvider.getAvatar(this.usuario.nick).subscribe( (photo) => {
+      this.foto = photo;
+      console.log("he entrado en get photo")
+      console.log(photo);
     });
   }
   addTag(){
