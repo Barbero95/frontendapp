@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>mostrarActividad</ion-title>
+    <ion-title>Actividad seleccionada</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,5 +15,26 @@
 
 <ion-content padding>
 
-  <p>{{actividad.titulo}}</p>
+  <p>Título de la actividad: {{actividad.titulo}}</p>
+  <p>Dueño de la actividad: {{actividad.propietario}}</p>
+  <p>Descripción de la actividad: {{actividad.descripcion}}</p>
+  <p>Estrellas de valoración: {{actividad.estrellas}}</p>
+  <ionic3-star-rating 
+    activeIcon = "ios-star"
+    defaultIcon = "ios-star-outline"
+    activeColor = "#488aff" 
+    defaultColor = "#f4f4f4"
+    readonly="true"
+    [rating]= "actividad.estrellas">
+  </ionic3-star-rating>
+  <p>Horas de la actividad: {{actividad.horasActividad}}</p>
+
+  <ion-buttons align="center">
+      <button ion-button color="primary" class="solicitar" (click)="contactar()">Contactar</button>
+    <button ion-button color="primary" class="solicitar" (click)="solicitar()">Solicitar</button>
+    <button ion-button color="primary" class="cancelar" (click)="cancelar()">Cancelar</button>
+  </ion-buttons>
 </ion-content>
+
+
+
