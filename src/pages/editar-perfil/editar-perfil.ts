@@ -6,6 +6,8 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Usuario } from '../../app/usuario';
 import { PerfilPage } from '../perfil/perfil';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Observable } from 'rxjs';
+import { HttpClient} from '@angular/common/http';
 
 
 
@@ -19,8 +21,10 @@ export class EditarPerfilPage {
 
   usuario: Usuario;
   tagAdd: string ="";
+  base64Image;
+  selectedFile: File = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController, private  camera: Camera) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController, private  camera: Camera, public http: HttpClient) {
     
     this.usuario = new Usuario();
 
@@ -66,7 +70,7 @@ export class EditarPerfilPage {
   cancel(){
     this.navCtrl.pop();
   }
-
+  //cargar foto para movil
   openGallery(){
     const options: CameraOptions = {
       quality: 100,
@@ -79,10 +83,25 @@ export class EditarPerfilPage {
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
      }, (err) => {
       // Handle error
      });
+  }
+  //subir la foto
+  upload(){
+    let url = "http://localhost:3000/users/foto/perfil/avatar"
+    let posData = new FormData();
+    //posData.append('file', this.base64Image);
+    posData.append('avatar',this.selectedFile, this.usuario.nick);
+    let  data: Observable<any> = this.http.post(url, posData);
+    data.subscribe((result) => {console.log(result)})
+    //this.userServiceProvider.createFoto(posData);
+  }
+  //cargar foto para web
+  onFileSelected(event){
+    this.selectedFile = <File>event.target.files[0];
+    console.log(event);
   }
 
 

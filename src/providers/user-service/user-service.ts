@@ -46,6 +46,12 @@ export class UserServiceProvider {
     return this.http.post<Usuario>(this.usuariosUrl, usuario, httpOptions);
   }
 
+  //foto perfil
+  createFoto (posData: FormData): void{
+    let url =  `${this.usuariosUrl}/foto/perfil`;
+    this.http.post(url,posData);
+  }
+
   /* *********** PUT *********** */
   // Update the user on the server 
   updateUsuario (usuario: Usuario): Observable<any> {

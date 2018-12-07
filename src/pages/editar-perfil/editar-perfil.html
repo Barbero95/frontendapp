@@ -11,8 +11,11 @@
       <ion-list>
         
           <ion-avatar>
-            <img align="center" src="/assets/images/logoUpc.jpg" class="profile-image-perfil" (click)="openGallery()">
+            <img align="center" src="/assets/images/dav.png" class="profile-image-perfil">
           </ion-avatar>
+
+        <input type="file" (change)="onFileSelected($event)">
+        <button ion-button color="secondary" (click)="upload()">Cargar</button>
         
         <ion-item>
           <ion-label>Nombre:</ion-label>

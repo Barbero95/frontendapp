@@ -1,3 +1,4 @@
+$SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.6);
 page-editar-perfil {
     .add-tag{
         text-align: center;
@@ -9,6 +10,12 @@ page-editar-perfil {
     }
     .tag-eliminar{
         background-color: rgba(109, 101, 101, 0.6);
+    }
+    .profile-image-perfil{
+        border-radius: 50%;
+        border: 4px solid $SIDEMENU_TRANSPARENCY;
+        width: 80px;
+        height: 80px;
     }
 
 }
