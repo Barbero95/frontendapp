@@ -34,6 +34,7 @@ export class SideMenuPage {
   nick: string = "";
   estrellas: number = 0;
   usuario: Usuario;
+  foto = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController,public statusBar: StatusBar, 
     public splashScreen: SplashScreen, public platform: Platform, private userServiceProvider: UserServiceProvider, public storage: Storage,public alertCtrl: AlertController) {
@@ -45,6 +46,11 @@ export class SideMenuPage {
         console.log("propietario valor ya guardado: " + this.nick);
         this.inicio();
         this.rootPage = MenuPrincipalPage;
+        //cargamos la foto
+        this.foto = "http://localhost:3000/uploads/" + this.nick + ".png";
+        if(this.foto){
+          this.foto = "/assets/images/porDefecto.png";
+        }
       });
 
       this.pages = [
@@ -53,6 +59,7 @@ export class SideMenuPage {
       { title: 'Crear Actividad', component: CrearActividadPage, icon:"add-circle"}
       ];
       this.pageExit = { title: 'LogOut', component: HomePage, icon: "exit" };
+
   }
 
   openPage(page) {

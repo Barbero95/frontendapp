@@ -29,10 +29,14 @@ export class PerfilPage {
   estrellas: number = 0;
   tags: string[] = [""];
   imagen: string = "";
+  foto;
+  usuario: Usuario;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
     
+    this.usuario = new Usuario();
+
     this.storage.get('nick').then( (propietario) => {
       //this.propietario = val;
       console.log("propietario valor directo de storage: " + propietario);
@@ -44,15 +48,11 @@ export class PerfilPage {
 
   inicio(){
     this.userServiceProvider.getUsuario(this.propietario).subscribe( data => {
-      this.nick = data.nick;
-      this.nombre = data.nombre;
-      this.apellido = data.apellido;
-      this.email = data.email;
-      this.estrellas = data.estrellas;
-      this.tags = data.tags;
-      this.imagen = data.imagen;
-      console.log("perfil data: " + data.nick)
+      this.usuario = data;
     });
+
+    //cargamos la foto
+    this.foto = "http://localhost:3000/uploads/" + this.propietario + ".png";
   }
 
   goEditarPerfil(){

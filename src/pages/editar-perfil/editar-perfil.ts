@@ -42,14 +42,7 @@ export class EditarPerfilPage {
       this.usuario = data;
       //console.log("perfil data: " + usuario.nombre);
     });
-    this.foto = "/assets/images/dav.png";
-    /*
-    this.userServiceProvider.getAvatar(this.usuario.nick).subscribe( (photo) => {
-      this.foto = photo;
-      console.log("he entrado en get photo")
-      console.log(photo);
-    });
-    */
+    this.foto = "http://localhost:3000/uploads/" + this.usuario.nick + ".png";
   }
   addTag(){
     if(this.tagAdd.length == 0){

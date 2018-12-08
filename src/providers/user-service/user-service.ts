@@ -35,12 +35,7 @@ export class UserServiceProvider {
     const url = `${this.usuariosUrl}/login/${username}/${password}`;
     return this.http.get<Usuario>(url);
   }
-  //get de foto perfil
-  getAvatar(username: string): Observable<File> {
-    const url = `${this.usuariosUrl}/foto/perfil/${username}.png`;
-    return this.http.get<File>(url);
-  }
-
+  
   /* *********** POST *********** */
   validarUser(log: Login): Observable<Usuario> {
     const url = `${this.usuariosUrl}/validacion`

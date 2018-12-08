@@ -12,35 +12,35 @@
   <ion-icon class="button-setings" name="settings" (click)="goEditarPerfil()"></ion-icon>
   <ion-list align="center">
     <div class="item item-avatar">
-      <img align="center" src="/assets/images/dav.png" class="profile-image-perfil">
-      <h2>{{nick}}</h2>
-      <p>{{estrellas}}</p>
+      <img align="center" src="{{foto}}" class="profile-image-perfil">
+      <h2>{{usuario.nick}}</h2>
+      <p>{{usuario.estrellas}}</p>
       <ionic3-star-rating 
         activeIcon = "ios-star"
         defaultIcon = "ios-star-outline"
         activeColor = "#488aff" 
         defaultColor = "#f4f4f4"
         readonly="true"
-        [rating]= "estrellas">
+        [rating]= "usuario.estrellas">
       </ionic3-star-rating>
     </div>
   </ion-list>
   <ion-list align="center" margin-top="10px">  
     <ion-item>
       <ion-label>Nombre: </ion-label>
-      <ion-label>{{nombre}}</ion-label>
+      <ion-label>{{usuario.nombre}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>Apellido: </ion-label>
-      <ion-label>{{apellido}}</ion-label>
+      <ion-label>{{usuario.apellido}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>Email: </ion-label>
-      <ion-label>{{email}}</ion-label>
+      <ion-label>{{usuario.email}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>Tags: </ion-label>
-      <ion-label>{{tags}}</ion-label>
+      <ion-label>{{usuario.tags}}</ion-label>
     </ion-item>
     
   </ion-list>
