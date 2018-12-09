@@ -84,6 +84,22 @@ export class MenuPrincipalPage {
         }
         this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
+
+      //Miramos si el usuario que se acaba de meter en la app tiene alguna notificación por ver
+      this.storage.get('nick').then(val => {
+        this.userServiceProvider.getReciboNotificaciones(val).subscribe( data =>
+          {
+           if(data=null)
+           this.showAlert3()
+           else
+           this.showAlert3()
+          }, 
+          err => {});
+   
+      });
+      
+
+
     });
     
   }
@@ -123,6 +139,14 @@ export class MenuPrincipalPage {
     const alert = this.alertCtrl.create({
       title: 'Menu Principal',
       subTitle: 'Para buscar actividades introduce algún dato.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  showAlert3() {
+    const alert = this.alertCtrl.create({
+      title: 'Notificación pendiente',
+      subTitle: 'Tienes notificaciones pendientes.',
       buttons: ['OK']
     });
     alert.present();

@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { Notificaciones } from '../../app/notificaciones';
+
 import { Usuario } from '../../app/usuario';
 import { Login } from '../../app/login';
 
@@ -35,6 +37,15 @@ export class UserServiceProvider {
     const url = `${this.usuariosUrl}/login/${username}/${password}`;
     return this.http.get<Usuario>(url);
   }
+  getEnvioNotificaciones(notificaciones: Notificaciones): Observable<Notificaciones> {
+    const url = `${this.usuariosUrl}/Enotificaciones/${notificaciones.dueñoActividad}/${notificaciones.participanteActividad}/${notificaciones.flag}`;
+    return this.http.get<Notificaciones>(url);
+  }
+  getReciboNotificaciones(dueñoActividad: string): Observable<Notificaciones> {
+    const url = `${this.usuariosUrl}/Rnotificaciones/${dueñoActividad}`;
+    return this.http.get<Notificaciones>(url);
+  }
+  
   
   /* *********** POST *********** */
   validarUser(log: Login): Observable<Usuario> {

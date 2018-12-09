@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Actividad } from '../../app/actividad';
 import { AlertController } from 'ionic-angular';
+import { Notificaciones } from '../../app/notificaciones';
+import { Storage } from '@ionic/storage';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 /**
  * Generated class for the MostrarActividadPage page.
  *
@@ -17,10 +20,12 @@ import { AlertController } from 'ionic-angular';
 export class MostrarActividadPage {
 
   actividad: Actividad;
+  notificaciones: Notificaciones;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
     this.actividad = new Actividad();
     this.actividad = this.navParams.get('act');
+    this.notificaciones = new Notificaciones();
   }
 
   showAlert1() {
@@ -38,7 +43,17 @@ export class MostrarActividadPage {
         {
           text: 'Aceptar',
           handler: () => {
-            console.log('Buy clicked');
+            // Relleno un objecto que crea un nexo entre el propietario de la actividad,
+            // el candidato que la pide y una flag
+            // esta flag indicará si se recibe una notificación rollo twitter
+            // si la notificación ya se ha leído, ya no aparecerá
+            this.notificaciones.dueñoActividad=this.actividad.propietario;
+            this.storage.get('nick').then(val => {
+              this.notificaciones.participanteActividad = val;
+            });
+            this.notificaciones.flag=1;
+            this.userServiceProvider.getEnvioNotificaciones(this.notificaciones).subscribe( data => this.navCtrl.pop(), err => {});
+   
           }
         }
       ]
