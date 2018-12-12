@@ -9,10 +9,12 @@
   
   <ion-content padding>
       <ion-list align="center">
-        
-        <p align="center">
-          <img src="{{foto}}" class="profile-image-perfil">
-        </p>
+
+        <ion-avatar>
+          <img [src]="foto" class="profile-image-perfil">
+        </ion-avatar>
+
+
 
         <input type="file" (change)="onFileSelected($event)">
         <button ion-button color="secondary" (click)="upload()">Cargar</button>
@@ -30,6 +32,15 @@
         <ion-item>
           <ion-label>Email</ion-label>
           <ion-input type="text" [(ngModel)]="usuario.email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input type="password" [(ngModel)]="usuario.password"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Repeat password</ion-label>
+            <ion-input type="password" [(ngModel)]="repassword"></ion-input>
         </ion-item>
   
         <ion-item>

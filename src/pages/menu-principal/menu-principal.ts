@@ -25,10 +25,11 @@ import { Geolocation } from '@ionic-native/geolocation';
   templateUrl: 'menu-principal.html',
 })
 export class MenuPrincipalPage {
-  propietario: string = "";
+  nick: string = "";
   usuario: Usuario;
   actividades: Actividad[];
   actividades2: Actividad[];
+  actividadesEncontradas: Actividad[];
   search: Busqueda;
   actividad1: Actividad;
   
@@ -49,9 +50,14 @@ export class MenuPrincipalPage {
 
     this.usuario = new Usuario();
     this.search = new Busqueda();
+    this.actividad1 = new Actividad();
+    this.actividades = [];
+    this.actividades2 = [];
+    this.actividadesEncontradas = [];
+
     this.storage.get('nick').then( (nick) => {
       console.log("propietario valor directo de storage: " + nick);
-      this.propietario = nick;
+      this.nick = nick;
 
       this.inicio();
     });
@@ -71,7 +77,7 @@ export class MenuPrincipalPage {
      });
 
     //pedimos el usuario
-    this.userServiceProvider.getUsuario(this.propietario).subscribe( (data) => {
+    this.userServiceProvider.getUsuario(this.nick).subscribe( (data) => {
       this.usuario = data;
       console.log("paso 1: " + this.usuario.nick);
       if(this.usuario.tags.length == 0){
@@ -81,8 +87,21 @@ export class MenuPrincipalPage {
         for (let i=0; i<this.tagsBusqueda.length; i++){
           this.tagABuscar = this.tagsBusqueda[i];
           console.log( "paso2: " + this.tagABuscar);
+          this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[i]).subscribe( (acts) => {
+            if (acts != null){
+              this.actividadesEncontradas = acts;
+              for (let i=0; i<this.actividadesEncontradas.length; i++){
+                if(this.actividadesEncontradas[i].propietario != this.nick){
+                  this.actividades.push(this.actividadesEncontradas[i]);
+                }
+              }
+            } else {
+              this.showAlert5();
+            }
+            
+          });
         }
-        this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
+        //this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
 
       //Miramos si el usuario que se acaba de meter en la app tiene alguna notificación por ver
@@ -108,7 +127,7 @@ export class MenuPrincipalPage {
   goSearch(){
     if(this.searchString.length == 0){
       this.actividades = [];
-
+      this.showAlert4;
     }else{
       //buscamos la palabra por tag
       //this.activityServiceProvider.getActividadesPorTagPerfil(this.searchString).subscribe( (acts) => this.actividades = acts);
@@ -147,6 +166,22 @@ export class MenuPrincipalPage {
     const alert = this.alertCtrl.create({
       title: 'Notificación pendiente',
       subTitle: 'Tienes notificaciones pendientes.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  showAlert4() {
+    const alert = this.alertCtrl.create({
+      title: 'Busqueda',
+      subTitle: 'No hay nada a buscar',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  showAlert5() {
+    const alert = this.alertCtrl.create({
+      title: 'Actividades recomendadas',
+      subTitle: 'Para tus tags no tenemos actividades para recomendarte.',
       buttons: ['OK']
     });
     alert.present();

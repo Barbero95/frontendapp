@@ -8,6 +8,8 @@ import { PerfilPage } from '../perfil/perfil';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Observable } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
+import { ViewChild } from '@angular/core';
+import { Content } from 'ionic-angular';
 
 
 
@@ -18,16 +20,20 @@ import { HttpClient} from '@angular/common/http';
   templateUrl: 'editar-perfil.html',
 })
 export class EditarPerfilPage {
+  @ViewChild(Content) content: Content;
 
   usuario: Usuario;
+  usuarioPrevio: Usuario;
   tagAdd: string ="";
   base64Image;
-  foto;
+  foto = null;
   selectedFile: File = null;
+  repassword: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController, private  camera: Camera, public http: HttpClient) {
     
     this.usuario = new Usuario();
+    this.usuarioPrevio = new Usuario();
 
     this.storage.get('nick').then( (nick) => {
 
@@ -35,14 +41,17 @@ export class EditarPerfilPage {
       //console.log("propietario valor ya guardado: " + this.propietario);
       this.inicio();
     });
+    
   }
 
   inicio(){
     this.userServiceProvider.getUsuario(this.usuario.nick).subscribe( data => {
       this.usuario = data;
-      //console.log("perfil data: " + usuario.nombre);
+      this.usuarioPrevio = this.usuario;
+      this.foto = this.usuario.imagen;
+      this.repassword = this.usuario.password;
     });
-    this.foto = "http://localhost:3000/uploads/" + this.usuario.nick + ".png";
+    //this.foto = "http://localhost:3000/uploads/" + this.usuario.nick + ".png";
   }
   addTag(){
     if(this.tagAdd.length == 0){
@@ -61,13 +70,20 @@ export class EditarPerfilPage {
   }
 
   save(){
-    this.userServiceProvider.updateUsuario(this.usuario).subscribe( data => {
-      if(data != null){
-        this.navCtrl.setRoot(PerfilPage);
-      }else{
-        this.showAlert3();
-      }
-    });
+    if(this.usuario.password != this.repassword ){
+      this.showAlert2();
+      //alert("La contraseña no es igual");
+    }
+    else{
+      this.userServiceProvider.updateUsuario(this.usuario).subscribe( data => {
+        if(data != null){
+          this.navCtrl.setRoot(PerfilPage);
+        }else{
+          this.showAlert3();
+        }
+      });
+    }
+    
   }
   cancel(){
     this.navCtrl.pop();
@@ -97,8 +113,11 @@ export class EditarPerfilPage {
     //posData.append('file', this.base64Image);
     posData.append('avatar',this.selectedFile, this.usuario.nick);
     let  data: Observable<any> = this.http.post(url, posData);
-    data.subscribe((result) => {console.log(result)})
+    data.subscribe((result) => {
+      //console.log(result);
+    });
     //this.userServiceProvider.createFoto(posData);
+    this.updateAvatar();
   }
   //cargar foto para web
   onFileSelected(event){
@@ -106,13 +125,27 @@ export class EditarPerfilPage {
     console.log(event);
   }
 
+  updateAvatar(){
+    this.usuarioPrevio.imagen = "http://localhost:3000/uploads/" + this.usuario.nick + ".png";
+    console.log("nick de la copia: " + this.usuarioPrevio.nick);
+    console.log("nick de la copia: " + this.usuarioPrevio.imagen);
+
+    this.userServiceProvider.updateUsuario(this.usuarioPrevio).subscribe( data => {
+      if(data != null){
+        this.foto = "http://localhost:3000/uploads/" + this.usuario.nick + ".png";
+      }else{
+        this.showAlert3();
+      }
+    });
+  }
 
 
-  //alerta no hay tag para añadir la casilla esta vacia
-  showAlert4() {
+
+  //la contraseña no es la misma
+  showAlert2() {
     const alert = this.alertCtrl.create({
-      title: 'Editar Perfil',
-      subTitle: 'No hay tag para añadir',
+      title: 'Registro',
+      subTitle: 'La contraseña no coincide',
       buttons: ['OK']
     });
     alert.present();
@@ -121,6 +154,15 @@ export class EditarPerfilPage {
     const alert = this.alertCtrl.create({
       title: 'Editar Perfil',
       subTitle: 'No se ha podido guardar bien los datos',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  //alerta no hay tag para añadir la casilla esta vacia
+  showAlert4() {
+    const alert = this.alertCtrl.create({
+      title: 'Editar Perfil',
+      subTitle: 'No hay tag para añadir',
       buttons: ['OK']
     });
     alert.present();
