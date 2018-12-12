@@ -83,21 +83,13 @@ export class MenuPrincipalPage {
           console.log( "paso2: " + this.tagABuscar);
         }
         this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
-      }
-
-      //Miramos si el usuario que se acaba de meter en la app tiene alguna notificación por ver
-      this.storage.get('nick').then(val => {
-        this.userServiceProvider.getReciboNotificaciones(val).subscribe( data =>
-          {
-           if(data=null)
-           this.showAlert3()
-           else
-           this.showAlert3()
-          },
-          err => {});
-
-      });
-
+            }
+            
+    if (this.usuario.notificaciones.length === 0){
+      this.showAlert4();
+    }
+    else
+    this.showAlert3();
 
 
     });
@@ -147,6 +139,15 @@ export class MenuPrincipalPage {
     const alert = this.alertCtrl.create({
       title: 'Notificación pendiente',
       subTitle: 'Tienes notificaciones pendientes.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  //Esta notificación se puede borrar posteriormente, es solo de prueba
+  showAlert4() {
+    const alert = this.alertCtrl.create({
+      title: 'No tiene ninguna notificación pendiente',
+      subTitle: 'No tienes notificaciones pendientes.',
       buttons: ['OK']
     });
     alert.present();

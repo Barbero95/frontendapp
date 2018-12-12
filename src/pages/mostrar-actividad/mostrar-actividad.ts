@@ -59,12 +59,14 @@ export class MostrarActividadPage {
             // el candidato que la pide y una flag
             // esta flag indicará si se recibe una notificación rollo twitter
             // si la notificación ya se ha leído, ya no aparecerá
-            this.notificaciones.dueñoActividad=this.actividad.propietario;
+           // this.usuario.notificaciones.push(this.storage.get('nick'));
+           // this.notificaciones.dueñoActividad=this.actividad.propietario;
             this.storage.get('nick').then(val => {
-              this.notificaciones.participanteActividad = val;
+              this.usuario.notificaciones.push(val);
+             // this.notificaciones.participanteActividad = val;
             });
-            this.notificaciones.flag=1;
-            this.userServiceProvider.getEnvioNotificaciones(this.notificaciones).subscribe( data => this.navCtrl.pop(), err => {});
+          //  this.notificaciones.flag=1;
+            this.userServiceProvider.postEnvioNotificaciones(this.usuario).subscribe( data => {this.navCtrl.pop()}, err => {});
 
           }
         }
