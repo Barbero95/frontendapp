@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  
+
   <ion-toolbar color="primary">
 		<ion-searchbar placeholder="Busqueda.." [(ngModel)] = "searchString"></ion-searchbar>
 		<ion-buttons end>
@@ -24,7 +24,7 @@
   </ion-item>
 
   <ion-label align="center">Distancia seleccionada = {{distancia}}</ion-label>
-  
+
   <ion-list>
     <ion-card *ngFor="let item of actividades" (click)="goMostrarActividad(item)">
       <ion-card-header>
@@ -60,7 +60,7 @@
   </ion-list>
 -->
 
-  
+
 
   <div *ngIf="selectedItem" padding>
     You navigated here from <b>{{selectedItem.title}}</b>

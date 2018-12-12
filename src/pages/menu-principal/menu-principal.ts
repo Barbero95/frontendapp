@@ -31,7 +31,7 @@ export class MenuPrincipalPage {
   actividades2: Actividad[];
   search: Busqueda;
   actividad1: Actividad;
-  
+
   //coge los tags del usuario en tagsBusqueda y tagABuscra coge cada tga del array de tags del usuario
   tagsBusqueda: string[] = [];
   tagABuscar: string = "";
@@ -43,7 +43,7 @@ export class MenuPrincipalPage {
   distancia: number = 0;
   latitude: number = 41.27530691061249;
   longitude: number = 1.9866693019866941;
-  
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController, private geolocation: Geolocation) {
 
@@ -55,9 +55,9 @@ export class MenuPrincipalPage {
 
       this.inicio();
     });
-    
+
   }
-  
+
   //al iniciar
   inicio(){
     //cogemos la posicion de la persona
@@ -93,17 +93,17 @@ export class MenuPrincipalPage {
            this.showAlert3()
            else
            this.showAlert3()
-          }, 
+          },
           err => {});
-   
+
       });
-      
+
 
 
     });
-    
+
   }
-  
+
   //Barra de busqueda: buscamos por palabra clave
   goSearch(){
     if(this.searchString.length == 0){
@@ -112,7 +112,7 @@ export class MenuPrincipalPage {
     }else{
       //buscamos la palabra por tag
       //this.activityServiceProvider.getActividadesPorTagPerfil(this.searchString).subscribe( (acts) => this.actividades = acts);
-      
+
       //buscamos la palabra por distancia (gps) y tag
       this.search.tag = this.searchString;
       this.search.distance = this.distancia;
@@ -123,7 +123,7 @@ export class MenuPrincipalPage {
 
   //cuando selecionamos una actividad
   goMostrarActividad (actividad: Actividad){
-    this.navCtrl.push(MostrarActividadPage, {'act': actividad});
+    this.navCtrl.push(MostrarActividadPage, {'act': actividad, 'usuario': this.usuario});
   }
 
   //Debes rellenar el perfil
@@ -153,7 +153,7 @@ export class MenuPrincipalPage {
   }
 
 
-  
+
 
 
 }

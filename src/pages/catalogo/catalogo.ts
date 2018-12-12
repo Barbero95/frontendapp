@@ -43,6 +43,7 @@ export class CatalogoPage {
     //pedimos el usuario
     this.activityServiceProvider.getActividadesPropietario(this.propietario).subscribe( (activitats) => {
       this.actividades = activitats;
+      console.log(this.actividades);
     });
 
   }
@@ -87,5 +88,6 @@ export class CatalogoPage {
 
 
   }
+
 
 }

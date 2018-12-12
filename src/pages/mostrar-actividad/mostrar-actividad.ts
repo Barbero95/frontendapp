@@ -5,6 +5,8 @@ import { AlertController } from 'ionic-angular';
 import { Notificaciones } from '../../app/notificaciones';
 import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import {ChatPage} from "../chat/chat";
+import {Usuario} from "../../app/usuario";
 /**
  * Generated class for the MostrarActividadPage page.
  *
@@ -21,11 +23,21 @@ export class MostrarActividadPage {
 
   actividad: Actividad;
   notificaciones: Notificaciones;
+  usuario: Usuario;
+  propietario: Usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
     this.actividad = new Actividad();
     this.actividad = this.navParams.get('act');
+    this.usuario = this.navParams.get('usuario');
     this.notificaciones = new Notificaciones();
+    this.getUser(this.actividad.propietario);
+  }
+
+  getUser(nick: string) {
+    this.userServiceProvider.getUsuario(nick).subscribe( data => {
+      this.propietario = data;
+    });
   }
 
   showAlert1() {
@@ -53,7 +65,7 @@ export class MostrarActividadPage {
             });
             this.notificaciones.flag=1;
             this.userServiceProvider.getEnvioNotificaciones(this.notificaciones).subscribe( data => this.navCtrl.pop(), err => {});
-   
+
           }
         }
       ]
@@ -65,6 +77,7 @@ export class MostrarActividadPage {
 
   contactar(){
 //Aqui se iniciarlizaria un chat que le debería tocar a Bruno
+    this.navCtrl.push(ChatPage, {from: this.usuario, to: this.propietario});
   }
   solicitar(){
     this.showAlert1();
@@ -72,6 +85,6 @@ export class MostrarActividadPage {
   cancelar(){
     this.navCtrl.pop();
   }
-  
+
 
 }
