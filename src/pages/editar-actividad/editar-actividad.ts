@@ -5,6 +5,7 @@ import { AlertController } from 'ionic-angular';
 import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
 import { Actividad } from '../../app/actividad';
 import {CatalogoPage} from "../catalogo/catalogo";
+import {SideMenuPage} from "../side-menu/side-menu";
 
 
 @IonicPage()
@@ -59,17 +60,63 @@ export class EditarActividadPage {
   }
 
   save(){
-    this.activityServiceProvider.updateActividad(this.actividad,this.tituloAnterior).subscribe( data => {
-      if(data != null){
-        this.navCtrl.setRoot(CatalogoPage);
-      }else{
-        this.showAlert3();
+
+    if (this.actividad.titulo.length != 0 ) {
+
+      this.activityServiceProvider.getActividadDePropietario(this.actividad).subscribe((data) => {
+
+        if (data == null) {
+
+          this.activityServiceProvider.updateActividad(this.actividad, this.tituloAnterior).subscribe(data => {
+
+            if (data != null) {
+              this.navCtrl.setRoot(CatalogoPage);
+            }
+
+            else {
+              this.showAlert3();
+            }
+          });
+        }
+
+        else {
+
+          this.showAlert2();
+        }
+
+      });
+    }
+
+      else {
+
+        this.showAlert1();
+
       }
-    });
+
   }
 
-  cancel(){
+  cancel() {
     this.navCtrl.pop();
+  }
+
+  showAlert1 () {
+    const alert = this.alertCtrl.create({
+      title: 'Editar Actividad',
+      subTitle: 'Escribe un titulo',
+      buttons: ['OK']
+    });
+    alert.present();
+
+  }
+
+  showAlert2 () {
+  const alert = this.alertCtrl.create({
+    title: 'Editar Actividad',
+    subTitle: 'Ya existe una actividad con este titulo',
+    buttons: ['OK']
+  });
+  alert.present();
+
   }
 
   showAlert3() {
