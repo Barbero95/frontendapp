@@ -107,18 +107,19 @@ export class MenuPrincipalPage {
         //this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
       
-
-      if (this.usuario.notificaciones.length === 0){
-        this.showAlert6();
-      }
-      else
-      this.showAlert3();
-   
     });
-      
+    this.storage.get('nick').then(val => {
+      this.userServiceProvider.getReciboNotificaciones(val).subscribe(
+        data=>{
+        if (data != null){
+        this.showAlert3}
+        else
+        this.showAlert6
+    },
+        this.showAlert8
+      );
 
-//----------------------------------------------
-    
+      });
 
   }
 
@@ -211,6 +212,14 @@ export class MenuPrincipalPage {
     const alert = this.alertCtrl.create({
       title: 'Busqueda',
       subTitle: 'No hay actividades cercanas.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  showAlert8() {
+    const alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: 'Error.',
       buttons: ['OK']
     });
     alert.present();
