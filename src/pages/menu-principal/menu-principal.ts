@@ -108,18 +108,16 @@ export class MenuPrincipalPage {
       }
       
     });
-    this.storage.get('nick').then(val => {
-      this.userServiceProvider.getReciboNotificaciones(val).subscribe(
+      this.userServiceProvider.getReciboNotificaciones(this.nick).subscribe(
         data=>{
         if (data != null){
         this.showAlert3}
         else
         this.showAlert6
-    },
-        this.showAlert8
+    },err => {
+        this.showAlert8}
       );
  
-      });
 
   }
 
