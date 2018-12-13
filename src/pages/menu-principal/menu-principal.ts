@@ -116,7 +116,6 @@ export class MenuPrincipalPage {
    
     });
       
-<<<<<<< HEAD
 //----------------------------------------      
 //Esto lo que ha venido
     
@@ -126,8 +125,6 @@ export class MenuPrincipalPage {
     else
     this.showAlert8();
     
-=======
->>>>>>> c6396faab4294c3b3fed5870176f946189eac108
 
 //----------------------------------------------
     
