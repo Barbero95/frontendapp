@@ -1,6 +1,6 @@
 import { ObjetoDeNickYEstado } from "./objetoDeNickYEstado";
 import {Room} from "./room";
-
+import {Valoracion} from "./valoracion"
 
 export class Actividad {
     _id: string;
@@ -18,6 +18,7 @@ export class Actividad {
     contadorEstrellasActividad: number;
     localizacion: number[];
     ubicacion: string;
+    valoraciones: Valoracion[];
 
     constructor(){
         this._id = "";
@@ -33,6 +34,7 @@ export class Actividad {
         this.contadorEstrellasActividad = 0;
         this.ubicacion = "";
         this.localizacion = [];
+        this.valoraciones =[];
 
         //
     }
