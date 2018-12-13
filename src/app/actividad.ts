@@ -10,6 +10,7 @@ export class Actividad {
     tags: string[];
     propietario: string;
     clientes: ObjetoDeNickYEstado[];
+    //clientes:  [string[],number[]];
     horasActividad: number;
     contadorEstrellasActividad: number;
     localizacion: number[];

@@ -12,6 +12,7 @@ import { PerfilPage } from '../perfil/perfil';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { HomePage } from '../home/home';
 import { Usuario } from '../../app/usuario';
+import { ActividadesEnCursoPage } from '../actividades-en-curso/actividades-en-curso';
 
 /**
  * Generated class for the SideMenuPage page.
@@ -56,6 +57,7 @@ export class SideMenuPage {
       this.pages = [
       { title: 'Menu Principal', component: MenuPrincipalPage, icon:"home" },
       { title: 'Catálogo', component: CatalogoPage, icon: "book"},
+      { title: 'Atividades en curso', component: ActividadesEnCursoPage, icon: "book"},
       { title: 'Crear Actividad', component: CrearActividadPage, icon:"add-circle"}
       ];
       this.pageExit = { title: 'LogOut', component: HomePage, icon: "exit" };

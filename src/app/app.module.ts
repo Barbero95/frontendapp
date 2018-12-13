@@ -21,6 +21,7 @@ import { MostrarActividadPage } from '../pages/mostrar-actividad/mostrar-activid
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
 import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad';
+import { ActividadesEnCursoPage } from '../pages/actividades-en-curso/actividades-en-curso';
 import { Camera } from '@ionic-native/camera';
 
 
@@ -36,7 +37,8 @@ import { Camera } from '@ionic-native/camera';
     PerfilPage,
     SideMenuPage,
     MostrarActividadPage,
-    EditarActividadPage
+    EditarActividadPage,
+    ActividadesEnCursoPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import { Camera } from '@ionic-native/camera';
     PerfilPage,
     SideMenuPage,
     MostrarActividadPage,
-    EditarActividadPage
+    EditarActividadPage,
+    ActividadesEnCursoPage
   ],
   providers: [
     StatusBar,
