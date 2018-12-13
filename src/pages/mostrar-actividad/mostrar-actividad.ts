@@ -28,6 +28,7 @@ export class MostrarActividadPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
     this.actividad = new Actividad();
+    this.usuario = new Usuario();
     this.actividad = this.navParams.get('act');
     this.usuario = this.navParams.get('usuario');
     this.notificaciones = new Notificaciones();
