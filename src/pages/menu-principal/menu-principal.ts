@@ -107,28 +107,15 @@ export class MenuPrincipalPage {
         //this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
       
-      //Miramos si el usuario que se acaba de meter en la app tiene alguna notificación por ver
-      
-    this.userServiceProvider.getReciboNotificaciones(this.nick).subscribe( data =>
-      {
-        if(data=null)
-          this.showAlert3()
-        else
-        this.showAlert3()
-      }, 
-      err => {});
+
+      if (this.usuario.notificaciones.length === 0){
+        this.showAlert6();
+      }
+      else
+      this.showAlert3();
    
     });
       
-//----------------------------------------      
-//Esto lo que ha venido
-    
-    if (this.usuario.notificaciones.length === 0){
-      this.showAlert4();
-    }
-    else
-    this.showAlert6();
-    
 
 //----------------------------------------------
     
