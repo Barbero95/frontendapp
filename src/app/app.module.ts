@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, ErrorHandler, NgModule} from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -22,7 +22,12 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
 import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad';
 import { Camera } from '@ionic-native/camera';
+import {ChatPage} from "../pages/chat/chat";
+import {WrappedSocket} from "ng-socket-io/dist/src/socket-io.service";
+import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
+import {ChatServiceProvider} from "../providers/chat-service/chat-service";
 
+const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
 
 @NgModule({
   declarations: [
@@ -36,14 +41,16 @@ import { Camera } from '@ionic-native/camera';
     PerfilPage,
     SideMenuPage,
     MostrarActividadPage,
-    EditarActividadPage
+    EditarActividadPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     StarRatingModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    SocketIoModule.forRoot(config)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,7 +64,8 @@ import { Camera } from '@ionic-native/camera';
     PerfilPage,
     SideMenuPage,
     MostrarActividadPage,
-    EditarActividadPage
+    EditarActividadPage,
+    ChatPage
   ],
   providers: [
     StatusBar,
@@ -66,7 +74,11 @@ import { Camera } from '@ionic-native/camera';
     UserServiceProvider,
     Camera,
     ActivityServiceProvider,
-    Geolocation
-  ]
+    Geolocation,
+    WrappedSocket,
+    ChatServiceProvider
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+
 })
 export class AppModule {}

@@ -7,6 +7,7 @@ export class Usuario {
     email: string;
     password: string;
     tags: string[];
+    notificaciones: string[];
     estrellas: number;
     imagen: string;
     horasUsuario: number;
@@ -23,6 +24,7 @@ export class Usuario {
         this.email = "";
         this.password = "";
         this.tags = [];
+        this.notificaciones = [];
         this.estrellas = 0;
         this.imagen = "";
         this.horasUsuario = 0;

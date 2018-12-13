@@ -28,6 +28,8 @@ export class Actividad {
         this.contadorEstrellasActividad = 0;
         this.ubicacion = "";
         this.localizacion = [];
+
+        //
     }
 }
 

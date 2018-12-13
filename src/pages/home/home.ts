@@ -8,6 +8,7 @@ import { Login } from '../../app/login';
 import { Usuario } from '../../app/usuario';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
+import {Socket} from "ng-socket-io";
 
 @Component({
   selector: 'page-home',
@@ -21,7 +22,11 @@ export class HomePage {
   login: Login;
   usuario: Usuario;
 
-  constructor(public navCtrl: NavController, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,
+              private userServiceProvider: UserServiceProvider,
+              public storage: Storage,
+              public alertCtrl: AlertController,
+              public socket: Socket) {
   }
   ponerDatos(){
     this.login = {
@@ -41,12 +46,14 @@ export class HomePage {
         this.showAlert();
       }else{
         //cambio a la app
+        this.socket.connect();
+        this.socket.emit('set-username', this.username);
         this.navCtrl.setRoot(SideMenuPage);
         //this.navCtrl.setRoot(MenuPrincipalPage);
       }
     });
-    
-    
+
+
 
   }
   goRegister(){
