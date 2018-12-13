@@ -9,6 +9,8 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
 import { ObjetoDeNickYEstado } from '../../app/objetoDeNickYEstado';
 
+import {ChatPage} from "../chat/chat";
+import {Usuario} from "../../app/usuario";
 /**
  * Generated class for the MostrarActividadPage page.
  *
@@ -31,6 +33,8 @@ export class MostrarActividadPage {
   notificaciones: Notificaciones;
   
   nickyestado: ObjetoDeNickYEstado;
+  usuario: Usuario;
+  propietario: Usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
     this.actividad = new Actividad();
@@ -45,7 +49,15 @@ export class MostrarActividadPage {
     this.actividadAnterior = this.navParams.get('act');
 
     this.tituloAnterior = this.actividadAnterior.titulo;
+    this.usuario = this.navParams.get('usuario');
     this.notificaciones = new Notificaciones();
+    this.getUser(this.actividad.propietario);
+  }
+
+  getUser(nick: string) {
+    this.userServiceProvider.getUsuario(nick).subscribe( data => {
+      this.propietario = data;
+    });
   }
 
   showAlert1() {
@@ -88,29 +100,16 @@ export class MostrarActividadPage {
               //this.nickyestado.idUser = val;
               
             });
-
-
-
-            //proba amb array
-          //this.storage.get('nick').then(val => {
-          //  this.userServiceProvider.getUsuario(val).subscribe( data =>{
-          //    //this.nickyestado.idUser = data._id;
-          //    console.log(data._id);
-          //    //this.nickyestado.estado = 1;
-
-          //  
-          //  this.a = [data._id ,'1'];
-          //  this.actividad.clientes.push(this.a);
-          //  //console.log('estado'+this.nickyestado.estado);
-          //  //console.log('nick'+this.nickyestado.idUser);
-          //  //console.log('los clientes son ' + this.actividad.clientes[0].idUser);
-          //  this.actualizar();
-
-          //  });
-          //  //this.nickyestado.idUser = val;
-          //  
-          //});
             
+           // this.usuario.notificaciones.push(this.storage.get('nick'));
+           // this.notificaciones.dueñoActividad=this.actividad.propietario;
+            this.storage.get('nick').then(val => {
+              this.usuario.notificaciones.push(val);
+             // this.notificaciones.participanteActividad = val;
+            });
+          //  this.notificaciones.flag=1;
+            this.userServiceProvider.postEnvioNotificaciones(this.usuario).subscribe( data => {this.navCtrl.pop()}, err => {});
+
           }
         }
       ]
@@ -131,6 +130,12 @@ export class MostrarActividadPage {
 
   contactar(){
 //Aqui se iniciarlizaria un chat que le debería tocar a Bruno
+    this.navCtrl.push(ChatPage,
+      {
+        from: this.usuario,
+        to: this.propietario,
+        actividad: this.actividad._id
+      });
   }
   solicitar(){
     this.showAlert1();
@@ -147,5 +152,6 @@ export class MostrarActividadPage {
     alert.present();
   }
   
+
 
 }

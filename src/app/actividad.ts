@@ -1,4 +1,5 @@
 import { ObjetoDeNickYEstado } from "./objetoDeNickYEstado";
+import {Room} from "./room";
 
 
 export class Actividad {
@@ -9,6 +10,8 @@ export class Actividad {
     estrellas:number;
     tags: string[];
     propietario: string;
+    rooms: Room[];
+    fullRooms: any[];
     clientes: ObjetoDeNickYEstado[];
     //clientes:  [string[],number[]];
     horasActividad: number;
@@ -23,12 +26,15 @@ export class Actividad {
         this.descripcion = "";
         this.estrellas = 0;
         this.propietario = "";
+        this.rooms = [];
         this.tags = [];
         this.clientes = [];
         this.horasActividad = 0;
         this.contadorEstrellasActividad = 0;
         this.ubicacion = "";
         this.localizacion = [];
+
+        //
     }
 }
 

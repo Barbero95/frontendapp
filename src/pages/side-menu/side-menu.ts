@@ -36,22 +36,19 @@ export class SideMenuPage {
   estrellas: number = 0;
   usuario: Usuario;
   foto = null;
+  //caso primero de cargar foto del backend
+  //this.foto = "http://localhost:3000/uploads/" + this.nick + ".png";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController,public statusBar: StatusBar, 
     public splashScreen: SplashScreen, public platform: Platform, private userServiceProvider: UserServiceProvider, public storage: Storage,public alertCtrl: AlertController) {
       
       console.log("**** CONSTRUCTOR ****");
-
+      this.usuario = new Usuario();
       this.storage.get('nick').then( (data) => {
         this.nick = data;
         console.log("propietario valor ya guardado: " + this.nick);
         this.inicio();
         this.rootPage = MenuPrincipalPage;
-        //cargamos la foto
-        this.foto = "http://localhost:3000/uploads/" + this.nick + ".png";
-        if(this.foto){
-          this.foto = "/assets/images/porDefecto.png";
-        }
       });
 
       this.pages = [
@@ -80,8 +77,7 @@ export class SideMenuPage {
     this.userServiceProvider.getUsuario(this.nick).subscribe( data => {
       console.log("**** GET USUARIO *****", JSON.stringify(data));
       this.usuario = data;
-      this.nick = this.usuario.nick;
-      this.estrellas = this.usuario.estrellas;
+      this.foto = this.usuario.imagen;
       console.log("Side nick en data" + data.nick);
     });
 

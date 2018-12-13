@@ -6,6 +6,10 @@ import { Usuario } from '../../app/usuario';
 import { Actividad } from '../../app/actividad';
 import { AlertController } from 'ionic-angular';
 import {EditarActividadPage} from "../editar-actividad/editar-actividad";
+import {ChatServiceProvider} from "../../providers/chat-service/chat-service";
+import {ChatPage} from "../chat/chat";
+import {ChatUser} from "../../app/chatUser";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 
 
@@ -24,7 +28,13 @@ export class CatalogoPage {
   actividades: Actividad[];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public chatService: ChatServiceProvider,
+              public userService: UserServiceProvider,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              private activityServiceProvider: ActivityServiceProvider,
+              public storage: Storage,
+              public alertCtrl: AlertController) {
     //es como iniciaar el local storage si no no obtenemos lso datos
     this.storage.get('nick').then( (nick) => {
       this.propietario = nick;
@@ -43,6 +53,16 @@ export class CatalogoPage {
     //pedimos el usuario
     this.activityServiceProvider.getActividadesPropietario(this.propietario).subscribe( (activitats) => {
       this.actividades = activitats;
+      console.log(this.actividades);
+      this.actividades.forEach((actividad, index) => {
+        actividad.rooms.forEach(room => {
+          this.chatService.getChatRoomById(room).subscribe(fullRoom => {
+            console.log(fullRoom, index, this.actividades[index]);
+            this.actividades[index].fullRooms = [];
+            this.actividades[index].fullRooms.push(fullRoom);
+          })
+        })
+      })
     });
 
   }
@@ -87,5 +107,22 @@ export class CatalogoPage {
 
 
   }
+
+  contactar(from : ChatUser, to : ChatUser, actividad){
+    this.userService.getUsuario(from.userName).subscribe(from => {
+      let fromUser = from;
+      this.userService.getUsuario(to.userName).subscribe(to => {
+        this.navCtrl.push(ChatPage,
+          {
+            from: fromUser,
+            to: to,
+            actividad: actividad
+          });
+      });
+
+    });
+
+  }
+
 
 }

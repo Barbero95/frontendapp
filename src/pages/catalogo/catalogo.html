@@ -23,6 +23,16 @@
       <ion-card-content>
         Descripción: {{item.descripcion}} <hr>
         Tags: {{item.tags}} <hr>
+        <ion-chip class="listaTags" *ngFor="let room of item.fullRooms">
+          <ion-label *ngIf="propietario === room[0].users[1].userName"
+                      (click)="contactar(room[0].users[0], room[0].users[1], item._id)">
+            {{room[0].users[0].userName}}
+          </ion-label>
+          <ion-label *ngIf="propietario === room[0].users[0].userName"
+                     (click)="contactar(room[0].users[0], room[0].users[1], item._id)">
+            {{room[0].users[1].userName}}
+          </ion-label>
+        </ion-chip>
       </ion-card-content>
     </ion-card>
   </ion-list>

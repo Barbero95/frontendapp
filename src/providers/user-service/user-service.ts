@@ -28,7 +28,7 @@ export class UserServiceProvider {
 
   /* *********** GET *********** */
 
-  getUsuario(nick: string): Observable<Usuario> {
+  getUsuario(nick: any): Observable<Usuario> {
     const url = `${this.usuariosUrl}/${nick}`;
     return this.http.get<Usuario>(url);
   }
@@ -37,22 +37,26 @@ export class UserServiceProvider {
     const url = `${this.usuariosUrl}/login/${username}/${password}`;
     return this.http.get<Usuario>(url);
   }
-  getEnvioNotificaciones(notificaciones: Notificaciones): Observable<Notificaciones> {
-    const url = `${this.usuariosUrl}/Enotificaciones/${notificaciones.dueñoActividad}/${notificaciones.participanteActividad}/${notificaciones.flag}`;
+ /* getEnvioNotificaciones(usuario: Usuario): Observable<Notificaciones> {
+    const url = `${this.usuariosUrl}/Enotificaciones/${usuario.nick}/${usuario.notificaciones.pop()}}`;
     return this.http.get<Notificaciones>(url);
-  }
+  }*/
+
   getReciboNotificaciones(dueñoActividad: string): Observable<Notificaciones> {
     const url = `${this.usuariosUrl}/Rnotificaciones/${dueñoActividad}`;
     return this.http.get<Notificaciones>(url);
   }
-  
-  
+
+
   /* *********** POST *********** */
   validarUser(log: Login): Observable<Usuario> {
     const url = `${this.usuariosUrl}/validacion`
     return this.http.post<Usuario>(url, log, httpOptions);
   }
-
+  postEnvioNotificaciones (usuario: Usuario): Observable<Usuario> {
+    const url = `${this.usuariosUrl}/ENotificaciones`
+    return this.http.post<Usuario>(url, usuario, httpOptions);
+  }
   postUsuario (usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.usuariosUrl, usuario, httpOptions);
   }
@@ -64,7 +68,7 @@ export class UserServiceProvider {
   }
 
   /* *********** PUT *********** */
-  // Update the user on the server 
+  // Update the user on the server
   updateUsuario (usuario: Usuario): Observable<any> {
     const url = `${this.usuariosUrl}/${usuario.nick}`;
     return this.http.put(url, usuario, httpOptions);

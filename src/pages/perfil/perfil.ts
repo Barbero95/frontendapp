@@ -21,15 +21,7 @@ import { EditarPerfilPage } from '../editar-perfil/editar-perfil';
 export class PerfilPage {
 
   propietario: string = "";
-
-  nick: string = "";
-  nombre: string = "";
-  apellido: string = "";
-  email: string = "";
-  estrellas: number = 0;
-  tags: string[] = [""];
-  imagen: string = "";
-  foto;
+  foto = null;
   usuario: Usuario;
 
 
@@ -49,10 +41,11 @@ export class PerfilPage {
   inicio(){
     this.userServiceProvider.getUsuario(this.propietario).subscribe( data => {
       this.usuario = data;
+      this.foto = this.usuario.imagen;
     });
 
-    //cargamos la foto
-    this.foto = "http://localhost:3000/uploads/" + this.propietario + ".png";
+    //cargamos la foto modelo anterior
+    //this.foto = "http://localhost:3000/uploads/" + this.propietario + ".png";
   }
 
   goEditarPerfil(){

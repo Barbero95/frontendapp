@@ -38,7 +38,15 @@ export class RegisterPage {
       //alert("La contraseña no es igual");
     }
     else{
-      this.userServiceProvider.postUsuario(this.usuario).subscribe( data => {this.navCtrl.push(HomePage)}, err => console.error('Ops: ' + err.message));
+      //guardamos en la url de foto de perfil la de por defecto
+      this.usuario.imagen = "/assets/images/porDefecto.png";
+      //iniciamos las horas del nuevo usuario
+      this.usuario.horasUsuario = 20;
+      //enviamos el usuario al backend
+      this.userServiceProvider.postUsuario(this.usuario).subscribe( data => {this.navCtrl.push(HomePage)}, err => {
+        console.error('Ops: ' + err.message);
+        this.showAlert3();
+      });
     }
   }
 
