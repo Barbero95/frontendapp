@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Actividades en curso</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-card *ngFor="let item of actividades2">
+      <ion-card-header>
+        {{item.titulo}}
+        <!--<button ion-button icon-end color="danger" clear icon-only (click)="goToEditarActividad(item)">
+          <ion-icon small  name='brush' is-active="false"></ion-icon>
+        </button>
+        <button ion-button icon-end color="danger" clear icon-only (click)="eliminarActivity(item)">
+          <ion-icon small  name='trash' is-active="false"></ion-icon>
+        </button>-->
+        
+        <button ion-button icon-end color="checkmark-circle" clear icon-only (click)="aceptarActivity(item)">
+          <ion-icon small  name='checkmark-circle' is-active="false"></ion-icon>
+        </button>
+        <button ion-button icon-end color="danger" clear icon-only (click)="declinarActivity(item)">
+          <ion-icon small  name='close-circle' is-active="false"></ion-icon>
+        </button>
+        <button ion-button icon-end color="dark" clear icon-only (click)="finalitzarActivity(item)">
+          <ion-icon small  name='pulse' is-active="false"></ion-icon>
+        </button>
+        
+        
+      </ion-card-header>
+      <ion-card-content>
+        <!--Descripción: {{item.descripcion}} <hr>
+        Tags: {{item.tags}} <hr>
+        Cliente: {{cliente}} <hr>-->
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+</ion-content>

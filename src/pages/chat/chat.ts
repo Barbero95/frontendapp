@@ -14,6 +14,7 @@ export class ChatPage {
 
   userFrom: Usuario;
   userTo: Usuario;
+  actividad: any;
   message: String;
   messages = [];
   users: {};
@@ -28,9 +29,12 @@ export class ChatPage {
               public chatService: ChatServiceProvider) {
     this.userFrom = this.navParams.get('from');
     this.userTo = this.navParams.get('to');
+    this.actividad = this.navParams.get('actividad');
+
     this.users = {
       userFrom: this.userFrom,
-      userTo: this.userTo
+      userTo: this.userTo,
+      actividad: this.actividad
     };
     this.socket.emit('subscribe', this.users);
     console.log(this.users);

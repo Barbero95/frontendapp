@@ -3,8 +3,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Actividad } from '../../app/actividad';
 import { AlertController } from 'ionic-angular';
 import { Notificaciones } from '../../app/notificaciones';
+import { MenuPrincipalPage } from '../menu-principal/menu-principal';
 import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
+import { ObjetoDeNickYEstado } from '../../app/objetoDeNickYEstado';
+
 import {ChatPage} from "../chat/chat";
 import {Usuario} from "../../app/usuario";
 /**
@@ -21,15 +25,34 @@ import {Usuario} from "../../app/usuario";
 })
 export class MostrarActividadPage {
 
+  actividadAnterior: Actividad;
+  tituloAnterior: string;
+  a:string[];
+
   actividad: Actividad;
   notificaciones: Notificaciones;
+  
+  nickyestado: ObjetoDeNickYEstado;
   usuario: Usuario;
   propietario: Usuario;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
     this.actividad = new Actividad();
+<<<<<<< HEAD
     this.usuario = new Usuario();
+=======
+
+    this.actividadAnterior = new Actividad();
+    
+
+    this.nickyestado = new ObjetoDeNickYEstado();
+
+>>>>>>> c6396faab4294c3b3fed5870176f946189eac108
     this.actividad = this.navParams.get('act');
+
+    this.actividadAnterior = this.navParams.get('act');
+
+    this.tituloAnterior = this.actividadAnterior.titulo;
     this.usuario = this.navParams.get('usuario');
     this.notificaciones = new Notificaciones();
     this.getUser(this.actividad.propietario);
@@ -60,6 +83,28 @@ export class MostrarActividadPage {
             // el candidato que la pide y una flag
             // esta flag indicará si se recibe una notificación rollo twitter
             // si la notificación ya se ha leído, ya no aparecerá
+          //this.notificaciones.dueñoActividad=this.actividad.propietario;
+          //this.storage.get('nick').then(val => {
+          //  this.notificaciones.participanteActividad = val;
+          //});
+          //this.notificaciones.flag=1;
+          //this.userServiceProvider.getEnvioNotificaciones(this.notificaciones).subscribe( data => this.navCtrl.pop(), err => {});
+            this.storage.get('nick').then(val => {
+              this.userServiceProvider.getUsuario(val).subscribe( data =>{
+                this.nickyestado.User = data._id;
+                console.log(data._id);
+                this.nickyestado.estado = 1;
+              this.actividad.clientes.push(this.nickyestado);
+              //console.log('estado'+this.nickyestado.estado);
+              console.log('nick'+this.nickyestado.User);
+              console.log('los clientes son ' + this.actividad.clientes[0].User);
+              this.actualizar();
+
+              });
+              //this.nickyestado.idUser = val;
+              
+            });
+            
            // this.usuario.notificaciones.push(this.storage.get('nick'));
            // this.notificaciones.dueñoActividad=this.actividad.propietario;
             this.storage.get('nick').then(val => {
@@ -76,11 +121,25 @@ export class MostrarActividadPage {
     alert.present();
   }
 
+ actualizar(){
+  this.activityServiceProvider.updateActividad(this.actividad,this.tituloAnterior).subscribe( data => {
+    if(data != null){
+      this.navCtrl.setRoot(MenuPrincipalPage);
+    }else{
+      this.showAlert3();
+    }
+  });
 
+ }
 
   contactar(){
 //Aqui se iniciarlizaria un chat que le debería tocar a Bruno
-    this.navCtrl.push(ChatPage, {from: this.usuario, to: this.propietario});
+    this.navCtrl.push(ChatPage,
+      {
+        from: this.usuario,
+        to: this.propietario,
+        actividad: this.actividad._id
+      });
   }
   solicitar(){
     this.showAlert1();
@@ -88,6 +147,15 @@ export class MostrarActividadPage {
   cancelar(){
     this.navCtrl.pop();
   }
+  showAlert3() {
+    const alert = this.alertCtrl.create({
+      title: 'Solicitar Actividad',
+      subTitle: 'No se ha podido solicitar la actividad',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
 
 
 }

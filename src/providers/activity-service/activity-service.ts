@@ -41,7 +41,7 @@ export class ActivityServiceProvider {
   getActividadesPropietario (propietario: String): Observable<Actividad[]>
   {
     const url = `${this.actividadesUrl}/propietario/${propietario}`
-
+    
     return this.http.get<Actividad[]>(url);
   }
 
@@ -85,6 +85,7 @@ export class ActivityServiceProvider {
   /* *********** PUT *********** */
   // update the activity on the server
   updateActividad (actividad: Actividad, title: string): Observable<any> {
+    //console.log('updaet clientes usuario: ' + actividad.clientes[0]);
     const url = `${this.actividadesUrl}/update/${title}`;
     return this.http.put(url, actividad, httpOptions);
   }

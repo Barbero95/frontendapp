@@ -1,4 +1,8 @@
 export class ObjetoDeNickYEstado {
-    idUser:  string;
+    User:  string;
     estado: number;
+    constructor(){
+        this.User = "";
+        this.estado = 0;
+    }
 }
