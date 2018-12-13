@@ -109,30 +109,18 @@ export class MenuPrincipalPage {
         //this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
       
-<<<<<<< HEAD
-      /*
-      if (this.usuario.notificaciones.length === 0){
-        this.showAlert6();
-      }
-      else
-      this.showAlert3();
-      */
-    });
-    
-=======
     });
       this.userServiceProvider.getReciboNotificaciones(this.nick).subscribe(
         data=>{
         if (data != null){
-        this.showAlert3}
+        this.showAlert3();}
         else
-        this.showAlert6
+        this.showAlert6();
     },err => {
-        this.showAlert8}
+        this.showAlert8();}
       );
  
 
->>>>>>> 444c5d5e5b0468b24f179197a200f7f5e38d868b
   }
 
   //Barra de busqueda: buscamos por palabra clave
@@ -219,7 +207,6 @@ export class MenuPrincipalPage {
               this.actualizar();
               this.usuario.notificaciones.push(this.nick);
               });
-              this.userServiceProvider.postEnvioNotificaciones(this.usuario).subscribe( data => {}, err => {});
           }
         }
       ]
