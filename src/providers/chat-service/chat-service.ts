@@ -26,6 +26,17 @@ export class ChatServiceProvider {
     return subject;
   }
 
+  getChatRoomById(room) : Observable<any>{
+    let subject = new Subject<any>();
+    this.http.post<any>(`${this.server}/chat/getRoomById`, {room: room}, httpOptions).subscribe(data => {
+      if(data) {
+        subject.next(data);
+        subject.complete();
+      }
+    });
+    return subject;
+  }
+
   getMessages(room) : Observable<any>{
     let subject = new Subject<any>();
     this.http.post<any>(`${this.server}/chat/getMessages`, room, httpOptions).subscribe(data => {

@@ -79,7 +79,12 @@ export class MostrarActividadPage {
 
   contactar(){
 //Aqui se iniciarlizaria un chat que le debería tocar a Bruno
-    this.navCtrl.push(ChatPage, {from: this.usuario, to: this.propietario});
+    this.navCtrl.push(ChatPage,
+      {
+        from: this.usuario,
+        to: this.propietario,
+        actividad: this.actividad._id
+      });
   }
   solicitar(){
     this.showAlert1();

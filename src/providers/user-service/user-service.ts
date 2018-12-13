@@ -28,7 +28,7 @@ export class UserServiceProvider {
 
   /* *********** GET *********** */
 
-  getUsuario(nick: string): Observable<Usuario> {
+  getUsuario(nick: any): Observable<Usuario> {
     const url = `${this.usuariosUrl}/${nick}`;
     return this.http.get<Usuario>(url);
   }
@@ -46,8 +46,8 @@ export class UserServiceProvider {
     const url = `${this.usuariosUrl}/Rnotificaciones/${dueñoActividad}`;
     return this.http.get<Notificaciones>(url);
   }
-  
-  
+
+
   /* *********** POST *********** */
   validarUser(log: Login): Observable<Usuario> {
     const url = `${this.usuariosUrl}/validacion`
@@ -68,7 +68,7 @@ export class UserServiceProvider {
   }
 
   /* *********** PUT *********** */
-  // Update the user on the server 
+  // Update the user on the server
   updateUsuario (usuario: Usuario): Observable<any> {
     const url = `${this.usuariosUrl}/${usuario.nick}`;
     return this.http.put(url, usuario, httpOptions);
