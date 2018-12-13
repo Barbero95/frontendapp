@@ -38,6 +38,7 @@ export class MostrarActividadPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
     this.actividad = new Actividad();
+    this.usuario = new Usuario();
 
     this.actividadAnterior = new Actividad();
     

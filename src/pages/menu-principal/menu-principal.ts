@@ -118,7 +118,7 @@ export class MenuPrincipalPage {
     },
         this.showAlert8
       );
-
+ 
       });
 
   }
@@ -135,19 +135,41 @@ export class MenuPrincipalPage {
       //buscamos la palabra por distancia (gps) y tag
       this.search.tag = this.searchString;
       this.search.distance = this.distancia;
+      //opción 1 de busqueda
+      /*
       this.activityServiceProvider.postActividadesGPS(this.search).subscribe( (acts) => {
-        if(acts !=null){
+        if(acts != [] && acts != null){
           this.actividades = acts;
         }
         this.activityServiceProvider.postBusquedaGeoEnDescripcion(this.search).subscribe( (acts2) => {
-          if(acts2 !=null){
-            this.actividades2 = acts2;
+          if(acts2 != [] && acts2 != null){
+            for(let i=0; i<this.actividades.length; i++){
+              for (let y=0; y<acts2.length; y++){
+                if(this.actividades[i].titulo != acts2[y].titulo && this.actividades[i].propietario != acts2[y].propietario){
+                  this.actividades2.push(acts2[y]);
+                }
+              }
+            }
           }
-          if (this.actividades.length == 0 || this.actividades2.length == 0){
+          if (this.actividades.length == 0 && this.actividades2.length == 0){
             this.showAlert7;
           }
         });
       });
+      */
+     //segunda forma
+     
+      this.activityServiceProvider.postActividadesGPS(this.search).subscribe( (acts) => {
+          this.actividades = acts;
+      });
+      
+      this.activityServiceProvider.postBusquedaGeoEnDescripcion(this.search).subscribe( (acts2) => {
+        this.actividades2 = acts2;
+      });
+      
+      if(this.actividades.length == 0 && this.actividades2.length == 0){
+        console.log("no hay actividades cercanas");
+      }
       
     }
   }
