@@ -109,6 +109,7 @@ export class MenuPrincipalPage {
         //this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
       
+<<<<<<< HEAD
       /*
       if (this.usuario.notificaciones.length === 0){
         this.showAlert6();
@@ -118,6 +119,22 @@ export class MenuPrincipalPage {
       */
     });
     
+=======
+    });
+    this.storage.get('nick').then(val => {
+      this.userServiceProvider.getReciboNotificaciones(val).subscribe(
+        data=>{
+        if (data != null){
+        this.showAlert3}
+        else
+        this.showAlert6
+    },
+        this.showAlert8
+      );
+ 
+      });
+
+>>>>>>> 444c5d5e5b0468b24f179197a200f7f5e38d868b
   }
 
   //Barra de busqueda: buscamos por palabra clave
@@ -283,8 +300,8 @@ export class MenuPrincipalPage {
   }
   showAlert8() {
     const alert = this.alertCtrl.create({
-      title: 'Notificaciones',
-      subTitle: 'Tienes notificaciones.',
+      title: 'Error',
+      subTitle: 'Error.',
       buttons: ['OK']
     });
     alert.present();

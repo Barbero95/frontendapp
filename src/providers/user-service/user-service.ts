@@ -53,9 +53,9 @@ export class UserServiceProvider {
     const url = `${this.usuariosUrl}/validacion`
     return this.http.post<Usuario>(url, log, httpOptions);
   }
-  postEnvioNotificaciones (usuario: Usuario): Observable<Usuario> {
+  postEnvioNotificaciones (notificaciones: Notificaciones): Observable<Usuario> {
     const url = `${this.usuariosUrl}/ENotificaciones`
-    return this.http.post<Usuario>(url, usuario, httpOptions);
+    return this.http.put<Usuario>(url, notificaciones, httpOptions);
   }
   postUsuario (usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.usuariosUrl, usuario, httpOptions);

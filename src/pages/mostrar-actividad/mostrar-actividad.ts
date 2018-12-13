@@ -103,14 +103,15 @@ export class MostrarActividadPage {
             });
             
            // this.usuario.notificaciones.push(this.storage.get('nick'));
-           // this.notificaciones.dueñoActividad=this.actividad.propietario;
             this.storage.get('nick').then(val => {
-              this.usuario.notificaciones.push(val);
+              this.notificaciones.dueñoActividad=this.actividad.propietario;
+              this.notificaciones.participanteActividad=val;
+              this.notificaciones.flag = 1;
+
+              this.userServiceProvider.postEnvioNotificaciones(this.notificaciones).subscribe( data => {this.showAlert4}, err => {});
+
              // this.notificaciones.participanteActividad = val;
             });
-          //  this.notificaciones.flag=1;
-            this.userServiceProvider.postEnvioNotificaciones(this.usuario).subscribe( data => {this.navCtrl.pop()}, err => {});
-
           }
         }
       ]
@@ -148,6 +149,14 @@ export class MostrarActividadPage {
     const alert = this.alertCtrl.create({
       title: 'Solicitar Actividad',
       subTitle: 'No se ha podido solicitar la actividad',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  showAlert4() {
+    const alert = this.alertCtrl.create({
+      title: 'Solicitar Actividad',
+      subTitle: 'Actividad solicitada',
       buttons: ['OK']
     });
     alert.present();
