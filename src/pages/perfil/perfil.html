@@ -9,22 +9,43 @@
 
 
 <ion-content padding>
-  <ion-icon class="button-setings" name="settings" (click)="goEditarPerfil()"></ion-icon>
+  <icon-item>
+    <button ion-button class="paraEditar" clear icon-only (click)="goEditarPerfil()">
+      <ion-icon name='brush' is-active="false"></ion-icon>
+    </button>
+    <ion-avatar>
+      <img [src]="foto" class="profile-image-perfil">
+    </ion-avatar>
+  </icon-item>
+  <ion-list align="center">
+    <h2>{{usuario.nick}}</h2>
+    <p>{{usuario.horasUsuario}}</p>
+    <ionic3-star-rating 
+      activeIcon = "ios-star"
+      defaultIcon = "ios-star-outline"
+      activeColor = "#488aff" 
+      defaultColor = "#968A8A"
+      readonly="true"
+      [rating]= "usuario.estrellas">
+    </ionic3-star-rating>
+  </ion-list>
+  <!--<ion-icon class="brush" name="settings" (click)="goEditarPerfil()"></ion-icon>
   <ion-list align="center">
     <div class="item item-avatar">
       <img align="center" src="{{foto}}" class="profile-image-perfil">
       <h2>{{usuario.nick}}</h2>
-      <p>{{usuario.estrellas}}</p>
+      <p>{{usuario.horasUsuario}}</p>
       <ionic3-star-rating 
         activeIcon = "ios-star"
         defaultIcon = "ios-star-outline"
         activeColor = "#488aff" 
-        defaultColor = "#f4f4f4"
+        defaultColor = "#968A8A"
         readonly="true"
         [rating]= "usuario.estrellas">
       </ionic3-star-rating>
     </div>
   </ion-list>
+  -->
   <ion-list align="center" margin-top="10px">  
     <ion-item>
       <ion-label>Nombre: </ion-label>

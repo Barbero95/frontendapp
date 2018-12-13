@@ -36,6 +36,7 @@ export class PerfilPage {
       console.log("propietario valor ya guardado: " + this.propietario);
       this.inicio();
     });
+    
   }
 
   inicio(){

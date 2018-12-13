@@ -11,15 +11,17 @@
 
   <ion-list>
     <ion-card *ngFor="let item of actividades">
-      <ion-card-header>
-        {{item.titulo}}
-        <button ion-button icon-end color="danger" clear icon-only (click)="goToEditarActividad(item)">
-          <ion-icon small  name='brush' is-active="false"></ion-icon>
+      <ion-item>
+        <button ion-button item-end color="danger" clear icon-only (click)="goToEditarActividad(item)">
+          <ion-icon small name='brush' is-active="false"></ion-icon>
         </button>
-        <button ion-button icon-end color="danger" clear icon-only (click)="eliminarActivity(item)">
-          <ion-icon small  name='trash' is-active="false"></ion-icon>
+        <button ion-button item-end color="danger" clear icon-only (click)="eliminarActivity(item)">
+          <ion-icon small name='trash' is-active="false"></ion-icon>
         </button>
-      </ion-card-header>
+        <ion-card-header>
+          {{item.titulo}}
+        </ion-card-header>
+      </ion-item>
       <ion-card-content>
         Descripción: {{item.descripcion}} <hr>
         Tags: {{item.tags}} <hr>

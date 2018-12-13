@@ -9,6 +9,7 @@ import { Actividad } from '../../app/actividad';
 import { MostrarActividadPage } from '../mostrar-actividad/mostrar-actividad';
 import { Busqueda } from '../../app/busqueda';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ObjetoDeNickYEstado } from '../../app/objetoDeNickYEstado';
 
 
 
@@ -32,6 +33,8 @@ export class MenuPrincipalPage {
   actividadesEncontradas: Actividad[];
   search: Busqueda;
   actividad1: Actividad;
+  nickyestado: ObjetoDeNickYEstado;
+  actividadSolicitada: Actividad;
 
   //coge los tags del usuario en tagsBusqueda y tagABuscra coge cada tga del array de tags del usuario
   tagsBusqueda: string[] = [];
@@ -54,6 +57,8 @@ export class MenuPrincipalPage {
     this.actividades = [];
     this.actividades2 = [];
     this.actividadesEncontradas = [];
+    this.nickyestado = new ObjetoDeNickYEstado();
+    this.actividadSolicitada = new Actividad();
 
     this.storage.get('nick').then( (nick) => {
       console.log("propietario valor directo de storage: " + nick);
@@ -88,7 +93,7 @@ export class MenuPrincipalPage {
           this.tagABuscar = this.tagsBusqueda[i];
           console.log( "paso2: " + this.tagABuscar);
           this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[i]).subscribe( (acts) => {
-            if (acts != null){
+            if (acts != []){
               this.actividadesEncontradas = acts;
               for (let i=0; i<this.actividadesEncontradas.length; i++){
                 if(this.actividadesEncontradas[i].propietario != this.nick){
@@ -98,44 +103,28 @@ export class MenuPrincipalPage {
             } else {
               this.showAlert5();
             }
-            if (this.actividades.length == 0){
-              this.showAlert5();
-            }
           });
         }
 ///esto era lo que tenia--------------------------
         //this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
       
-
+      /*
       if (this.usuario.notificaciones.length === 0){
         this.showAlert6();
       }
       else
       this.showAlert3();
-   
+      */
     });
-      
-//----------------------------------------      
-//Esto lo que ha venido
     
-    if (this.usuario.notificaciones.length === 0){
-      this.showAlert6();
-    }
-    else
-    this.showAlert8();
-    
-
-//----------------------------------------------
-    
-
   }
 
   //Barra de busqueda: buscamos por palabra clave
   goSearch(){
     if(this.searchString.length == 0){
       this.actividades = [];
-      this.showAlert4;
+      this.showAlert4();
     }else{
       //buscamos la palabra por tag
       //this.activityServiceProvider.getActividadesPorTagPerfil(this.searchString).subscribe( (acts) => this.actividades = acts);
@@ -186,6 +175,52 @@ export class MenuPrincipalPage {
   goMostrarActividad (actividad: Actividad){
     this.navCtrl.push(MostrarActividadPage, {'act': actividad, 'usuario': this.usuario});
   }
+
+  //solicitar actividad
+  solicitarActividad(item) {
+    this.actividadSolicitada = item;
+    const alert = this.alertCtrl.create({
+      title: 'Solicitar actividad',
+      subTitle: '¿Estás seguro de que deseas solicitar una actividad con el usuario que colgó la oferta? Se recomienda contactar antes con él',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancelar',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+              this.userServiceProvider.getUsuario(this.nick).subscribe( data =>{
+                this.nickyestado.User = data._id;
+                console.log(data._id);
+                this.nickyestado.estado = 1;
+              this.actividadSolicitada.clientes.push(this.nickyestado);
+              //console.log('estado'+this.nickyestado.estado);
+              console.log('nick'+this.nickyestado.User);
+              console.log('los clientes son ' + this.actividadSolicitada.clientes[0].User);
+              this.actualizar();
+              this.usuario.notificaciones.push(this.nick);
+              });
+              this.userServiceProvider.postEnvioNotificaciones(this.usuario).subscribe( data => {}, err => {});
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  actualizar(){
+    this.activityServiceProvider.updateActividad(this.actividadSolicitada,this.actividadSolicitada.titulo).subscribe( data => {
+      if(data != null){
+        this.navCtrl.setRoot(MenuPrincipalPage);
+      }else{
+        this.showAlert9();
+      }
+    });
+  
+   }
 
   //Debes rellenar el perfil
   showAlert1() {
@@ -254,5 +289,14 @@ export class MenuPrincipalPage {
     });
     alert.present();
   }
+  showAlert9() {
+    const alert = this.alertCtrl.create({
+      title: 'Solicitar Actividad',
+      subTitle: 'No se ha podido solicitar la actividad',
+      buttons: ['OK']
+    });
+    alert.present(); 
+  }
+
 
 }
