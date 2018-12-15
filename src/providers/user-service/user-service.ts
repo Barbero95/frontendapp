@@ -55,7 +55,7 @@ export class UserServiceProvider {
   }
   postEnvioNotificaciones (notificaciones: Notificaciones): Observable<Usuario> {
     const url = `${this.usuariosUrl}/ENotificaciones`
-    return this.http.put<Usuario>(url, notificaciones, httpOptions);
+    return this.http.post<Usuario>(url, notificaciones, httpOptions);
   }
   postUsuario (usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.usuariosUrl, usuario, httpOptions);

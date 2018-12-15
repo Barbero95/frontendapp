@@ -113,12 +113,7 @@ export class MostrarActividadPage {
             // el candidato que la pide y una flag
             // esta flag indicará si se recibe una notificación rollo twitter
             // si la notificación ya se ha leído, ya no aparecerá
-            //this.notificaciones.dueñoActividad=this.actividad.propietario;
-            //this.storage.get('nick').then(val => {
-            //  this.notificaciones.participanteActividad = val;
-            //});
-            //this.notificaciones.flag=1;
-            //this.userServiceProvider.getEnvioNotificaciones(this.notificaciones).subscribe( data => this.navCtrl.pop(), err => {});
+  
             this.storage.get('nick').then(val => {
               this.userServiceProvider.getUsuario(val).subscribe( data =>{
                 this.nickyestado.User = data._id;
@@ -131,19 +126,21 @@ export class MostrarActividadPage {
                 this.actualizar();
 
               });
-              //this.nickyestado.idUser = val;
 
             });
 
-            // this.usuario.notificaciones.push(this.storage.get('nick'));
             this.storage.get('nick').then(val => {
               this.notificaciones.dueñoActividad=this.actividad.propietario;
-              this.notificaciones.participanteActividad=val;
+              this.notificaciones.participanteActividad=this.usuario._id;
+              this.notificaciones.tituloActividad = this.actividad._id;
               this.notificaciones.flag = 1;
 
-              this.userServiceProvider.postEnvioNotificaciones(this.notificaciones).subscribe( data => {this.showAlert4}, err => {});
+              this.userServiceProvider.postEnvioNotificaciones(this.notificaciones).subscribe( data => {
+                
+                  this.showAlert4()
+                },
+                 err => {this.showAlert5()});
 
-              // this.notificaciones.participanteActividad = val;
             });
           }
         }
@@ -163,6 +160,14 @@ export class MostrarActividadPage {
     const alert = this.alertCtrl.create({
       title: 'Solicitar Actividad',
       subTitle: 'Actividad solicitada',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  showAlert5() {
+    const alert = this.alertCtrl.create({
+      title: 'Solicitar Actividad',
+      subTitle: 'La actividad ya está solicitada',
       buttons: ['OK']
     });
     alert.present();
