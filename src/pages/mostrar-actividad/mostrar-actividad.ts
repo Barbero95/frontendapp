@@ -131,8 +131,8 @@ export class MostrarActividadPage {
 
             this.storage.get('nick').then(val => {
               this.notificaciones.dueñoActividad=this.actividad.propietario;
-              this.notificaciones.participanteActividad=this.usuario._id;
-              this.notificaciones.tituloActividad = this.actividad._id;
+              this.notificaciones.participanteActividad=val;
+              this.notificaciones.tituloActividad = this.actividad.titulo;
               this.notificaciones.flag = 1;
 
               this.userServiceProvider.postEnvioNotificaciones(this.notificaciones).subscribe( data => {

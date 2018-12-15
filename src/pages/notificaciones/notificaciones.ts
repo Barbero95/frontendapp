@@ -51,6 +51,11 @@ this.inicio();
      });
 
   }
+  contactar(){
+    
+
+
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NotificacionesPage');
