@@ -1,0 +1,23 @@
+
+<ion-header>
+
+    <ion-navbar>
+      <ion-title>Actividades pendientes</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+  
+      <ion-card *ngFor="let item of notificaciones">
+          <ion-card-header>
+              {{item.tituloActividad}}
+            </ion-card-header>
+          <ion-item>
+          <p>Participante de la actividad: {{item.participanteActividad}}</p>
+          </ion-item>
+      </ion-card>
+
+
+  </ion-content>

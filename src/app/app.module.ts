@@ -21,6 +21,8 @@ import { MostrarActividadPage } from '../pages/mostrar-actividad/mostrar-activid
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
 import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad';
+import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
+
 import { ActividadesEnCursoPage } from '../pages/actividades-en-curso/actividades-en-curso';
 import {ValorarPage} from '../pages/valorar/valorar';
 import { Camera } from '@ionic-native/camera';
@@ -45,6 +47,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     MostrarActividadPage,
     EditarActividadPage,
     ActividadesEnCursoPage,
+    NotificacionesPage,
     ChatPage,
     ValorarPage
   ],
@@ -70,6 +73,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     MostrarActividadPage,
     EditarActividadPage,
     ActividadesEnCursoPage,
+    NotificacionesPage,
     ChatPage,
     ValorarPage
   ],
