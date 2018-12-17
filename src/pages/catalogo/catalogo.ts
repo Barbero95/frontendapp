@@ -55,10 +55,10 @@ export class CatalogoPage {
       this.actividades = activitats;
       console.log(this.actividades);
       this.actividades.forEach((actividad, index) => {
+        this.actividades[index].fullRooms = [];
         actividad.rooms.forEach(room => {
           this.chatService.getChatRoomById(room).subscribe(fullRoom => {
             console.log(fullRoom, index, this.actividades[index]);
-            this.actividades[index].fullRooms = [];
             this.actividades[index].fullRooms.push(fullRoom);
           })
         })

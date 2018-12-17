@@ -73,4 +73,15 @@ export class ChatServiceProvider {
     });
     return subject;
   }
+
+  getMessagesNotSeen(user: Usuario) {
+    let subject = new Subject<any>();
+    this.http.post<any>(`${this.server}/chat/messagesNotSeen`, user, httpOptions).subscribe(data => {
+      if(data) {
+        subject.next(data);
+        subject.complete();
+      }
+    });
+    return subject;
+  }
 }

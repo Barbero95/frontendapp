@@ -20,6 +20,7 @@ export class ChatPage {
   message: String;
   messages = [];
   users: {};
+  chat: {};
 
   room: String;
 
@@ -61,12 +62,12 @@ export class ChatPage {
       this.chatService.getMessages(room).subscribe(async messages => {
         this.messages = messages.messages;
       });
-      let chat = {
+      this.chat = {
         room: this.room,
-        user: this.userFrom._id,
+        user: this.user._id,
         lastView: Date.now()
       };
-      this.chatService.lastView(chat).subscribe();
+      this.chatService.lastView(this.chat).subscribe();
     });
   }
 
@@ -79,7 +80,7 @@ export class ChatPage {
   ionViewDidLeave() {
     let chat = {
       room: this.room,
-      user: this.userFrom._id,
+      user: this.user._id,
       lastView: Date.now()
     };
     this.chatService.lastView(chat).subscribe();
@@ -113,6 +114,12 @@ export class ChatPage {
       this.content.scrollToBottom();
     });
     this.message = "";
+    this.chat = {
+      room: this.room,
+      user: this.user._id,
+      lastView: Date.now()
+    };
+    this.chatService.lastView(this.chat).subscribe();
   }
 
   getMessagesSocket() {

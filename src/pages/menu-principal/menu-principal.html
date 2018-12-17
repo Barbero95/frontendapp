@@ -4,6 +4,9 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Menu Principal</ion-title>
+    <ion-buttons end>
+      <ion-badge  *ngIf="numberMsg != 0">{{numberMsg}}</ion-badge>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -33,10 +36,10 @@
       <ion-card-content>
         Descripción: {{item.descripcion}} <hr>
         Horas: {{item.horasActividad}} <hr>
-        <ionic3-star-rating 
+        <ionic3-star-rating
           activeIcon = "ios-star"
           defaultIcon = "ios-star-outline"
-          activeColor = "#488aff" 
+          activeColor = "#488aff"
           defaultColor = "#968A8A"
           readonly="true"
           [rating]= "item.estrellas">
@@ -51,7 +54,7 @@
             <button ion-button item-right color="checkmark-circle" clear icon-only (click)="goMostrarActividad(item)">Ver</button>
           </ion-col>
         </ion-row>
-        
+
       </ion-card-content>
     </ion-card>
   </ion-list>
