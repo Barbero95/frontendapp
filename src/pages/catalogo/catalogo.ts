@@ -108,7 +108,8 @@ export class CatalogoPage {
 
   }
 
-  contactar(from : ChatUser, to : ChatUser, actividad){
+  contactar(from : ChatUser, to : ChatUser, actividad) {
+    console.log(this.propietario);
     this.userService.getUsuario(from.userName).subscribe(from => {
       let fromUser = from;
       this.userService.getUsuario(to.userName).subscribe(to => {
@@ -116,7 +117,8 @@ export class CatalogoPage {
           {
             from: fromUser,
             to: to,
-            actividad: actividad
+            actividad: actividad,
+            userNick: this.propietario
           });
       });
 

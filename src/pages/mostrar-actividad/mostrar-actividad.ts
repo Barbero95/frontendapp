@@ -33,7 +33,7 @@ export class MostrarActividadPage {
 
   actividad: Actividad;
   notificaciones: Notificaciones;
-  
+
   nickyestado: ObjetoDeNickYEstado;
   usuario: Usuario;
   propietario: Usuario;
@@ -43,7 +43,7 @@ export class MostrarActividadPage {
     this.usuario = new Usuario();
 
     this.actividadAnterior = new Actividad();
-    
+
 
     this.nickyestado = new ObjetoDeNickYEstado();
 
@@ -84,7 +84,8 @@ export class MostrarActividadPage {
       {
         from: this.usuario,
         to: this.propietario,
-        actividad: this.actividad._id
+        actividad: this.actividad._id,
+        userNick: this.usuario.nick
       });
   }
   solicitar(){
@@ -113,7 +114,7 @@ export class MostrarActividadPage {
             // el candidato que la pide y una flag
             // esta flag indicará si se recibe una notificación rollo twitter
             // si la notificación ya se ha leído, ya no aparecerá
-  
+
             this.storage.get('nick').then(val => {
               this.userServiceProvider.getUsuario(val).subscribe( data =>{
                 this.nickyestado.User = data._id;
@@ -136,7 +137,7 @@ export class MostrarActividadPage {
               this.notificaciones.flag = 1;
 
               this.userServiceProvider.postEnvioNotificaciones(this.notificaciones).subscribe( data => {
-                
+
                   this.showAlert4()
                 },
                  err => {this.showAlert5()});
@@ -172,7 +173,7 @@ export class MostrarActividadPage {
     });
     alert.present();
   }
-  
+
 
 
 }
