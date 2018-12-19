@@ -112,10 +112,8 @@ export class MenuPrincipalPage {
                   this.actividades.push(this.actividadesEncontradas[i]);
                 }
               }
-            } else {
-              this.showAlert5();
             }
-            if (this.actividades.length == 0){
+            if (this.usuario.tags.length == 0){
               this.showAlert5();
             }
           });
@@ -191,9 +189,9 @@ export class MenuPrincipalPage {
   goMostrarActividad (actividad: Actividad){
     this.navCtrl.push(MostrarActividadPage, {'act': actividad, 'usuario': this.usuario});
   }
-  BusquedaTag(item){
+  BusquedaTag(tag){
     this.actividades2 = [];
-    this.activityServiceProvider.postActividadesGPS(item).subscribe( (acts) => {
+    this.activityServiceProvider.getActividadesPorTagPerfil(tag).subscribe( (acts) => {
       this.actividades = acts;
     });
   }
