@@ -11,6 +11,8 @@ import { ObjetoDeNickYEstado } from '../../app/objetoDeNickYEstado';
 
 import {ChatPage} from "../chat/chat";
 import {Usuario} from "../../app/usuario";
+import {EditarActividadPage} from "../editar-actividad/editar-actividad";
+import {ValorarPage} from "../valorar/valorar";
 /**
  * Generated class for the MostrarActividadPage page.
  *
@@ -31,7 +33,7 @@ export class MostrarActividadPage {
 
   actividad: Actividad;
   notificaciones: Notificaciones;
-  
+
   nickyestado: ObjetoDeNickYEstado;
   usuario: Usuario;
   propietario: Usuario;
@@ -41,7 +43,7 @@ export class MostrarActividadPage {
     this.usuario = new Usuario();
 
     this.actividadAnterior = new Actividad();
-    
+
 
     this.nickyestado = new ObjetoDeNickYEstado();
 
@@ -59,6 +61,38 @@ export class MostrarActividadPage {
     this.userServiceProvider.getUsuario(nick).subscribe( data => {
       this.propietario = data;
     });
+  }
+
+ gotoValorarPage(titulo: string){
+   this.navCtrl.push(ValorarPage, {'tit': titulo});
+ }
+
+ actualizar(){
+  this.activityServiceProvider.updateActividad(this.actividad,this.tituloAnterior).subscribe( data => {
+    if(data != null){
+      this.navCtrl.setRoot(MenuPrincipalPage);
+    }else{
+      this.showAlert3();
+    }
+  });
+
+ }
+
+  contactar(){
+//Aqui se iniciarlizaria un chat que le debería tocar a Bruno
+    this.navCtrl.push(ChatPage,
+      {
+        from: this.usuario,
+        to: this.propietario,
+        actividad: this.actividad._id,
+        userNick: this.usuario.nick
+      });
+  }
+  solicitar(){
+    this.showAlert1();
+  }
+  cancelar(){
+    this.navCtrl.pop();
   }
 
   showAlert1() {
@@ -80,70 +114,40 @@ export class MostrarActividadPage {
             // el candidato que la pide y una flag
             // esta flag indicará si se recibe una notificación rollo twitter
             // si la notificación ya se ha leído, ya no aparecerá
-          //this.notificaciones.dueñoActividad=this.actividad.propietario;
-          //this.storage.get('nick').then(val => {
-          //  this.notificaciones.participanteActividad = val;
-          //});
-          //this.notificaciones.flag=1;
-          //this.userServiceProvider.getEnvioNotificaciones(this.notificaciones).subscribe( data => this.navCtrl.pop(), err => {});
+
             this.storage.get('nick').then(val => {
               this.userServiceProvider.getUsuario(val).subscribe( data =>{
                 this.nickyestado.User = data._id;
                 console.log(data._id);
                 this.nickyestado.estado = 1;
-              this.actividad.clientes.push(this.nickyestado);
-              //console.log('estado'+this.nickyestado.estado);
-              console.log('nick'+this.nickyestado.User);
-              console.log('los clientes son ' + this.actividad.clientes[0].User);
-              this.actualizar();
+                this.actividad.clientes.push(this.nickyestado);
+                //console.log('estado'+this.nickyestado.estado);
+                console.log('nick'+this.nickyestado.User);
+                console.log('los clientes son ' + this.actividad.clientes[0].User);
+                this.actualizar();
 
               });
-              //this.nickyestado.idUser = val;
-              
+
             });
-            
-           // this.usuario.notificaciones.push(this.storage.get('nick'));
+
             this.storage.get('nick').then(val => {
               this.notificaciones.dueñoActividad=this.actividad.propietario;
               this.notificaciones.participanteActividad=val;
+              this.notificaciones.tituloActividad = this.actividad.titulo;
               this.notificaciones.flag = 1;
 
-              this.userServiceProvider.postEnvioNotificaciones(this.notificaciones).subscribe( data => {this.showAlert4}, err => {});
+              this.userServiceProvider.postEnvioNotificaciones(this.notificaciones).subscribe( data => {
 
-             // this.notificaciones.participanteActividad = val;
+                  this.showAlert4()
+                },
+                 err => {this.showAlert5()});
+
             });
           }
         }
       ]
     });
     alert.present();
-  }
-
- actualizar(){
-  this.activityServiceProvider.updateActividad(this.actividad,this.tituloAnterior).subscribe( data => {
-    if(data != null){
-      this.navCtrl.setRoot(MenuPrincipalPage);
-    }else{
-      this.showAlert3();
-    }
-  });
-
- }
-
-  contactar(){
-//Aqui se iniciarlizaria un chat que le debería tocar a Bruno
-    this.navCtrl.push(ChatPage,
-      {
-        from: this.usuario,
-        to: this.propietario,
-        actividad: this.actividad._id
-      });
-  }
-  solicitar(){
-    this.showAlert1();
-  }
-  cancelar(){
-    this.navCtrl.pop();
   }
   showAlert3() {
     const alert = this.alertCtrl.create({
@@ -161,7 +165,15 @@ export class MostrarActividadPage {
     });
     alert.present();
   }
-  
+  showAlert5() {
+    const alert = this.alertCtrl.create({
+      title: 'Solicitar Actividad',
+      subTitle: 'La actividad ya está solicitada',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
 
 
 }

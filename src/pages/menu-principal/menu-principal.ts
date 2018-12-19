@@ -9,7 +9,7 @@ import { Actividad } from '../../app/actividad';
 import { MostrarActividadPage } from '../mostrar-actividad/mostrar-actividad';
 import { Busqueda } from '../../app/busqueda';
 import { Geolocation } from '@ionic-native/geolocation';
-import { ObjetoDeNickYEstado } from '../../app/objetoDeNickYEstado';
+import {ChatServiceProvider} from "../../providers/chat-service/chat-service";
 
 
 
@@ -33,8 +33,7 @@ export class MenuPrincipalPage {
   actividadesEncontradas: Actividad[];
   search: Busqueda;
   actividad1: Actividad;
-  nickyestado: ObjetoDeNickYEstado;
-  actividadSolicitada: Actividad;
+  numberMsg: number;
 
   //coge los tags del usuario en tagsBusqueda y tagABuscra coge cada tga del array de tags del usuario
   tagsBusqueda: string[] = [];
@@ -49,7 +48,14 @@ export class MenuPrincipalPage {
   longitude: number = 1.9866693019866941;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private activityServiceProvider: ActivityServiceProvider,
+              private userServiceProvider: UserServiceProvider,
+              private chatServiceProvider: ChatServiceProvider,
+              public storage: Storage,
+              public alertCtrl: AlertController,
+              private geolocation: Geolocation) {
 
     this.usuario = new Usuario();
     this.search = new Busqueda();
@@ -57,8 +63,6 @@ export class MenuPrincipalPage {
     this.actividades = [];
     this.actividades2 = [];
     this.actividadesEncontradas = [];
-    this.nickyestado = new ObjetoDeNickYEstado();
-    this.actividadSolicitada = new Actividad();
 
     this.storage.get('nick').then( (nick) => {
       console.log("propietario valor directo de storage: " + nick);
@@ -66,7 +70,10 @@ export class MenuPrincipalPage {
 
       this.inicio();
     });
+  }
 
+  ionViewDidEnter() {
+    this.getNumberMessages();
   }
 
   //al iniciar
@@ -84,6 +91,11 @@ export class MenuPrincipalPage {
     //pedimos el usuario
     this.userServiceProvider.getUsuario(this.nick).subscribe( (data) => {
       this.usuario = data;
+      this.chatServiceProvider.getMessagesNotSeen(this.usuario).subscribe(messages => {
+        this.numberMsg = messages.number;
+        console.log('number', this.numberMsg);
+      });
+
       console.log("paso 1: " + this.usuario.nick);
       if(this.usuario.tags.length == 0){
         this.showAlert1();
@@ -93,7 +105,7 @@ export class MenuPrincipalPage {
           this.tagABuscar = this.tagsBusqueda[i];
           console.log( "paso2: " + this.tagABuscar);
           this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[i]).subscribe( (acts) => {
-            if (acts != []){
+            if (acts != null){
               this.actividadesEncontradas = acts;
               for (let i=0; i<this.actividadesEncontradas.length; i++){
                 if(this.actividadesEncontradas[i].propietario != this.nick){
@@ -103,31 +115,32 @@ export class MenuPrincipalPage {
             } else {
               this.showAlert5();
             }
+            if (this.actividades.length == 0){
+              this.showAlert5();
+            }
           });
         }
 ///esto era lo que tenia--------------------------
         //this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
-      
+
     });
       this.userServiceProvider.getReciboNotificaciones(this.nick).subscribe(
         data=>{
         if (data != null){
-        this.showAlert3();}
+        this.showAlert3}
         else
-        this.showAlert6();
+        this.showAlert6
     },err => {
-        this.showAlert8();}
+        this.showAlert8}
       );
- 
-
   }
 
   //Barra de busqueda: buscamos por palabra clave
   goSearch(){
     if(this.searchString.length == 0){
       this.actividades = [];
-      this.showAlert4();
+      this.showAlert4;
     }else{
       //buscamos la palabra por tag
       //this.activityServiceProvider.getActividadesPorTagPerfil(this.searchString).subscribe( (acts) => this.actividades = acts);
@@ -158,19 +171,19 @@ export class MenuPrincipalPage {
       });
       */
      //segunda forma
-     
+
       this.activityServiceProvider.postActividadesGPS(this.search).subscribe( (acts) => {
           this.actividades = acts;
       });
-      
+
       this.activityServiceProvider.postBusquedaGeoEnDescripcion(this.search).subscribe( (acts2) => {
         this.actividades2 = acts2;
       });
-      
+
       if(this.actividades.length == 0 && this.actividades2.length == 0){
         console.log("no hay actividades cercanas");
       }
-      
+
     }
   }
 
@@ -184,51 +197,6 @@ export class MenuPrincipalPage {
       this.actividades = acts;
     });
   }
-
-  //solicitar actividad
-  solicitarActividad(item) {
-    this.actividadSolicitada = item;
-    const alert = this.alertCtrl.create({
-      title: 'Solicitar actividad',
-      subTitle: '¿Estás seguro de que deseas solicitar una actividad con el usuario que colgó la oferta? Se recomienda contactar antes con él',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancelar',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Aceptar',
-          handler: () => {
-              this.userServiceProvider.getUsuario(this.nick).subscribe( data =>{
-                this.nickyestado.User = data._id;
-                console.log(data._id);
-                this.nickyestado.estado = 1;
-              this.actividadSolicitada.clientes.push(this.nickyestado);
-              //console.log('estado'+this.nickyestado.estado);
-              console.log('nick'+this.nickyestado.User);
-              console.log('los clientes son ' + this.actividadSolicitada.clientes[0].User);
-              this.actualizar();
-              this.usuario.notificaciones.push(this.nick);
-              });
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-  actualizar(){
-    this.activityServiceProvider.updateActividad(this.actividadSolicitada,this.actividadSolicitada.titulo).subscribe( data => {
-      if(data != null){
-        this.navCtrl.setRoot(MenuPrincipalPage);
-      }else{
-        this.showAlert9();
-      }
-    });
-  
-   }
 
   //Debes rellenar el perfil
   showAlert1() {
@@ -297,14 +265,15 @@ export class MenuPrincipalPage {
     });
     alert.present();
   }
-  showAlert9() {
-    const alert = this.alertCtrl.create({
-      title: 'Solicitar Actividad',
-      subTitle: 'No se ha podido solicitar la actividad',
-      buttons: ['OK']
-    });
-    alert.present(); 
-  }
 
+  getNumberMessages() {
+    this.userServiceProvider.getUsuario(this.nick).subscribe((data) => {
+      this.usuario = data;
+      this.chatServiceProvider.getMessagesNotSeen(this.usuario).subscribe(messages => {
+        this.numberMsg = messages.number;
+        console.log('number', this.numberMsg);
+      });
+    });
+  }
 
 }

@@ -1,0 +1,45 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>valorar</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Puntuación</ion-label>
+      <ion-select [(ngModel)]="valoracion.estrellas">
+        <ion-option value=1>1</ion-option>
+        <ion-option value=2>2</ion-option>
+        <ion-option value=3>3</ion-option>
+        <ion-option value=4>4</ion-option>
+        <ion-option value=5>5</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Título</ion-label>
+      <ion-input type="text" [(ngModel)]="valoracion.titulo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Descripción</ion-label>
+      <ion-input type="text" [(ngModel)]="valoracion.descripcion"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+
+  <div padding align="center">
+    <button ion-button color="secondary" (click)="valorar()">Valorar</button>
+    <button ion-button color="danger" (click)="cancel()">Cancelar</button>
+  </div>
+
+</ion-content>

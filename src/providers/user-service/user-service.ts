@@ -42,9 +42,9 @@ export class UserServiceProvider {
     return this.http.get<Notificaciones>(url);
   }*/
 
-  getReciboNotificaciones(dueñoActividad: string): Observable<Notificaciones> {
+  getReciboNotificaciones(dueñoActividad: string): Observable<Notificaciones[]> {
     const url = `${this.usuariosUrl}/Rnotificaciones/${dueñoActividad}`;
-    return this.http.get<Notificaciones>(url);
+    return this.http.get<Notificaciones[]>(url);
   }
 
 
@@ -55,7 +55,7 @@ export class UserServiceProvider {
   }
   postEnvioNotificaciones (notificaciones: Notificaciones): Observable<Usuario> {
     const url = `${this.usuariosUrl}/ENotificaciones`
-    return this.http.put<Usuario>(url, notificaciones, httpOptions);
+    return this.http.post<Usuario>(url, notificaciones, httpOptions);
   }
   postUsuario (usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.usuariosUrl, usuario, httpOptions);

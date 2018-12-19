@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 
 import { CatalogoPage } from '../catalogo/catalogo';
+import { NotificacionesPage } from '../notificaciones/notificaciones';
 import { MenuPrincipalPage } from '../menu-principal/menu-principal';
 import { CrearActividadPage } from '../crear-actividad/crear-actividad';
 import { PerfilPage } from '../perfil/perfil';
@@ -54,7 +55,8 @@ export class SideMenuPage {
       this.pages = [
       { title: 'Menu Principal', component: MenuPrincipalPage, icon:"home" },
       { title: 'Catálogo', component: CatalogoPage, icon: "book"},
-      { title: 'Atividades en curso', component: ActividadesEnCursoPage, icon: "book"},
+      { title: 'Actividades en curso', component: ActividadesEnCursoPage, icon: "book"},
+      { title: 'Notificaciones', component: NotificacionesPage, icon: "book"},
       { title: 'Crear Actividad', component: CrearActividadPage, icon:"add-circle"}
       ];
       this.pageExit = { title: 'LogOut', component: HomePage, icon: "exit" };
