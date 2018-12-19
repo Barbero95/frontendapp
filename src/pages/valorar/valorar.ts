@@ -5,6 +5,8 @@ import {ActivityServiceProvider} from "../../providers/activity-service/activity
 import {Storage} from "@ionic/storage";
 import {CatalogoPage} from "../catalogo/catalogo";
 import {HomePage} from "../home/home";
+import {MenuPrincipalPage} from "../menu-principal/menu-principal";
+import {Actividad} from "../../app/actividad";
 
 @IonicPage()
 @Component({
@@ -14,38 +16,46 @@ import {HomePage} from "../home/home";
 export class ValorarPage {
 
   valoracion: Valoracion;
+  act: Actividad;
+
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
 
 
     this.valoracion = new Valoracion();
+    this.act = new Actividad();
 
     this.storage.get('nick').then((nick) => {
 
       this.valoracion.propietario = nick;
     });
+    this.act = this.navParams.get('actividad');
 
-    this.valoracion.idAct = this.navParams.get('idAct');
 
 
   }
 
   valorar() {
-
-    if (this.valoracion.descripcion.length != 0 || this.valoracion.titulo.length != 0 || this.valoracion.estrellas != 0) {
-
+    this.valoracion.idAct = this.act._id;
+    if (this.valoracion.descripcion.length != 0 && this.valoracion.titulo.length != 0 && this.valoracion.estrellas != 0) {
       this.activityServiceProvider.postValoracion(this.valoracion).subscribe((data) => {
-
+        this.act.valoraciones.push(data._id);
         if (data != null) {
-          this.Gracias();
-          this.navCtrl.setRoot(HomePage);
+          this.activityServiceProvider.updateActividad(this.act, this.act.titulo).subscribe((data2) => {
+            if(data2 != null){
+              this.Gracias();
+              this.navCtrl.setRoot(MenuPrincipalPage);
+            }else{
+              this.showAlert1();
+            }
+          });
         } else {
           this.showAlert1();
         }
       }, (error) => {
         this.showAlert1();
-      })
+      });
     } else {
       this.showAlert2();
     }

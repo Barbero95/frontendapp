@@ -13,6 +13,7 @@ import {ChatPage} from "../chat/chat";
 import {Usuario} from "../../app/usuario";
 import {EditarActividadPage} from "../editar-actividad/editar-actividad";
 import {ValorarPage} from "../valorar/valorar";
+import {Valoracion} from "../../app/valoracion";
 /**
  * Generated class for the MostrarActividadPage page.
  *
@@ -30,6 +31,7 @@ export class MostrarActividadPage {
   actividadAnterior: Actividad;
   tituloAnterior: string;
   a:string[];
+  vals: Valoracion[];
 
   actividad: Actividad;
   notificaciones: Notificaciones;
@@ -41,6 +43,7 @@ export class MostrarActividadPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
     this.actividad = new Actividad();
     this.usuario = new Usuario();
+    this.vals = [];
 
     this.actividadAnterior = new Actividad();
 
@@ -55,6 +58,7 @@ export class MostrarActividadPage {
     this.usuario = this.navParams.get('usuario');
     this.notificaciones = new Notificaciones();
     this.getUser(this.actividad.propietario);
+    this.getValoraciones();
   }
 
   getUser(nick: string) {
@@ -63,8 +67,30 @@ export class MostrarActividadPage {
     });
   }
 
+
+  getValoraciones(){
+    for (let i=0; i<this.actividad.valoraciones.length; i++){
+      this.activityServiceProvider.getValoracion(this.actividad.valoraciones[i]).subscribe( (valoracio) => {
+        if (valoracio != null){
+          console.log("titulo"+ valoracio.titulo);
+          console.log("estrellas"+ valoracio.estrellas);
+              this.vals.push(valoracio);
+        }else{
+
+          this.showAlert3();
+
+        }
+      }, (error) => {
+        this.showAlert2();
+      });
+    }
+
+  }
+
+
+
  gotoValorarPage(){
-   this.navCtrl.push(ValorarPage, {'idAct': this.actividad._id});
+   this.navCtrl.push(ValorarPage, {'actividad': this.actividad});
  }
 
  actualizar(){
@@ -146,6 +172,14 @@ export class MostrarActividadPage {
           }
         }
       ]
+    });
+    alert.present();
+  }
+  showAlert2() {
+    const alert = this.alertCtrl.create({
+      title: 'Buscar Valoracion',
+      subTitle: 'No se ha podido encontrar la valoracion',
+      buttons: ['OK']
     });
     alert.present();
   }
