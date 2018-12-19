@@ -3,6 +3,8 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {Valoracion} from "../../app/valoracion"
 import {ActivityServiceProvider} from "../../providers/activity-service/activity-service";
 import {Storage} from "@ionic/storage";
+import {CatalogoPage} from "../catalogo/catalogo";
+import {HomePage} from "../home/home";
 
 @IonicPage()
 @Component({
@@ -12,7 +14,6 @@ import {Storage} from "@ionic/storage";
 export class ValorarPage {
 
   valoracion: Valoracion;
-  tituloActividad: string;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
@@ -25,7 +26,7 @@ export class ValorarPage {
       this.valoracion.propietario = nick;
     });
 
-    this.tituloActividad = this.navParams.get('tit');
+    this.valoracion.tituloActividad = this.navParams.get('tit');
 
 
 
@@ -34,6 +35,24 @@ export class ValorarPage {
 
   valorar(){
 
+  if (this.valoracion.tituloActividad.length != 0 || this.valoracion.titulo.length != 0){
+
+    this.activityServiceProvider.postValoracion(this.valoracion).subscribe((data) => {
+
+      if (data != null) {
+
+        this.Gracias();
+        this.navCtrl.setRoot(HomePage);
+      }
+      else {
+        this.showAlert1();
+      }
+    })
+  }
+  else {
+
+    this.showAlert2();
+  }
 
   }
 
@@ -42,5 +61,34 @@ export class ValorarPage {
     this.navCtrl.pop();
   }
 
+
+  Gracias () {
+    const alert = this.alertCtrl.create({
+      title: 'Gracias',
+      subTitle: 'Gracias por tu valoración',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showAlert1 () {
+    const alert = this.alertCtrl.create({
+      title: 'Valoración',
+      subTitle: 'No se ha posteado bien',
+      buttons: ['OK']
+    });
+    alert.present();
+
+  }
+
+  showAlert2 () {
+    const alert = this.alertCtrl.create({
+      title: 'Valoracion',
+      subTitle: 'Titulo Actividad o titulo valoracion vacio',
+      buttons: ['OK']
+    });
+    alert.present();
+
+  }
 
 }

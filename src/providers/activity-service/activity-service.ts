@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Busqueda } from '../../app/busqueda';
 import { Actividad } from '../../app/actividad';
+import {Valoracion} from "../../app/valoracion";
 
 /*
   Generated class for the ActivityServiceProvider provider.
@@ -67,6 +68,12 @@ export class ActivityServiceProvider {
   //crear actividad
   postActividad (actividad: Actividad): Observable<Actividad> {
     return this.http.post<Actividad>(this.actividadesUrl, actividad, httpOptions);
+  }
+
+  postValoracion (valoracion: Valoracion): Observable<Valoracion>{
+
+    const url = `${this.actividadesUrl}/valorar`;
+    return this.http.post<Valoracion>(url, valoracion, httpOptions);
   }
 
   //GPS
