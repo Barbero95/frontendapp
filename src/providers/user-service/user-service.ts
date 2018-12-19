@@ -60,6 +60,11 @@ export class UserServiceProvider {
   postUsuario (usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.usuariosUrl, usuario, httpOptions);
   }
+  postRechazoNotificaciones (notificaciones: Notificaciones): Observable<Usuario> {
+    const url = `${this.usuariosUrl}/RechazoNotificaciones/${notificaciones.participanteActividad}/${notificaciones.tituloActividad}`
+    return this.http.post<Usuario>(url, notificaciones, httpOptions);
+  }
+
 
   //foto perfil
   createFoto (posData: FormData): void{
