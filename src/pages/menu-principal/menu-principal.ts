@@ -178,6 +178,12 @@ export class MenuPrincipalPage {
   goMostrarActividad (actividad: Actividad){
     this.navCtrl.push(MostrarActividadPage, {'act': actividad, 'usuario': this.usuario});
   }
+  BusquedaTag(item){
+    this.actividades2 = [];
+    this.activityServiceProvider.postActividadesGPS(item).subscribe( (acts) => {
+      this.actividades = acts;
+    });
+  }
 
   //solicitar actividad
   solicitarActividad(item) {
