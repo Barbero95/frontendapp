@@ -63,8 +63,8 @@ export class MostrarActividadPage {
     });
   }
 
- gotoValorarPage(titulo: string){
-   this.navCtrl.push(ValorarPage, {'tit': titulo});
+ gotoValorarPage(){
+   this.navCtrl.push(ValorarPage, {'idAct': this.actividad._id});
  }
 
  actualizar(){

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Valoracion} from "../../app/valoracion"
 import {ActivityServiceProvider} from "../../providers/activity-service/activity-service";
@@ -16,43 +16,39 @@ export class ValorarPage {
   valoracion: Valoracion;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
 
 
     this.valoracion = new Valoracion();
 
-    this.storage.get('nick').then( (nick) => {
+    this.storage.get('nick').then((nick) => {
 
       this.valoracion.propietario = nick;
     });
 
-    this.valoracion.tituloActividad = this.navParams.get('tit');
-
-
+    this.valoracion.idAct = this.navParams.get('idAct');
 
 
   }
 
-  valorar(){
+  valorar() {
 
-  if (this.valoracion.tituloActividad.length != 0 || this.valoracion.titulo.length != 0){
+    if (this.valoracion.descripcion.length != 0 || this.valoracion.titulo.length != 0 || this.valoracion.estrellas != 0) {
 
-    this.activityServiceProvider.postValoracion(this.valoracion).subscribe((data) => {
+      this.activityServiceProvider.postValoracion(this.valoracion).subscribe((data) => {
 
-      if (data != null) {
-
-        this.Gracias();
-        this.navCtrl.setRoot(HomePage);
-      }
-      else {
+        if (data != null) {
+          this.Gracias();
+          this.navCtrl.setRoot(HomePage);
+        } else {
+          this.showAlert1();
+        }
+      }, (error) => {
         this.showAlert1();
-      }
-    })
-  }
-  else {
-
-    this.showAlert2();
-  }
+      })
+    } else {
+      this.showAlert2();
+    }
 
   }
 
@@ -62,7 +58,7 @@ export class ValorarPage {
   }
 
 
-  Gracias () {
+  Gracias() {
     const alert = this.alertCtrl.create({
       title: 'Gracias',
       subTitle: 'Gracias por tu valoración',
@@ -71,7 +67,7 @@ export class ValorarPage {
     alert.present();
   }
 
-  showAlert1 () {
+  showAlert1() {
     const alert = this.alertCtrl.create({
       title: 'Valoración',
       subTitle: 'No se ha posteado bien',
@@ -81,7 +77,7 @@ export class ValorarPage {
 
   }
 
-  showAlert2 () {
+  showAlert2() {
     const alert = this.alertCtrl.create({
       title: 'Valoracion',
       subTitle: 'Titulo Actividad o titulo valoracion vacio',

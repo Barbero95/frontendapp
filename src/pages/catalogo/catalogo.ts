@@ -53,16 +53,16 @@ export class CatalogoPage {
     //pedimos el usuario
     this.activityServiceProvider.getActividadesPropietario(this.propietario).subscribe( (activitats) => {
       this.actividades = activitats;
-      console.log(this.actividades);
-      this.actividades.forEach((actividad, index) => {
-        this.actividades[index].fullRooms = [];
-        actividad.rooms.forEach(room => {
-          this.chatService.getChatRoomById(room).subscribe(fullRoom => {
-            console.log(fullRoom, index, this.actividades[index]);
-            this.actividades[index].fullRooms.push(fullRoom);
-          })
-        })
-      })
+     // console.log(this.actividades);
+     // this.actividades.forEach((actividad, index) => {
+       // this.actividades[index].fullRooms = [];
+        //actividad.rooms.forEach(room => {
+          //this.chatService.getChatRoomById(room).subscribe(fullRoom => {
+            //console.log(fullRoom, index, this.actividades[index]);
+            //this.actividades[index].fullRooms.push(fullRoom);
+         // })
+      //  })
+     // })
     });
 
   }

@@ -52,6 +52,13 @@ export class ActivityServiceProvider {
     return this.http.get<Actividad[]>(url);
   }
 
+  getValoracion (idValoracion: string): Observable<Valoracion>{
+
+    const url = `${this.actividadesUrl}/get/valoracion/${idValoracion}`;
+    return this.http.get<Valoracion>(url);
+
+  }
+
   ////GPS dame todas las actividades cerca de mi y con este tag
   /*
   getActividadesGPS (): Observable<Actividad[]> {
