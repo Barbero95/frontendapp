@@ -9,6 +9,7 @@ import { Actividad } from '../../app/actividad';
 import { MostrarActividadPage } from '../mostrar-actividad/mostrar-actividad';
 import { Busqueda } from '../../app/busqueda';
 import { Geolocation } from '@ionic-native/geolocation';
+import {ChatServiceProvider} from "../../providers/chat-service/chat-service";
 
 
 
@@ -32,6 +33,7 @@ export class MenuPrincipalPage {
   actividadesEncontradas: Actividad[];
   search: Busqueda;
   actividad1: Actividad;
+  numberMsg: number;
 
   //coge los tags del usuario en tagsBusqueda y tagABuscra coge cada tga del array de tags del usuario
   tagsBusqueda: string[] = [];
@@ -46,7 +48,14 @@ export class MenuPrincipalPage {
   longitude: number = 1.9866693019866941;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider, public storage: Storage, public alertCtrl: AlertController, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private activityServiceProvider: ActivityServiceProvider,
+              private userServiceProvider: UserServiceProvider,
+              private chatServiceProvider: ChatServiceProvider,
+              public storage: Storage,
+              public alertCtrl: AlertController,
+              private geolocation: Geolocation) {
 
     this.usuario = new Usuario();
     this.search = new Busqueda();
@@ -61,7 +70,10 @@ export class MenuPrincipalPage {
 
       this.inicio();
     });
+  }
 
+  ionViewDidEnter() {
+    this.getNumberMessages();
   }
 
   //al iniciar
@@ -79,6 +91,11 @@ export class MenuPrincipalPage {
     //pedimos el usuario
     this.userServiceProvider.getUsuario(this.nick).subscribe( (data) => {
       this.usuario = data;
+      this.chatServiceProvider.getMessagesNotSeen(this.usuario).subscribe(messages => {
+        this.numberMsg = messages.number;
+        console.log('number', this.numberMsg);
+      });
+
       console.log("paso 1: " + this.usuario.nick);
       if(this.usuario.tags.length == 0){
         this.showAlert1();
@@ -95,18 +112,14 @@ export class MenuPrincipalPage {
                   this.actividades.push(this.actividadesEncontradas[i]);
                 }
               }
-            } else {
-              this.showAlert5();
             }
-            if (this.actividades.length == 0){
+            if (this.usuario.tags.length == 0){
               this.showAlert5();
             }
           });
         }
-///esto era lo que tenia--------------------------
-        //this.activityServiceProvider.getActividadesPorTagPerfil(this.tagsBusqueda[0]).subscribe( (acts) => this.actividades = acts);
       }
-      
+
     });
       this.userServiceProvider.getReciboNotificaciones(this.nick).subscribe(
         data=>{
@@ -117,8 +130,6 @@ export class MenuPrincipalPage {
     },err => {
         this.showAlert8}
       );
- 
-
   }
 
   //Barra de busqueda: buscamos por palabra clave
@@ -133,48 +144,34 @@ export class MenuPrincipalPage {
       //buscamos la palabra por distancia (gps) y tag
       this.search.tag = this.searchString;
       this.search.distance = this.distancia;
-      //opción 1 de busqueda
-      /*
-      this.activityServiceProvider.postActividadesGPS(this.search).subscribe( (acts) => {
-        if(acts != [] && acts != null){
-          this.actividades = acts;
-        }
-        this.activityServiceProvider.postBusquedaGeoEnDescripcion(this.search).subscribe( (acts2) => {
-          if(acts2 != [] && acts2 != null){
-            for(let i=0; i<this.actividades.length; i++){
-              for (let y=0; y<acts2.length; y++){
-                if(this.actividades[i].titulo != acts2[y].titulo && this.actividades[i].propietario != acts2[y].propietario){
-                  this.actividades2.push(acts2[y]);
-                }
-              }
-            }
-          }
-          if (this.actividades.length == 0 && this.actividades2.length == 0){
-            this.showAlert7;
-          }
-        });
-      });
-      */
-     //segunda forma
-     
+
       this.activityServiceProvider.postActividadesGPS(this.search).subscribe( (acts) => {
           this.actividades = acts;
       });
-      
+
       this.activityServiceProvider.postBusquedaGeoEnDescripcion(this.search).subscribe( (acts2) => {
         this.actividades2 = acts2;
       });
-      
+
       if(this.actividades.length == 0 && this.actividades2.length == 0){
         console.log("no hay actividades cercanas");
       }
-      
+
     }
   }
 
   //cuando selecionamos una actividad
   goMostrarActividad (actividad: Actividad){
     this.navCtrl.push(MostrarActividadPage, {'act': actividad, 'usuario': this.usuario});
+  }
+  BusquedaTag(tag){
+    this.actividades2 = [];
+    this.activityServiceProvider.getActividadesPorTagPerfil(tag).subscribe( (acts) => {
+      this.actividades = acts;
+    });
+  }
+  solicitarActividad(){
+    
   }
 
   //Debes rellenar el perfil
@@ -243,6 +240,16 @@ export class MenuPrincipalPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  getNumberMessages() {
+    this.userServiceProvider.getUsuario(this.nick).subscribe((data) => {
+      this.usuario = data;
+      this.chatServiceProvider.getMessagesNotSeen(this.usuario).subscribe(messages => {
+        this.numberMsg = messages.number;
+        console.log('number', this.numberMsg);
+      });
+    });
   }
 
 }

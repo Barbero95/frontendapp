@@ -77,6 +77,12 @@ export class UserServiceProvider {
     const url = `${this.usuariosUrl}/getUserById/${id}`;
     return this.http.post<Usuario>(url, id, httpOptions);
   }
+  postRechazoNotificaciones (notificaciones: Notificaciones): Observable<Usuario> {
+    const url = `${this.usuariosUrl}/RechazoNotificaciones/${notificaciones.participanteActividad}/${notificaciones.tituloActividad}`
+    return this.http.post<Usuario>(url, notificaciones, httpOptions);
+  }
+
+
   //foto perfil
   createFoto (posData: FormData): void{
     let url =  `${this.usuariosUrl}/foto/perfil`;

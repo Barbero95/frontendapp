@@ -4,6 +4,7 @@ import {Usuario} from "../../app/usuario";
 import {Observable} from "rxjs/Observable";
 import {ChatServiceProvider} from "../../providers/chat-service/chat-service";
 import {Socket} from "ng-socket-io";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 @IonicPage()
 @Component({
@@ -11,13 +12,15 @@ import {Socket} from "ng-socket-io";
   templateUrl: 'chat.html',
 })
 export class ChatPage {
-
+  userNick: string;
+  user: Usuario;
   userFrom: Usuario;
   userTo: Usuario;
   actividad: any;
   message: String;
   messages = [];
   users: {};
+  chat: {};
 
   room: String;
 
@@ -26,10 +29,16 @@ export class ChatPage {
   constructor(public navCtrl: NavController,
               public socket: Socket,
               public navParams: NavParams,
-              public chatService: ChatServiceProvider) {
+              public chatService: ChatServiceProvider,
+              public userService: UserServiceProvider) {
     this.userFrom = this.navParams.get('from');
     this.userTo = this.navParams.get('to');
     this.actividad = this.navParams.get('actividad');
+    this.userNick = this.navParams.get('userNick');
+
+    this.userService.getUsuario(this.userNick).subscribe(nick => {
+      this.user = nick;
+    });
 
     this.users = {
       userFrom: this.userFrom,
@@ -37,7 +46,6 @@ export class ChatPage {
       actividad: this.actividad
     };
     this.socket.emit('subscribe', this.users);
-    console.log(this.users);
     this.getMessagesSocket().subscribe(msg => {
       this.messages.push(msg);
       if(this.content && this.content._scroll) {
@@ -48,19 +56,18 @@ export class ChatPage {
     });
   }
 
-
   ionViewDidLoad() {
     this.chatService.getChatRoom(this.users).subscribe(room => {
       this.room = room.room;
       this.chatService.getMessages(room).subscribe(async messages => {
         this.messages = messages.messages;
       });
-      let chat = {
+      this.chat = {
         room: this.room,
-        user: this.userFrom._id,
+        user: this.user._id,
         lastView: Date.now()
       };
-      this.chatService.lastView(chat).subscribe();
+      this.chatService.lastView(this.chat).subscribe();
     });
   }
 
@@ -73,27 +80,49 @@ export class ChatPage {
   ionViewDidLeave() {
     let chat = {
       room: this.room,
-      user: this.userFrom._id,
+      user: this.user._id,
       lastView: Date.now()
     };
     this.chatService.lastView(chat).subscribe();
   }
 
   sendMessage() {
-    let message = {
-      room: this.room,
-      message: this.message,
-      from: this.userFrom._id,
-      to: this.userTo._id,
-      created: Date.now(),
-      seen: false
-    };
-    this.socket.emit('add-message', message);
-    this.messages.push(message);
-    setTimeout(() => {
-      this.content.scrollToBottom();
-    });
-    this.message = "";
+    let message;
+    if(this.message) {
+      if(this.userNick === this.userFrom.nick) {
+        message = {
+          room: this.room,
+          message: this.message,
+          from: this.userFrom._id,
+          to: this.userTo._id,
+          created: Date.now(),
+          seen: false
+        };
+      } else {
+        message = {
+          room: this.room,
+          message: this.message,
+          from: this.userTo._id,
+          to: this.userFrom._id,
+          created: Date.now(),
+          seen: false
+        };
+      }
+
+      this.socket.emit('add-message', message);
+      this.messages.push(message);
+      setTimeout(() => {
+        this.content.scrollToBottom();
+      });
+      this.message = "";
+      this.chat = {
+        room: this.room,
+        user: this.user._id,
+        lastView: Date.now()
+      };
+      this.chatService.lastView(this.chat).subscribe();
+    }
+
   }
 
   getMessagesSocket() {

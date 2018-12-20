@@ -13,6 +13,7 @@ import {ChatPage} from "../chat/chat";
 import {Usuario} from "../../app/usuario";
 import {EditarActividadPage} from "../editar-actividad/editar-actividad";
 import {ValorarPage} from "../valorar/valorar";
+import {Valoracion} from "../../app/valoracion";
 /**
  * Generated class for the MostrarActividadPage page.
  *
@@ -30,10 +31,11 @@ export class MostrarActividadPage {
   actividadAnterior: Actividad;
   tituloAnterior: string;
   a:string[];
+  vals: Valoracion[];
 
   actividad: Actividad;
   notificaciones: Notificaciones;
-  
+
   nickyestado: ObjetoDeNickYEstado;
   usuario: Usuario;
   propietario: Usuario;
@@ -41,9 +43,10 @@ export class MostrarActividadPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
     this.actividad = new Actividad();
     this.usuario = new Usuario();
+    this.vals = [];
 
     this.actividadAnterior = new Actividad();
-    
+
 
     this.nickyestado = new ObjetoDeNickYEstado();
 
@@ -55,6 +58,7 @@ export class MostrarActividadPage {
     this.usuario = this.navParams.get('usuario');
     this.notificaciones = new Notificaciones();
     this.getUser(this.actividad.propietario);
+    this.getValoraciones();
   }
 
   getUser(nick: string) {
@@ -63,8 +67,31 @@ export class MostrarActividadPage {
     });
   }
 
- gotoValorarPage(titulo: string){
-   this.navCtrl.push(ValorarPage, {'tit': titulo});
+
+  getValoraciones(){
+    if(this.actividad.valoraciones) {
+      for (let i=0; i < this.actividad.valoraciones.length; i++){
+        this.activityServiceProvider.getValoracion(this.actividad.valoraciones[i]).subscribe( (valoracio) => {
+          if (valoracio != null){
+            console.log("titulo"+ valoracio.titulo);
+            console.log("estrellas"+ valoracio.estrellas);
+            this.vals.push(valoracio);
+          }else{
+
+            this.showAlert3();
+
+          }
+        }, (error) => {
+          this.showAlert2();
+        });
+      }
+    }
+  }
+
+
+
+ gotoValorarPage(){
+   this.navCtrl.push(ValorarPage, {'actividad': this.actividad});
  }
 
  actualizar(){
@@ -84,7 +111,8 @@ export class MostrarActividadPage {
       {
         from: this.usuario,
         to: this.propietario,
-        actividad: this.actividad._id
+        actividad: this.actividad._id,
+        userNick: this.usuario.nick
       });
   }
   solicitar(){
@@ -113,7 +141,7 @@ export class MostrarActividadPage {
             // el candidato que la pide y una flag
             // esta flag indicará si se recibe una notificación rollo twitter
             // si la notificación ya se ha leído, ya no aparecerá
-  
+
             this.storage.get('nick').then(val => {
               this.userServiceProvider.getUsuario(val).subscribe( data =>{
                 this.nickyestado.idCliente = data._id;
@@ -136,7 +164,7 @@ export class MostrarActividadPage {
               this.notificaciones.flag = 1;
 
               this.userServiceProvider.postEnvioNotificaciones(this.notificaciones).subscribe( data => {
-                
+
                   this.showAlert4()
                 },
                  err => {this.showAlert5()});
@@ -145,6 +173,14 @@ export class MostrarActividadPage {
           }
         }
       ]
+    });
+    alert.present();
+  }
+  showAlert2() {
+    const alert = this.alertCtrl.create({
+      title: 'Buscar Valoracion',
+      subTitle: 'No se ha podido encontrar la valoracion',
+      buttons: ['OK']
     });
     alert.present();
   }
@@ -172,7 +208,7 @@ export class MostrarActividadPage {
     });
     alert.present();
   }
-  
+
 
 
 }

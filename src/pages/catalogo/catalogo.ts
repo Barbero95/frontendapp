@@ -53,16 +53,18 @@ export class CatalogoPage {
     //pedimos el usuario
     this.activityServiceProvider.getActividadesPropietario(this.propietario).subscribe( (activitats) => {
       this.actividades = activitats;
-      console.log(this.actividades);
-      this.actividades.forEach((actividad, index) => {
+     console.log(this.actividades);
+
+     // CHAT
+     this.actividades.forEach((actividad, index) => {
+       this.actividades[index].fullRooms = [];
         actividad.rooms.forEach(room => {
           this.chatService.getChatRoomById(room).subscribe(fullRoom => {
             console.log(fullRoom, index, this.actividades[index]);
-            this.actividades[index].fullRooms = [];
             this.actividades[index].fullRooms.push(fullRoom);
-          })
-        })
-      })
+         })
+       })
+     })
     });
 
   }
@@ -108,7 +110,8 @@ export class CatalogoPage {
 
   }
 
-  contactar(from : ChatUser, to : ChatUser, actividad){
+  contactar(from : ChatUser, to : ChatUser, actividad) {
+    console.log(this.propietario);
     this.userService.getUsuario(from.userName).subscribe(from => {
       let fromUser = from;
       this.userService.getUsuario(to.userName).subscribe(to => {
@@ -116,7 +119,8 @@ export class CatalogoPage {
           {
             from: fromUser,
             to: to,
-            actividad: actividad
+            actividad: actividad,
+            userNick: this.propietario
           });
       });
 

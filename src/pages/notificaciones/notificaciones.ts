@@ -28,6 +28,7 @@ export class NotificacionesPage {
   propietario: string = "";
   usuario: Usuario;
   notificaciones: Notificaciones[];
+  notificacion: Notificaciones;
 
 
   constructor(public chatService: ChatServiceProvider,
@@ -48,6 +49,7 @@ this.inicio();
   inicio(){
     this.userServiceProvider.getReciboNotificaciones(this.propietario).subscribe( (data) => {
       this.notificaciones = data;
+
      });
 
   }
@@ -56,6 +58,21 @@ this.inicio();
 
 
   }
+
+  denegar(notificacion: Notificaciones){
+
+    this.notificacion = notificacion;
+
+    this.userServiceProvider.postRechazoNotificaciones(this.notificacion).subscribe( data => {
+this.inicio();
+      },
+       err => {
+         
+
+       });
+
+
+ }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NotificacionesPage');

@@ -18,7 +18,7 @@ export class Actividad {
     contadorEstrellasActividad: number;
     localizacion: number[];
     ubicacion: string;
-    valoraciones: Valoracion[];
+    valoraciones: string[];
 
     constructor(){
         this._id = "";
