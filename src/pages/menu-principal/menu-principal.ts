@@ -124,11 +124,11 @@ export class MenuPrincipalPage {
       this.userServiceProvider.getReciboNotificaciones(this.nick).subscribe(
         data=>{
         if (data != null){
-        this.showAlert3}
+        this.showAlert3()}
         else
-        this.showAlert6
+        this.showAlert6()
     },err => {
-        this.showAlert8}
+        this.showAlert8()}
       );
   }
 
