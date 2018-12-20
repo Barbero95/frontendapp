@@ -116,13 +116,13 @@ export class MostrarActividadPage {
   
             this.storage.get('nick').then(val => {
               this.userServiceProvider.getUsuario(val).subscribe( data =>{
-                this.nickyestado.User = data._id;
+                this.nickyestado.idCliente = data._id;
                 console.log(data._id);
                 this.nickyestado.estado = 1;
                 this.actividad.clientes.push(this.nickyestado);
                 //console.log('estado'+this.nickyestado.estado);
-                console.log('nick'+this.nickyestado.User);
-                console.log('los clientes son ' + this.actividad.clientes[0].User);
+                console.log('nick'+this.nickyestado.idCliente);
+                console.log('los clientes son ' + this.actividad.clientes[0].idCliente);
                 this.actualizar();
 
               });

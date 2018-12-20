@@ -10,32 +10,30 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-card *ngFor="let item of actividades2">
+    <ion-card *ngFor="let item of result">
       <ion-card-header>
-        {{item.titulo}}
-        <!--<button ion-button icon-end color="danger" clear icon-only (click)="goToEditarActividad(item)">
-          <ion-icon small  name='brush' is-active="false"></ion-icon>
-        </button>
-        <button ion-button icon-end color="danger" clear icon-only (click)="eliminarActivity(item)">
-          <ion-icon small  name='trash' is-active="false"></ion-icon>
-        </button>-->
+        {{item.actividad}}
+        El estado es : {{item.estado}}
         
-        <button ion-button icon-end color="checkmark-circle" clear icon-only (click)="aceptarActivity(item)">
+        <button *ngIf="item.estado == 1" ion-button icon-end color="checkmark-circle" clear icon-only (click)="aceptarActivity(item.actividad , item.propietario , item.idCliente)">
           <ion-icon small  name='checkmark-circle' is-active="false"></ion-icon>
         </button>
-        <button ion-button icon-end color="danger" clear icon-only (click)="declinarActivity(item)">
+        <button  *ngIf="item.estado == 1" ion-button icon-end color="danger" clear icon-only (click)="declinarActivity(item.actividad , item.propietario , item.idCliente)">
           <ion-icon small  name='close-circle' is-active="false"></ion-icon>
         </button>
-        <button ion-button icon-end color="dark" clear icon-only (click)="finalitzarActivity(item)">
+        <button *ngIf="item.estado == 2 || item.estado == 3 " ion-button icon-end color="dark" clear icon-only (click)="finalitzarActivity(item.actividad , item.propietario , item.idCliente)">
           <ion-icon small  name='pulse' is-active="false"></ion-icon>
         </button>
         
         
       </ion-card-header>
       <ion-card-content>
-        <!--Descripción: {{item.descripcion}} <hr>
-        Tags: {{item.tags}} <hr>
-        Cliente: {{cliente}} <hr>-->
+        <ion-item>
+          El propietario es {{item.propietario}}
+        </ion-item>
+        <ion-item>
+          El clientes es {{item.cliente}}
+        </ion-item>
       </ion-card-content>
     </ion-card>
   </ion-list>

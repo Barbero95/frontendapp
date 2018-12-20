@@ -31,6 +31,14 @@ export class ActivityServiceProvider {
     return this.http.get<Actividad>(url);
   }
 
+  
+  //Sirve para obtener una actividad con el nombre y el propietario
+  getActividadDePropietarioByName(prop: string, tit: string): Observable<Actividad> {
+    const url = `${this.actividadesUrl}/pidiendo/${prop}/${tit}`;
+    return this.http.get<Actividad>(url);
+  }
+  
+  
   // Esto sirve para editar catalogo
   getActividadDePropietario(actividad: Actividad): Observable<Actividad> {
     const url = `${this.actividadesUrl}/pidiendo/${actividad.propietario}/${actividad.titulo}`;
@@ -41,6 +49,13 @@ export class ActivityServiceProvider {
   getActividadesPropietario (propietario: String): Observable<Actividad[]>
   {
     const url = `${this.actividadesUrl}/propietario/${propietario}`
+    
+    return this.http.get<Actividad[]>(url);
+  }
+
+  getActividadesCliente (cliente: String): Observable<Actividad[]>
+  { console.log("el id del cliente que mandamos es : " + cliente);
+    const url = `${this.actividadesUrl}/cliente/${cliente}`
     
     return this.http.get<Actividad[]>(url);
   }
