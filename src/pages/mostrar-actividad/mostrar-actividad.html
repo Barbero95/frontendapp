@@ -33,9 +33,33 @@
     <button ion-button color="primary" class="solicitar" (click)="contactar()">Contactar</button>
     <button ion-button color="primary" class="solicitar" (click)="solicitar()">Solicitar</button>
     <button ion-button color="primary" class="cancelar" (click)="cancelar()">Cancelar</button>
-    <button ion-button color="primary" class="valorar" (click)="gotoValorarPage(actividad.titulo)">Valorar </button>
+    <button ion-button color="primary" class="valorar" (click)="gotoValorarPage()">Valorar </button>
 
   </ion-buttons>
+
+  <ion-list>
+    <ion-card *ngFor="let item of vals">
+      <ion-item>
+        <ion-card-header>
+          {{item.titulo}}
+          <ionic3-star-rating
+            activeIcon = "ios-star"
+            defaultIcon = "ios-star-outline"
+            activeColor = "#488aff"
+            defaultColor = "#968A8A"
+            readonly="true"
+            [rating]= "item.estrellas">
+          </ionic3-star-rating>
+        </ion-card-header>
+      </ion-item>
+      <ion-card-content>
+        Descripción: {{item.descripcion}} <hr>
+        Autor: {{item.propietario}}<hr>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+
 </ion-content>
 
 

@@ -112,10 +112,8 @@ export class MenuPrincipalPage {
                   this.actividades.push(this.actividadesEncontradas[i]);
                 }
               }
-            } else {
-              this.showAlert5();
             }
-            if (this.actividades.length == 0){
+            if (this.usuario.tags.length == 0){
               this.showAlert5();
             }
           });
@@ -190,6 +188,12 @@ export class MenuPrincipalPage {
   //cuando selecionamos una actividad
   goMostrarActividad (actividad: Actividad){
     this.navCtrl.push(MostrarActividadPage, {'act': actividad, 'usuario': this.usuario});
+  }
+  BusquedaTag(tag){
+    this.actividades2 = [];
+    this.activityServiceProvider.getActividadesPorTagPerfil(tag).subscribe( (acts) => {
+      this.actividades = acts;
+    });
   }
 
   //Debes rellenar el perfil

@@ -45,6 +45,12 @@
           [rating]= "item.estrellas">
         </ionic3-star-rating> <hr>
         Tags: {{item.tags}} <hr>
+        <ion-chip class="listaTags" *ngFor="let tag of item.tags">
+            <ion-label>{{tag}}</ion-label>
+          <button ion-button clear color="grey" (click)="BusquedaTag(tag)">
+              <ion-icon name="search"></ion-icon>
+          </button>
+        </ion-chip>
         <ion-row>
           <ion-col align="right">
             <button ion-button item-right color="checkmark-circle" clear icon-only (click)="solicitarActividad(item)">Solicitar</button>
@@ -65,7 +71,31 @@
       </ion-card-header>
       <ion-card-content>
         Descripción: {{item2.descripcion}} <hr>
+        Horas: {{item2.horasActividad}} <hr>
+        <ionic3-star-rating
+          activeIcon = "ios-star"
+          defaultIcon = "ios-star-outline"
+          activeColor = "#488aff"
+          defaultColor = "#968A8A"
+          readonly="true"
+          [rating]= "item.estrellas">
+        </ionic3-star-rating> <hr>
         Tags: {{item2.tags}} <hr>
+        <ion-chip class="listaTags" *ngFor="let tag2 of item2.tags">
+          <ion-label>{{tag2}}</ion-label>
+          <button ion-button clear color="grey" (click)="BusquedaTag(tag2)">
+            <ion-icon name="search"></ion-icon>
+          </button>
+        </ion-chip>
+        <ion-row>
+          <ion-col align="right">
+            <button ion-button item-right color="checkmark-circle" clear icon-only (click)="solicitarActividad(item)">Solicitar</button>
+          </ion-col>
+          <ion-col></ion-col>
+          <ion-col>
+            <button ion-button item-right color="checkmark-circle" clear icon-only (click)="goMostrarActividad(item)">Ver</button>
+          </ion-col>
+        </ion-row>
       </ion-card-content>
     </ion-card>
   </ion-list>
