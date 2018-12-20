@@ -69,22 +69,23 @@ export class MostrarActividadPage {
 
 
   getValoraciones(){
-    for (let i=0; i<this.actividad.valoraciones.length; i++){
-      this.activityServiceProvider.getValoracion(this.actividad.valoraciones[i]).subscribe( (valoracio) => {
-        if (valoracio != null){
-          console.log("titulo"+ valoracio.titulo);
-          console.log("estrellas"+ valoracio.estrellas);
-              this.vals.push(valoracio);
-        }else{
+    if(this.actividad.valoraciones) {
+      for (let i=0; i < this.actividad.valoraciones.length; i++){
+        this.activityServiceProvider.getValoracion(this.actividad.valoraciones[i]).subscribe( (valoracio) => {
+          if (valoracio != null){
+            console.log("titulo"+ valoracio.titulo);
+            console.log("estrellas"+ valoracio.estrellas);
+            this.vals.push(valoracio);
+          }else{
 
-          this.showAlert3();
+            this.showAlert3();
 
-        }
-      }, (error) => {
-        this.showAlert2();
-      });
+          }
+        }, (error) => {
+          this.showAlert2();
+        });
+      }
     }
-
   }
 
 
