@@ -6,6 +6,7 @@ import { AlertController } from 'ionic-angular';
 import {ChatServiceProvider} from "../../providers/chat-service/chat-service";
 import {UserServiceProvider} from "../../providers/user-service/user-service";
 import{Notificaciones} from '../../app/notificaciones';
+import { PerfilAjenoPage } from '../perfil-ajeno/perfil-ajeno';
 
 
 
@@ -51,6 +52,11 @@ this.inicio();
       this.notificaciones = data;
 
      });
+
+  }
+
+  perfil(usuario: String){
+    this.navCtrl.push(PerfilAjenoPage, {'usuario': usuario});
 
   }
   contactar(){

@@ -22,6 +22,8 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
 import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad';
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
+import { PerfilAjenoPage } from '../pages/perfil-ajeno/perfil-ajeno';
+import { ActividadesAjenasPage } from '../pages/actividades-ajenas/actividades-ajenas';
 
 import { ActividadesEnCursoPage } from '../pages/actividades-en-curso/actividades-en-curso';
 import {ValorarPage} from '../pages/valorar/valorar';
@@ -48,6 +50,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     EditarActividadPage,
     ActividadesEnCursoPage,
     NotificacionesPage,
+    ActividadesAjenasPage,
+    PerfilAjenoPage,
     ChatPage,
     ValorarPage
   ],
@@ -74,6 +78,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     EditarActividadPage,
     ActividadesEnCursoPage,
     NotificacionesPage,
+    ActividadesAjenasPage,
+    PerfilAjenoPage,
     ChatPage,
     ValorarPage
   ],
