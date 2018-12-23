@@ -37,6 +37,14 @@ export class UserServiceProvider {
     const url = `${this.usuariosUrl}/login/${username}/${password}`;
     return this.http.get<Usuario>(url);
   }
+  getUserByRef(ref: string): Observable<Usuario> {
+    const url = `${this.usuariosUrl}/userByRef/${ref}`;
+    return this.http.get<Usuario>(url);
+  }
+  getUserById(idCliente: string): Observable<Usuario> { 
+    const url = `${this.usuariosUrl}/userById/${idCliente}`;
+    return this.http.get<Usuario>(url);
+  }
  /* getEnvioNotificaciones(usuario: Usuario): Observable<Notificaciones> {
     const url = `${this.usuariosUrl}/Enotificaciones/${usuario.nick}/${usuario.notificaciones.pop()}}`;
     return this.http.get<Notificaciones>(url);
@@ -59,6 +67,15 @@ export class UserServiceProvider {
   }
   postUsuario (usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.usuariosUrl, usuario, httpOptions);
+  }
+  postUsuarioByRef(ref: string): Observable<Usuario> {
+    console.log(ref);
+    const url = `${this.usuariosUrl}/getUserByRef`;
+    return this.http.post<Usuario>(url, ref, httpOptions);
+  }
+  postUsuarioById(id: string): Observable<Usuario> {
+    const url = `${this.usuariosUrl}/getUserById/${id}`;
+    return this.http.post<Usuario>(url, id, httpOptions);
   }
   postRechazoNotificaciones (notificaciones: Notificaciones): Observable<Usuario> {
     const url = `${this.usuariosUrl}/RechazoNotificaciones/${notificaciones.participanteActividad}/${notificaciones.tituloActividad}`

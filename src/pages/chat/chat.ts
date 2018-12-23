@@ -88,38 +88,41 @@ export class ChatPage {
 
   sendMessage() {
     let message;
-    if(this.userNick === this.userFrom.nick) {
-      message = {
+    if(this.message) {
+      if(this.userNick === this.userFrom.nick) {
+        message = {
+          room: this.room,
+          message: this.message,
+          from: this.userFrom._id,
+          to: this.userTo._id,
+          created: Date.now(),
+          seen: false
+        };
+      } else {
+        message = {
+          room: this.room,
+          message: this.message,
+          from: this.userTo._id,
+          to: this.userFrom._id,
+          created: Date.now(),
+          seen: false
+        };
+      }
+
+      this.socket.emit('add-message', message);
+      this.messages.push(message);
+      setTimeout(() => {
+        this.content.scrollToBottom();
+      });
+      this.message = "";
+      this.chat = {
         room: this.room,
-        message: this.message,
-        from: this.userFrom._id,
-        to: this.userTo._id,
-        created: Date.now(),
-        seen: false
+        user: this.user._id,
+        lastView: Date.now()
       };
-    } else {
-      message = {
-        room: this.room,
-        message: this.message,
-        from: this.userTo._id,
-        to: this.userFrom._id,
-        created: Date.now(),
-        seen: false
-      };
+      this.chatService.lastView(this.chat).subscribe();
     }
 
-    this.socket.emit('add-message', message);
-    this.messages.push(message);
-    setTimeout(() => {
-      this.content.scrollToBottom();
-    });
-    this.message = "";
-    this.chat = {
-      room: this.room,
-      user: this.user._id,
-      lastView: Date.now()
-    };
-    this.chatService.lastView(this.chat).subscribe();
   }
 
   getMessagesSocket() {

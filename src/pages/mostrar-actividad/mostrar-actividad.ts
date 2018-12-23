@@ -69,22 +69,23 @@ export class MostrarActividadPage {
 
 
   getValoraciones(){
-    for (let i=0; i<this.actividad.valoraciones.length; i++){
-      this.activityServiceProvider.getValoracion(this.actividad.valoraciones[i]).subscribe( (valoracio) => {
-        if (valoracio != null){
-          console.log("titulo"+ valoracio.titulo);
-          console.log("estrellas"+ valoracio.estrellas);
-              this.vals.push(valoracio);
-        }else{
+    if(this.actividad.valoraciones) {
+      for (let i=0; i < this.actividad.valoraciones.length; i++){
+        this.activityServiceProvider.getValoracion(this.actividad.valoraciones[i]).subscribe( (valoracio) => {
+          if (valoracio != null){
+            console.log("titulo"+ valoracio.titulo);
+            console.log("estrellas"+ valoracio.estrellas);
+            this.vals.push(valoracio);
+          }else{
 
-          this.showAlert3();
+            this.showAlert3();
 
-        }
-      }, (error) => {
-        this.showAlert2();
-      });
+          }
+        }, (error) => {
+          this.showAlert2();
+        });
+      }
     }
-
   }
 
 
@@ -143,13 +144,13 @@ export class MostrarActividadPage {
 
             this.storage.get('nick').then(val => {
               this.userServiceProvider.getUsuario(val).subscribe( data =>{
-                this.nickyestado.User = data._id;
+                this.nickyestado.idCliente = data._id;
                 console.log(data._id);
                 this.nickyestado.estado = 1;
                 this.actividad.clientes.push(this.nickyestado);
                 //console.log('estado'+this.nickyestado.estado);
-                console.log('nick'+this.nickyestado.User);
-                console.log('los clientes son ' + this.actividad.clientes[0].User);
+                console.log('nick'+this.nickyestado.idCliente);
+                console.log('los clientes son ' + this.actividad.clientes[0].idCliente);
                 this.actualizar();
 
               });

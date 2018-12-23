@@ -46,9 +46,9 @@
     </ion-col>
     <ion-col col-3>
       <button ion-button clear
-              color="light"
+              color="dark"
               (click)="sendMessage()"
-              [disabled]="message === ''">
+              [disabled]="!message">
         Send
       </button>
     </ion-col>
