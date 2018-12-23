@@ -2,14 +2,12 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
 import { SideMenuPage } from '../side-menu/side-menu';
-import { MenuPrincipalPage } from '../menu-principal/menu-principal';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Login } from '../../app/login';
 import { Usuario } from '../../app/usuario';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import {Socket} from "ng-socket-io";
-import { Token } from '../../app/token';
 
 @Component({
   selector: 'page-home',

@@ -3,8 +3,6 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {Valoracion} from "../../app/valoracion"
 import {ActivityServiceProvider} from "../../providers/activity-service/activity-service";
 import {Storage} from "@ionic/storage";
-import {CatalogoPage} from "../catalogo/catalogo";
-import {HomePage} from "../home/home";
 import {MenuPrincipalPage} from "../menu-principal/menu-principal";
 import {Actividad} from "../../app/actividad";
 

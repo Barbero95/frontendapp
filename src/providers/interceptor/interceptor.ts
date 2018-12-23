@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
-import { catchError, mergeMap, tap } from 'rxjs/operators';
+import { catchError, mergeMap} from 'rxjs/operators';
 
 
 @Injectable()
@@ -50,8 +50,8 @@ export class InterceptorProvider implements HttpInterceptor {
       let clone: HttpRequest<any>;
       clone = request.clone({
         setHeaders: {
-          Accept: 'aplication/json',
-          'Content-Type': 'aplication/json',
+          //Accept: 'aplication/json',
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         }
       });

@@ -11,15 +11,8 @@ import { ObjetoDeNickYEstado } from '../../app/objetoDeNickYEstado';
 
 import {ChatPage} from "../chat/chat";
 import {Usuario} from "../../app/usuario";
-import {EditarActividadPage} from "../editar-actividad/editar-actividad";
 import {ValorarPage} from "../valorar/valorar";
 import {Valoracion} from "../../app/valoracion";
-/**
- * Generated class for the MostrarActividadPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
