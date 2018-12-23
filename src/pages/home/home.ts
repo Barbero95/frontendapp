@@ -9,12 +9,15 @@ import { Usuario } from '../../app/usuario';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import {Socket} from "ng-socket-io";
+import { Token } from '../../app/token';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  //Autenticación
+  authenticated = false;
 
   //La pagina home que es la predefinida por ionic es el Login
   username: string;
@@ -41,17 +44,27 @@ export class HomePage {
     console.log("Username: " + this.username);
     console.log("Password: " + this.password);
     this.ponerDatos();
-    this.userServiceProvider.validarUser(this.login).subscribe( (data) => {
-      if (data == null){
-        this.showAlert();
-      }else{
-        //cambio a la app
-        this.socket.connect();
-        this.socket.emit('set-username', this.username);
-        this.navCtrl.setRoot(SideMenuPage);
-        //this.navCtrl.setRoot(MenuPrincipalPage);
-      }
+    this.storage.set('my_token', 'hola').then( () => {
+      this.userServiceProvider.validarUser(this.login).subscribe( (data) => {
+        if (data == null){
+          this.showAlert();
+        }else{
+          //cambio a la app
+          this.socket.connect();
+          this.socket.emit('set-username', this.username);
+          
+          //añado token de autenticación al storage y paso al side menu
+          this.storage.set('my_token', data.token).then(() => {
+            console.log("token:" + data);
+            this.authenticated = true;
+            this.navCtrl.setRoot(SideMenuPage);
+          });
+          
+        }
+      });
     });
+    
+    
 
 
 
