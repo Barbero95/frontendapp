@@ -32,6 +32,7 @@ import {ChatPage} from "../pages/chat/chat";
 import {WrappedSocket} from "ng-socket-io/dist/src/socket-io.service";
 import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
 import {ChatServiceProvider} from "../providers/chat-service/chat-service";
+import { MapaPage } from '../pages/mapa/mapa';
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
 
@@ -53,7 +54,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     ActividadesAjenasPage,
     PerfilAjenoPage,
     ChatPage,
-    ValorarPage
+    ValorarPage,
+    MapaPage
   ],
   imports: [
     BrowserModule,
@@ -81,7 +83,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     ActividadesAjenasPage,
     PerfilAjenoPage,
     ChatPage,
-    ValorarPage
+    ValorarPage,
+    MapaPage
   ],
   providers: [
     StatusBar,

@@ -21,6 +21,11 @@
     "src/**/*.spec.ts",
     "src/**/__tests__/*.ts"
   ],
+  "types":[
+    "leaflet",
+    "leaflet-draw",
+    "leaflet-markercluster"
+  ],
   "compileOnSave": false,
   "atom": {
     "rewriteTsconfig": false
