@@ -45,40 +45,21 @@ export class MapaPage {
     this.map = leaflet.map("map").fitWorld();
     leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attributions: 'www.tphangout.com',
-      maxZoom: 14
+      maxZoom: 16,
+      minZoom: 0,
+      zoomSnap: 0,
+      zoomDelta: 0.25
     }).addTo(this.map);
+    this.map.setView(new leaflet.LatLng(this.actividad.localizacion[0], this.actividad.localizacion[1]), 16);
+    this.addMarker();
   }
   addMarker() {
-    let prompt = this.alertCtrl.create({
-      title: 'Add Marker',
-      message: "Enter location",
-      inputs: [
-        {
-          name: 'city',
-          placeholder: 'City'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            
-            this.geoCodeandAdd(data.city);
-          }
-        }
-      ]
-    });
-    prompt.present();
+    let markerGroup = leaflet.featureGroup();
+    let marker = leaflet.marker([this.actividad.localizacion[0], this.actividad.localizacion[1]],16).on('click', () => {
+      alert('marker clicked');
+    })
+    markerGroup.addLayer(marker);
+    this.map.addLayer(markerGroup);
   }
  
-  geoCodeandAdd(city) {
-    
-  }
-  
 }
