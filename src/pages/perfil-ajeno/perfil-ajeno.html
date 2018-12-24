@@ -1,0 +1,75 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Perfil del usuario {{usuario.nick}}</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <icon-item>
+      <ion-avatar>
+        <img [src]="foto" class="profile-image-perfil">
+      </ion-avatar>
+    </icon-item>
+    <ion-list align="center">
+      <h2>{{usuario.nick}}</h2>
+      <p>{{usuario.horasUsuario}}</p>
+      <ionic3-star-rating 
+        activeIcon = "ios-star"
+        defaultIcon = "ios-star-outline"
+        activeColor = "#488aff" 
+        defaultColor = "#968A8A"
+        readonly="true"
+        [rating]= "usuario.estrellas">
+      </ionic3-star-rating>
+    </ion-list>
+    <!--<ion-icon class="brush" name="settings" (click)="goEditarPerfil()"></ion-icon>
+    <ion-list align="center">
+      <div class="item item-avatar">
+        <img align="center" src="{{foto}}" class="profile-image-perfil">
+        <h2>{{usuario.nick}}</h2>
+        <p>{{usuario.horasUsuario}}</p>
+        <ionic3-star-rating 
+          activeIcon = "ios-star"
+          defaultIcon = "ios-star-outline"
+          activeColor = "#488aff" 
+          defaultColor = "#968A8A"
+          readonly="true"
+          [rating]= "usuario.estrellas">
+        </ionic3-star-rating>
+      </div>
+    </ion-list>
+    -->
+    <ion-list align="center" margin-top="10px">  
+      <ion-item>
+        <ion-label>Nombre: </ion-label>
+        <ion-label>{{usuario.nombre}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Apellido: </ion-label>
+        <ion-label>{{usuario.apellido}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Email: </ion-label>
+        <ion-label>{{usuario.email}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Horas: </ion-label>
+        <ion-label>{{usuario.horasUsuario}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Tags: </ion-label>
+        <ion-label>{{usuario.tags}}</ion-label>
+      </ion-item>
+          <ion-buttons align="center">
+            <button ion-button color="primary" class="aceptar" (click)="contactar()">Contactar</button>       
+            <button ion-button color="primary" class="aceptar" (click)="actividades()">Ver actividades</button> 
+        </ion-buttons>
+      </ion-list>
+  
+  
+  </ion-content>
+  

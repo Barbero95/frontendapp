@@ -22,6 +22,8 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
 import { EditarActividadPage } from '../pages/editar-actividad/editar-actividad';
 import { NotificacionesPage } from '../pages/notificaciones/notificaciones';
+import { PerfilAjenoPage } from '../pages/perfil-ajeno/perfil-ajeno';
+import { ActividadesAjenasPage } from '../pages/actividades-ajenas/actividades-ajenas';
 
 import { ActividadesEnCursoPage } from '../pages/actividades-en-curso/actividades-en-curso';
 import {ValorarPage} from '../pages/valorar/valorar';
@@ -31,6 +33,7 @@ import {WrappedSocket} from "ng-socket-io/dist/src/socket-io.service";
 import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
 import {ChatServiceProvider} from "../providers/chat-service/chat-service";
 import { InterceptorProvider } from '../providers/interceptor/interceptor';
+import { MapaPage } from '../pages/mapa/mapa';
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
 
@@ -49,8 +52,11 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     EditarActividadPage,
     ActividadesEnCursoPage,
     NotificacionesPage,
+    ActividadesAjenasPage,
+    PerfilAjenoPage,
     ChatPage,
-    ValorarPage
+    ValorarPage,
+    MapaPage
   ],
   imports: [
     BrowserModule,
@@ -75,8 +81,11 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     EditarActividadPage,
     ActividadesEnCursoPage,
     NotificacionesPage,
+    ActividadesAjenasPage,
+    PerfilAjenoPage,
     ChatPage,
-    ValorarPage
+    ValorarPage,
+    MapaPage
   ],
   providers: [
     StatusBar,

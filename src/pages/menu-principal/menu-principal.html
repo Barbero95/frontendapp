@@ -55,7 +55,9 @@
           <ion-col align="right">
             <button ion-button item-right color="checkmark-circle" clear icon-only (click)="solicitarActividad(item)">Solicitar</button>
           </ion-col>
-          <ion-col></ion-col>
+          <ion-col>
+            <button ion-button item-right color="checkmark-circle" clear icon-only (click)="verMapaActividad(item)">Mapa</button>
+          </ion-col>
           <ion-col>
             <button ion-button item-right color="checkmark-circle" clear icon-only (click)="goMostrarActividad(item)">Ver</button>
           </ion-col>
@@ -78,7 +80,7 @@
           activeColor = "#488aff"
           defaultColor = "#968A8A"
           readonly="true"
-          [rating]= "item.estrellas">
+          [rating]= "item2.estrellas">
         </ionic3-star-rating> <hr>
         Tags: {{item2.tags}} <hr>
         <ion-chip class="listaTags" *ngFor="let tag2 of item2.tags">

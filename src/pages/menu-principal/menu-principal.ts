@@ -10,6 +10,7 @@ import { MostrarActividadPage } from '../mostrar-actividad/mostrar-actividad';
 import { Busqueda } from '../../app/busqueda';
 import { Geolocation } from '@ionic-native/geolocation';
 import {ChatServiceProvider} from "../../providers/chat-service/chat-service";
+import { MapaPage } from '../mapa/mapa';
 
 
 @IonicPage()
@@ -150,6 +151,11 @@ export class MenuPrincipalPage {
       }
 
     }
+  }
+
+  //pasamos la actividad a la page mapa para mostrar la actividad en el mapa
+  verMapaActividad(actividad: Actividad){
+    this.navCtrl.push(MapaPage, {'act': actividad, 'usuario': this.usuario});
   }
 
   //cuando selecionamos una actividad
