@@ -6,6 +6,7 @@ import { Notificaciones } from '../../app/notificaciones';
 
 import { Usuario } from '../../app/usuario';
 import { Login } from '../../app/login';
+import { Token } from '../../app/token';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -57,10 +58,18 @@ export class UserServiceProvider {
 
 
   /* *********** POST *********** */
+  //david --> he cambiado lo que me llega del login-------
+  validarUser(log: Login): Observable<Token> {
+    const url = `${this.usuariosUrl}/validacion`
+    return this.http.post<Token>(url, log, httpOptions);
+  }
+  /*
   validarUser(log: Login): Observable<Usuario> {
     const url = `${this.usuariosUrl}/validacion`
     return this.http.post<Usuario>(url, log, httpOptions);
   }
+  */
+  //hasta aqui----------
   postEnvioNotificaciones (notificaciones: Notificaciones): Observable<Usuario> {
     const url = `${this.usuariosUrl}/ENotificaciones`
     return this.http.post<Usuario>(url, notificaciones, httpOptions);

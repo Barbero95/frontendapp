@@ -5,7 +5,6 @@ import { AlertController } from 'ionic-angular';
 import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
 import { Actividad } from '../../app/actividad';
 import {CatalogoPage} from "../catalogo/catalogo";
-import {SideMenuPage} from "../side-menu/side-menu";
 
 
 @IonicPage()

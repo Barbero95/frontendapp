@@ -3,7 +3,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, ErrorHandler, NgModule} from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS }    from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { StarRatingModule } from 'ionic3-star-rating';
 import { Geolocation } from '@ionic-native/geolocation'
@@ -32,6 +32,7 @@ import {ChatPage} from "../pages/chat/chat";
 import {WrappedSocket} from "ng-socket-io/dist/src/socket-io.service";
 import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
 import {ChatServiceProvider} from "../providers/chat-service/chat-service";
+import { InterceptorProvider } from '../providers/interceptor/interceptor';
 import { MapaPage } from '../pages/mapa/mapa';
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
@@ -90,6 +91,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true},
     UserServiceProvider,
     Camera,
     ActivityServiceProvider,

@@ -35,6 +35,7 @@ export class SideMenuPage {
   pageExit: {title: string, component: any, icon: string}
   nick: string = "";
   estrellas: number = 0;
+  horas: number = 0;
   usuario: Usuario;
   foto = null;
   //caso primero de cargar foto del backend
@@ -80,6 +81,8 @@ export class SideMenuPage {
       console.log("**** GET USUARIO *****", JSON.stringify(data));
       this.usuario = data;
       this.foto = this.usuario.imagen;
+      this.horas = this.usuario.horasUsuario;
+      this.estrellas = this.usuario.estrellas;
       console.log("Side nick en data" + data.nick);
     });
 

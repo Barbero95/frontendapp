@@ -1,6 +1,5 @@
 import { ObjetoDeNickYEstado } from "./objetoDeNickYEstado";
 import {Room} from "./room";
-import {Valoracion} from "./valoracion"
 
 export class Actividad {
     _id: string;
