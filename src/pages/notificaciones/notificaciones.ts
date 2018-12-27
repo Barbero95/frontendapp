@@ -59,6 +59,7 @@ this.inicio();
     this.navCtrl.push(PerfilAjenoPage, {'usuario': usuario});
 
   }
+  aceptar(){}
   contactar(){
     
 

@@ -8,6 +8,8 @@ import { Actividad } from '../../app/actividad';
 import { AlertController } from 'ionic-angular';
 import { EditarActividadPage } from "../editar-actividad/editar-actividad";
 
+import { PerfilAjenoPage } from "../perfil-ajeno/perfil-ajeno";
+
 /**
  * Generated class for the ActividadesEnCursoPage page.
  *
@@ -116,6 +118,14 @@ export class ActividadesEnCursoPage {
 
   }
   
+
+
+  perfilAjeno(actividad: Actividad){
+    this.navCtrl.push(PerfilAjenoPage, {'usuario': actividad.propietario});
+
+  }
+
+
   goToEditarActividad(actividad: Actividad){
     this.navCtrl.push(EditarActividadPage, {'act': actividad});
 

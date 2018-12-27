@@ -19,6 +19,7 @@
         <ion-card-content>
           Descripción: {{item.descripcion}} <hr>
           Tags: {{item.tags}} <hr>
+          Propietario: {{item.propietario}}
           <ion-chip class="listaTags" *ngFor="let room of item.fullRooms">
             <ion-label *ngIf="propietario === room[0].users[1].userName"
                         (click)="contactar(room[0].users[0], room[0].users[1], item._id)">
@@ -29,6 +30,14 @@
               {{room[0].users[1].userName}}
             </ion-label>
           </ion-chip>
+          
+  <ion-buttons align="center">
+    <button ion-button color="primary" class="solicitar" (click)="contactar()">Contactar</button>
+    <button ion-button color="primary" class="solicitar" (click)="solicitar(item)">Solicitar</button>
+    <button ion-button color="primary" class="cancelar" (click)="cancelar()">Cancelar</button>
+    <button ion-button color="primary" class="valorar" (click)="gotoValorarPage()">Valorar </button>
+
+  </ion-buttons>
         </ion-card-content>
       </ion-card>
     </ion-list>

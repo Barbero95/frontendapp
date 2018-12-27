@@ -31,9 +31,11 @@
         <ion-item>
           El propietario es {{item.propietario}}
         </ion-item>
-        <ion-item>
-          El clientes es {{item.cliente}}
-        </ion-item>
+
+        <ul><li> El propietario es {{item.propietario}}</li>
+            <li><a routerLink="" (click)="perfilAjeno(item)"> El cliente es {{item.cliente}}</a></li>
+          </ul>
+
       </ion-card-content>
     </ion-card>
   </ion-list>

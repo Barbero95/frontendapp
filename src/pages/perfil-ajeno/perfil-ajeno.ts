@@ -11,8 +11,6 @@ import { ObjetoDeNickYEstado } from '../../app/objetoDeNickYEstado';
 import {ActividadesAjenasPage} from "../actividades-ajenas/actividades-ajenas";
 import {ChatPage} from "../chat/chat";
 import {EditarActividadPage} from "../editar-actividad/editar-actividad";
-import {ValorarPage} from "../valorar/valorar";
-import {Valoracion} from "../../app/valoracion";
 
 
 /**
@@ -40,12 +38,10 @@ export class PerfilAjenoPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
-     this.usuario = new Usuario();
+    this.usuario = new Usuario();
      
 
-   // this.perfilAConsultar = this.navParams.get('usuario');
-   //Comento hasta migrarlo al oto texto
-    this.perfilAConsultar = "sotis";
+   this.perfilAConsultar = this.navParams.get('usuario');
     this.userServiceProvider.getUsuario(this.perfilAConsultar).subscribe( data => {
       this.usuario = data;
     });
@@ -57,6 +53,7 @@ export class PerfilAjenoPage {
   inicio(){
   }
 
+  contactar(){}
   actividades(){
     this.navCtrl.push(ActividadesAjenasPage, ({'usuario': this.perfilAConsultar}));
   }

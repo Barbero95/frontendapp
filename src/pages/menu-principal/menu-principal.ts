@@ -115,15 +115,6 @@ export class MenuPrincipalPage {
       }
 
     });
-      this.userServiceProvider.getReciboNotificaciones(this.nick).subscribe(
-        data=>{
-        if (data != null){
-        this.showAlert3()}
-        else
-        this.showAlert6()
-    },err => {
-        this.showAlert8()}
-      );
   }
 
   //Barra de busqueda: buscamos por palabra clave
@@ -190,14 +181,6 @@ export class MenuPrincipalPage {
     });
     alert.present();
   }
-  showAlert3() {
-    const alert = this.alertCtrl.create({
-      title: 'Notificación pendiente',
-      subTitle: 'Tienes notificaciones pendientes.',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
 
   showAlert4() {
     const alert = this.alertCtrl.create({
@@ -215,15 +198,7 @@ export class MenuPrincipalPage {
     });
     alert.present();
   }
-  //Esta notificación se puede borrar posteriormente, es solo de prueba
-  showAlert6() {
-    const alert = this.alertCtrl.create({
-      title: 'No tiene ninguna notificación pendiente',
-      subTitle: 'No tienes notificaciones pendientes.',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
+ 
   showAlert7() {
     const alert = this.alertCtrl.create({
       title: 'Busqueda',

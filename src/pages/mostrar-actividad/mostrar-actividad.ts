@@ -45,7 +45,6 @@ export class MostrarActividadPage {
 
     this.actividad = this.navParams.get('act');
 
-    this.actividadAnterior = this.navParams.get('act');
 
     this.tituloAnterior = this.actividadAnterior.titulo;
     this.usuario = this.navParams.get('usuario');
