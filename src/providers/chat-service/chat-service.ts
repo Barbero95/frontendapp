@@ -15,6 +15,17 @@ export class ChatServiceProvider {
   constructor(public http: HttpClient) {
   }
 
+  getChats(user) : Observable<any>{
+    let subject = new Subject<any>();
+    this.http.post<any>(`${this.server}/chat/getChats`, user, httpOptions).subscribe(data => {
+      if(data) {
+        subject.next(data);
+        subject.complete();
+      }
+    });
+    return subject;
+  }
+
   getChatRoom(users) : Observable<any>{
     let subject = new Subject<any>();
     this.http.post<any>(`${this.server}/chat/getRoom`, users, httpOptions).subscribe(data => {

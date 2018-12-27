@@ -1,0 +1,53 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Chats</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list style="max-height: 400px; overflow-y: scroll;">
+    <ion-item *ngFor="let chat of chats"
+              class="dark-background"
+              (click)="openChatFromUsers(chat.users)">
+      <ion-row *ngFor="let usr of chat.users">
+        <ion-col *ngIf="usr.userId != user._id" no-padding>
+          <ion-row>
+            <ion-col col-2 class="no-pad-top no-pad-bot">
+              <ion-avatar no-margin>
+                <img src="../../../assets/imgs/logo.png"/>
+              </ion-avatar>
+            </ion-col>
+            <ion-col col-6 class="no-pad-top no-pad-bot small-pad-left">
+              {{usr.userName}}
+              <p>{{chat.lastMessage}}</p>
+            </ion-col>
+            <ion-col col-4 class="time-chat no-pad-top no-pad-bot no-pad-right"
+                     *ngIf="chat.lastMessageDate">
+              <div class="time-chat">
+                {{chat.lastMessageDate | date:'shortTime'}}
+              </div>
+            </ion-col>
+            <!--<ion-col col-4 class="time-chat no-pad-top no-pad-bot no-pad-right"
+                     *ngIf="chat.lastMessageDate">
+              <div class="time-chat">
+                {{chat.lastMessageDate | date:'shortTime'}}
+              </div>
+            </ion-col>-->
+            <ion-col col-4 class="no-pad-top no-pad-bot no-pad-right"
+                     *ngIf="!chat.lastMessageDate">
+              <div class="time-chat">Nunca</div>
+            </ion-col>
+          </ion-row>
+
+        </ion-col>
+        <!--<ion-col col-6>
+          <b *ngIf="chat.connected" style="color: greenyellow">Conectado</b>
+          <b *ngIf="!chat.connected" style="color: darkred">No Conectado</b>
+        </ion-col>-->
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -11,6 +11,7 @@ import { Busqueda } from '../../app/busqueda';
 import { Geolocation } from '@ionic-native/geolocation';
 import {ChatServiceProvider} from "../../providers/chat-service/chat-service";
 import { MapaPage } from '../mapa/mapa';
+import {ChatListPage} from "../chat-list/chat-list";
 
 
 @IonicPage()
@@ -169,7 +170,7 @@ export class MenuPrincipalPage {
     });
   }
   solicitarActividad(){
-    
+
   }
 
   //Debes rellenar el perfil
@@ -248,6 +249,10 @@ export class MenuPrincipalPage {
         console.log('number', this.numberMsg);
       });
     });
+  }
+
+  goToChatList() {
+    this.navCtrl.push(ChatListPage, {'usuario': this.usuario});
   }
 
 }

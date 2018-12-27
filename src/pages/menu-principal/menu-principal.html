@@ -4,8 +4,10 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Menu Principal</ion-title>
-    <ion-buttons end>
-      <ion-badge  *ngIf="numberMsg != 0">{{numberMsg}}</ion-badge>
+    <ion-buttons end >
+      <button ion-button (click)="goToChatList()">
+        <ion-badge>{{numberMsg}}</ion-badge>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>

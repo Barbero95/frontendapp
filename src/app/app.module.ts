@@ -34,6 +34,7 @@ import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
 import {ChatServiceProvider} from "../providers/chat-service/chat-service";
 import { InterceptorProvider } from '../providers/interceptor/interceptor';
 import { MapaPage } from '../pages/mapa/mapa';
+import {ChatListPage} from "../pages/chat-list/chat-list";
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
 
@@ -56,7 +57,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     PerfilAjenoPage,
     ChatPage,
     ValorarPage,
-    MapaPage
+    MapaPage,
+    ChatListPage
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     PerfilAjenoPage,
     ChatPage,
     ValorarPage,
-    MapaPage
+    MapaPage,
+    ChatListPage
   ],
   providers: [
     StatusBar,
