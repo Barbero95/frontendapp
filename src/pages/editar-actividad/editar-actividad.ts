@@ -64,7 +64,7 @@ export class EditarActividadPage {
 
       this.activityServiceProvider.getActividadDePropietario(this.actividad).subscribe((data) => {
 
-        if (data == null) {
+        //if (data.titulo == null) {
 
           this.activityServiceProvider.updateActividad(this.actividad, this.tituloAnterior).subscribe(data => {
 
@@ -76,12 +76,12 @@ export class EditarActividadPage {
               this.showAlert3();
             }
           });
-        }
+        //}
 
-        else {
+        //else {
 
-          this.showAlert2();
-        }
+          //this.showAlert2();
+        //}
 
       });
     }

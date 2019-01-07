@@ -44,6 +44,7 @@ export class MostrarActividadPage {
     this.nickyestado = new ObjetoDeNickYEstado();
 
     this.actividad = this.navParams.get('act');
+    this.actividadAnterior = this.actividad;
 
 
     this.tituloAnterior = this.actividadAnterior.titulo;
@@ -144,7 +145,6 @@ export class MostrarActividadPage {
                 console.log('nick'+this.nickyestado.idCliente);
                 console.log('los clientes son ' + this.actividad.clientes[0].idCliente);
                 this.actualizar();
-
               });
 
             });

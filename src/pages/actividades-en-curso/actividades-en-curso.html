@@ -10,8 +10,8 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-card *ngFor="let item of result">
-      <ion-card-header>
+    <ion-card *ngFor="let item of result" >
+      <ion-card-header >
         {{item.actividad}}
         El estado es : {{item.estado}}
         
@@ -21,16 +21,17 @@
         <button  *ngIf="item.estado == 1" ion-button icon-end color="danger" clear icon-only (click)="declinarActivity(item.actividad , item.propietario , item.idCliente)">
           <ion-icon small  name='close-circle' is-active="false"></ion-icon>
         </button>
-        <button *ngIf="item.estado == 2 || item.estado == 3 " ion-button icon-end color="dark" clear icon-only (click)="finalitzarActivity(item.actividad , item.propietario , item.idCliente)">
+        <button *ngIf="item.estado == 2 || item.estado == 3" ion-button icon-end color="dark" clear icon-only (click)="finalitzarActivity(item.actividad , item.propietario , item.idCliente)">
           <ion-icon small  name='pulse' is-active="false"></ion-icon>
         </button>
+        <li *ngIf="item.estado == 1" class="c1">hola</li>
+        <li *ngIf="item.estado == 10" class="c1"></li>
+        <li *ngIf="item.estado == 2"class="c2"></li>
+        <li *ngIf="item.estado == 4"class="c4">pringui</li>
         
         
       </ion-card-header>
       <ion-card-content>
-        <ion-item>
-          El propietario es {{item.propietario}}
-        </ion-item>
 
         <ul><li> El propietario es {{item.propietario}}</li>
             <li><a routerLink="" (click)="perfilAjeno(item)"> El cliente es {{item.cliente}}</a></li>

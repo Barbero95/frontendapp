@@ -38,6 +38,7 @@ export class ActividadesEnCursoPage {
   items: Array<{title: string, note: string, icon: string}>;
 
   propietario: string = "";
+  nickUsuario: string = "";
   idpropietario: string = "";
   idcli:string = "";
   usuario2: Usuario;
@@ -52,10 +53,10 @@ export class ActividadesEnCursoPage {
     //es como iniciaar el local storage si no no obtenemos lso datos
     this.actividades = []; this.actividades2 = [];
     this.storage.get('nick').then( (nick) => {
-      this.propietario = nick;
+      this.nickUsuario = nick;
       //console.log("el nick es : "+ this.propietario);
 
-      this.userServiceProvider.getUsuario(this.propietario).subscribe((ua) => {
+      this.userServiceProvider.getUsuario(this.nickUsuario).subscribe((ua) => {
         //console.log(ua)
         this.idpropietario = ua._id;
         //console.log("el id del propietario es :" + this.idpropietario);
@@ -69,11 +70,8 @@ export class ActividadesEnCursoPage {
 
   //al iniciar
   inicio(){
-
-    //this.inicialitzer();
-
     //pedimos el usuario
-    this.activityServiceProvider.getActividadesPropietario(this.propietario).subscribe( (activitats) => {
+    this.activityServiceProvider.getActividadesPropietario(this.nickUsuario).subscribe( (activitats) => {
 
       for(let a of activitats) {
         for(let c of a.clientes) {
@@ -81,7 +79,7 @@ export class ActividadesEnCursoPage {
           o.actividad = a.titulo;
           o.idCliente = c.idCliente;
           o.estado = c.estado;
-          o.propietario = this.propietario;
+          o.propietario = this.nickUsuario;
           this.result.push(o);
         }
       }
@@ -104,32 +102,31 @@ export class ActividadesEnCursoPage {
             o.propietario = a.propietario;
             o.idCliente = c.idCliente;
             o.estado = c.estado;
-            o.cliente = this.propietario;
+            o.cliente = this.nickUsuario;
+          //si soy el cliente no me debe salir la opción de poder aceptar o rechazar la actividad y ahora esta saliendo
+          //codigo de david -------------------
+          if (o.estado==1){
+            //pongo un estado inventado para k no salga lo de acpetar o rechazar
+            o.estado = 10;
+          }
+          //-----------------
           this.result.push(o);
           }
         }
       }
-
-
-
     })
     });
     
 
   }
   
-
-
   perfilAjeno(actividad: Actividad){
     this.navCtrl.push(PerfilAjenoPage, {'usuario': actividad.propietario});
 
   }
-
-
+  //esto sobra?
   goToEditarActividad(actividad: Actividad){
     this.navCtrl.push(EditarActividadPage, {'act': actividad});
-
-
   }
   aceptarActivity(nombre: string , propi: string , clienId: string){
     //console.log("la actividad del usuario es :" + nombre);
@@ -141,9 +138,7 @@ export class ActividadesEnCursoPage {
         if (d.idCliente == clienId){
           //console.log("ha entrado");
           d.estado = 2;
-
         }
-
       }
       //console.log(dat);
       this.activityServiceProvider.updateActividad(dat,dat.titulo).subscribe( data => {
@@ -187,37 +182,45 @@ export class ActividadesEnCursoPage {
         this.showAlert3();
       }
     });
-
-
     })
-    
-  
   }
 
 
   
-   declinarACtivity(actividad: Actividad, ind:number){
-     actividad.clientes[ind].estado = 2;
-     this.activityServiceProvider.updateActividad(actividad,actividad.titulo).subscribe( data => {
-       if(data != null){
-         this.showAlert1();
-       }else{
-         this.showAlert3();
-       }
-     });
-   
+  declinarACtivity(actividad: Actividad, ind:number){
+    actividad.clientes[ind].estado = 2;
+    this.activityServiceProvider.updateActividad(actividad,actividad.titulo).subscribe( data => {
+      if(data != null){
+        this.showAlert1();
+      }else{
+        this.showAlert3();
+      }
+    });
+  }
+
+  getColor(est) {
+    console.log(est);
+    switch (est) {
+      case '1':
+        return 'green';
+      case '2':
+        return 'blue';
+      case '3':
+        return 'red';
+      case '4':
+        return 'yellow';
+      case '10':
+        return 'green';
     }
+  }
 
-    
-
-   showAlert3() {
+  showAlert3() {
     const alert = this.alertCtrl.create({
       title: 'Solicitar Actividad',
       subTitle: 'No se ha podido solicitar la actividad',
       buttons: ['OK']
     });
     alert.present();
-    
   }
   showAlert4() {
     const alert = this.alertCtrl.create({
@@ -226,7 +229,6 @@ export class ActividadesEnCursoPage {
       buttons: ['OK']
     });
     alert.present();
-    
   }
   showAlert1() {
     const alert = this.alertCtrl.create({
@@ -235,7 +237,6 @@ export class ActividadesEnCursoPage {
       buttons: ['OK']
     });
     alert.present();
-    
   }
 
 }
