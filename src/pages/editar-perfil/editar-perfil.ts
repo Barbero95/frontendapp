@@ -108,16 +108,19 @@ export class EditarPerfilPage {
   }
   //subir la foto
   upload(){
-    let url = "http://localhost:3000/users/foto/perfil/avatar"
+    let url = "http://localhost:3000/users/foto/avatar"
     let posData = new FormData();
     //posData.append('file', this.base64Image);
     posData.append('avatar',this.selectedFile, this.usuario.nick);
+    
     let  data: Observable<any> = this.http.post(url, posData);
     data.subscribe((result) => {
-      //console.log(result);
+      console.log(result);
     });
-    //this.userServiceProvider.createFoto(posData);
+    
+    //this.userServiceProvider.createFoto(posData).subscribe( data => this.updateAvatar());
     this.updateAvatar();
+
   }
   //cargar foto para web
   onFileSelected(event){

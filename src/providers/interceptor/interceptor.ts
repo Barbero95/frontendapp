@@ -51,7 +51,7 @@ export class InterceptorProvider implements HttpInterceptor {
       clone = request.clone({
         setHeaders: {
           //Accept: 'aplication/json',
-          'Content-Type': 'application/json',
+          //'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         }
       });

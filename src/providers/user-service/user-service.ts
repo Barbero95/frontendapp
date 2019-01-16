@@ -93,9 +93,9 @@ export class UserServiceProvider {
 
 
   //foto perfil
-  createFoto (posData: FormData): void{
-    let url =  `${this.usuariosUrl}/foto/perfil`;
-    this.http.post(url,posData);
+  createFoto (posData: FormData): Observable<any> {
+    let url =  `${this.usuariosUrl}/foto/avatar`;
+    return this.http.post(url,posData, httpOptions);
   }
 
   /* *********** PUT *********** */
