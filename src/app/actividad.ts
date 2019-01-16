@@ -18,6 +18,7 @@ export class Actividad {
     localizacion: number[];
     ubicacion: string;
     valoraciones: string[];
+    imagen: string;
 
     constructor(){
         this._id = "";
@@ -34,6 +35,7 @@ export class Actividad {
         this.ubicacion = "";
         this.localizacion = [];
         this.valoraciones =[];
+        this.imagen = "";
 
         //
     }

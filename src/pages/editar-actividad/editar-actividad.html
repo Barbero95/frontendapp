@@ -12,6 +12,14 @@
 
   <ion-list>
 
+    <ion-avatar>
+      <img [src]="foto" class="profile-image-perfil">
+    </ion-avatar>
+
+    <input type="file" (change)="onFileSelected($event)">
+    <button ion-button color="secondary" (click)="upload()">Cargar foto</button>
+
+
     <ion-item>
       <ion-label>Título</ion-label>
       <ion-input type="text" [(ngModel)]="actividad.titulo"></ion-input>

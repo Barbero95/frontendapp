@@ -6,13 +6,8 @@ import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { SideMenuPage } from '../side-menu/side-menu';
 import { Geolocation } from '@ionic-native/geolocation';
+import {Observable} from "rxjs";
 
-/**
- * Generated class for the CrearActividadPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -24,6 +19,7 @@ export class CrearActividadPage {
   tag: string = "";
   actividad: Actividad;
   localizacion: number[] = [];
+
   
 
   //GPS
@@ -37,6 +33,9 @@ export class CrearActividadPage {
   }
 
   inicio(){
+
+    // asignamos la imagen por defecto
+    this.actividad.imagen = "/assets/images/actporDefecto.png";
     //cogemos la posicion de la persona
     this.geolocation.getCurrentPosition().then((resp) => {
       // resp.coords.latitude
@@ -104,6 +103,7 @@ export class CrearActividadPage {
     var pos = this.actividad.tags.indexOf(item);
     this.actividad.tags.splice(pos,1);
   }
+
 
   //alerta cuando ya existe la misma actividad se comprueba por el titulo
   //un mismo usuario solo puede tener x actividades si el titulo es diferente
