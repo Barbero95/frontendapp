@@ -9,34 +9,39 @@
 
 <ion-content padding>
 
-  <ion-list>
-    <ion-card *ngFor="let item of actividades">
-      <ion-item>
-        <button ion-button item-end color="danger" clear icon-only (click)="goToEditarActividad(item)">
-          <ion-icon small name='brush' is-active="false"></ion-icon>
-        </button>
-        <button ion-button item-end color="danger" clear icon-only (click)="eliminarActivity(item)">
-          <ion-icon small name='trash' is-active="false"></ion-icon>
-        </button>
-        <ion-card-header>
-          {{item.titulo}}
-        </ion-card-header>
-      </ion-item>
-      <ion-card-content>
-        Descripción: {{item.descripcion}} <hr>
-        Tags: {{item.tags}} <hr>
-        <ion-chip class="listaTags" *ngFor="let room of item.fullRooms">
-          <ion-label *ngIf="propietario === room[0].users[1].userName"
-                      (click)="contactar(room[0].users[0], room[0].users[1], item._id)">
-            {{room[0].users[0].userName}}
-          </ion-label>
-          <ion-label *ngIf="propietario === room[0].users[0].userName"
-                     (click)="contactar(room[0].users[0], room[0].users[1], item._id)">
-            {{room[0].users[1].userName}}
-          </ion-label>
-        </ion-chip>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
+
+    <ion-content class="card-background-page">
+      <ion-card *ngFor="let item of actividades">
+        <img src={{item.imagen}}/>
+        <ion-item>
+          <button ion-button item-end color="danger" clear icon-only (click)="goToEditarActividad(item)">
+            <ion-icon small name='brush' is-active="false"></ion-icon>
+          </button>
+          <button ion-button item-end color="danger" clear icon-only (click)="eliminarActivity(item)">
+            <ion-icon small name='trash' is-active="false"></ion-icon>
+          </button>
+          <ion-card-header>
+            {{item.titulo}}
+          </ion-card-header>
+        </ion-item>
+        <ion-card-content>
+          Descripción: {{item.descripcion}}
+          <hr>
+          Tags: {{item.tags}}
+          <hr>
+          <ion-chip class="listaTags" *ngFor="let room of item.fullRooms">
+            <ion-label *ngIf="propietario === room[0].users[1].userName"
+                       (click)="contactar(room[0].users[0], room[0].users[1], item._id)">
+              {{room[0].users[0].userName}}
+            </ion-label>
+            <ion-label *ngIf="propietario === room[0].users[0].userName"
+                       (click)="contactar(room[0].users[0], room[0].users[1], item._id)">
+              {{room[0].users[1].userName}}
+            </ion-label>
+          </ion-chip>
+        </ion-card-content>
+      </ion-card>
+    </ion-content>
+
 
 </ion-content>

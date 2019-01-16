@@ -26,6 +26,7 @@ export class CatalogoPage {
   propietario: string = "";
   usuario: Usuario;
   actividades: Actividad[];
+  foto: string = "http://localhost:3000/uploads/" ;
 
 
   constructor(public chatService: ChatServiceProvider,

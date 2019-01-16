@@ -89,6 +89,8 @@ export class ActivityServiceProvider {
 
   //crear actividad
   postActividad (actividad: Actividad): Observable<Actividad> {
+
+    console.log("la imatge esta a:"+ actividad.imagen);
     return this.http.post<Actividad>(this.actividadesUrl, actividad, httpOptions);
   }
 

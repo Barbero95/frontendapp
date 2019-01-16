@@ -30,9 +30,10 @@
 
   <ion-label align="center">Distancia seleccionada = {{distancia}}</ion-label>
 
-  <ion-list>
+  <ion-content class="card-background-page">
     <ion-card *ngFor="let item of actividades">
-        <ion-card-header>
+      <img src={{item.imagen}}/>
+      <ion-card-header>
           {{item.titulo}}
         </ion-card-header>
       <ion-card-content>
@@ -67,7 +68,7 @@
 
       </ion-card-content>
     </ion-card>
-  </ion-list>
+    </ion-content>
   <ion-list>
     <ion-card *ngFor="let item2 of actividades2" (click)="goMostrarActividad(item2)" >
       <ion-card-header>
