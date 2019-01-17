@@ -12,6 +12,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import {ChatServiceProvider} from "../../providers/chat-service/chat-service";
 import { MapaPage } from '../mapa/mapa';
 import {ChatListPage} from "../chat-list/chat-list";
+import {Socket} from "ng-socket-io";
 
 
 @IonicPage()

@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
 import { ObjetoDeNickYEstado } from '../../app/objetoDeNickYEstado';
-
+import {Socket} from "ng-socket-io";
 import {ChatPage} from "../chat/chat";
 import {Usuario} from "../../app/usuario";
 import {ValorarPage} from "../valorar/valorar";
@@ -25,7 +25,10 @@ export class MostrarActividadPage {
   tituloAnterior: string;
   a:string[];
   vals: Valoracion[];
-
+  usersNotificated: {};
+  userFrom: Usuario;
+  userTo: Usuario;
+  actividadSocket: any;
   actividad: Actividad;
   notificaciones: Notificaciones;
 
@@ -33,7 +36,9 @@ export class MostrarActividadPage {
   usuario: Usuario;
   propietario: Usuario;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, 
+    public socket: Socket,
+    public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
     this.actividad = new Actividad();
     this.usuario = new Usuario();
     this.vals = [];
@@ -155,6 +160,17 @@ export class MostrarActividadPage {
               this.notificaciones.tituloActividad = this.actividad.titulo;
               this.notificaciones.flag = 1;
 
+          //--------------------------------------
+            this.usersNotificated = {
+              userFrom: val,
+              userTo: this.actividad.propietario,
+              actividad: this.actividad
+            };
+
+            this.socket.emit('notificacion', this.usersNotificated);
+
+            //---------------------------
+
               this.userServiceProvider.postEnvioNotificaciones(this.notificaciones).subscribe( data => {
 
                   this.showAlert4()
@@ -162,6 +178,8 @@ export class MostrarActividadPage {
                  err => {this.showAlert5()});
 
             });
+
+
           }
         }
       ]
