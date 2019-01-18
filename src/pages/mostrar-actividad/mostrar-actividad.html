@@ -31,13 +31,20 @@
   </ionic3-star-rating>
   <p>Horas de la actividad: {{actividad.horasActividad}}</p>
 
-  <ion-buttons align="center">
-    <button ion-button color="primary" class="solicitar" (click)="contactar()">Contactar</button>
-    <button ion-button color="primary" class="solicitar" (click)="solicitar()">Solicitar</button>
-    <button ion-button color="primary" class="cancelar" (click)="cancelar()">Cancelar</button>
-    <!--<button ion-button color="primary" class="valorar" (click)="gotoValorarPage()">Valorar </button>-->
-
-  </ion-buttons>
+  <!--
+    <ion-buttons align="center">
+      <button ion-button color="primary" class="solicitar" (click)="contactar()">Contactar</button>
+      <button ion-button color="primary" class="solicitar" (click)="solicitar()">Solicitar</button>
+      <button ion-button color="primary" class="cancelar" (click)="cancelar()">Cancelar</button>
+      <button ion-button color="primary" class="valorar" (click)="gotoValorarPage()">Valorar </button>
+    </ion-buttons>
+  -->
+  
+  <div padding align="center">
+    <button ion-button color="primary" (click)="contactar()">Contactar</button>
+    <button ion-button color="secondary" (click)="solicitar()">Solicitar</button>
+    <button ion-button color="danger" (click)="cancelar()">Cancelar</button>
+  </div>
 
   <ion-list>
     <ion-card *ngFor="let item of vals">

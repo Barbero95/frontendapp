@@ -25,6 +25,8 @@ class ActividadesUsuario {
     cliente: string;
     estado: number;
     propietario: string;
+    horasActividad: number;
+    horasTotal: number;
 }
 
 @IonicPage()
@@ -39,6 +41,7 @@ export class ActividadesEnCursoPage {
 
   items: Array<{title: string, note: string, icon: string}>;
 
+  horaspropietario: number;
   propietario: string = "";
   nickUsuario: string = "";
   idpropietario: string = "";
@@ -70,6 +73,7 @@ export class ActividadesEnCursoPage {
       this.userServiceProvider.getUsuario(this.nickUsuario).subscribe((ua) => {
         //console.log(ua)
         this.idpropietario = ua._id;
+        this.horaspropietario = ua.horasUsuario;
         //console.log("el id del propietario es :" + this.idpropietario);
       })
       this.inicio();
@@ -100,6 +104,9 @@ export class ActividadesEnCursoPage {
           o.idCliente = c.idCliente;
           o.estado = c.estado;
           o.propietario = this.nickUsuario;
+          o.horasActividad = a.horasActividad;
+          this.horaspropietario = this.horaspropietario + a.horasActividad;
+          o.horasTotal = this.horaspropietario;
           this.result.push(o);
         }
       }
@@ -122,6 +129,9 @@ export class ActividadesEnCursoPage {
             o.propietario = a.propietario;
             o.idCliente = c.idCliente;
             o.estado = c.estado;
+            o.horasActividad = a.horasActividad;
+            this.horaspropietario = this.horaspropietario - a.horasActividad;
+            o.horasTotal = this.horaspropietario;
             o.cliente = this.nickUsuario;
           //si soy el cliente no me debe salir la opción de poder aceptar o rechazar la actividad y ahora esta saliendo
           //codigo de david -------------------
