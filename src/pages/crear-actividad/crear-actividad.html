@@ -21,8 +21,7 @@
         <ion-label>Descripción</ion-label>
         <ion-input type="text" [(ngModel)]="actividad.descripcion"></ion-input>
       </ion-item>
-
-      <ion-item>
+      <!--<ion-item>
         <ion-label>Ciudad</ion-label>
         <ion-input type="text" [(ngModel)]="actividad.ubicacion"></ion-input>
       </ion-item>
@@ -30,6 +29,29 @@
       <ion-item>
         <ion-label>Horas</ion-label>
         <ion-input type="text" [(ngModel)]="actividad.horasActividad"></ion-input>
+      </ion-item>
+      -->
+      <ion-item>
+          <ion-label>Horas</ion-label>
+          <ion-select [(ngModel)]="actividad.horasActividad">
+            <ion-option value="Barcelona">Barcelona</ion-option>
+            <ion-option value="Castelldefels">Castelldefels</ion-option>
+          </ion-select>
+        </ion-item>
+      <ion-item>
+        <ion-label>Horas</ion-label>
+        <ion-select [(ngModel)]="actividad.horasActividad">
+          <ion-option value=1>1</ion-option>
+          <ion-option value=2>2</ion-option>
+          <ion-option value=3>3</ion-option>
+          <ion-option value=4>4</ion-option>
+          <ion-option value=5>5</ion-option>
+          <ion-option value=6>6</ion-option>
+          <ion-option value=7>7</ion-option>
+          <ion-option value=8>8</ion-option>
+          <ion-option value=9>9</ion-option>
+          <ion-option value=10>10</ion-option>
+        </ion-select>
       </ion-item>
 
       <ion-item>
