@@ -181,6 +181,7 @@ export class ActividadesEnCursoPage {
         //refresh page
         //this.inicio();
         //this.events.publish('updateScreen');
+        this.navCtrl.setRoot(ActividadesEnCursoPage);
       }else{
         this.showAlert3();
       }
@@ -234,6 +235,7 @@ export class ActividadesEnCursoPage {
           this.userServiceProvider.updateUsuario(data2).subscribe();
         
       })
+      this.navCtrl.setRoot(ActividadesEnCursoPage);
     })
 
   }
