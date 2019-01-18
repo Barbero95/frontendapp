@@ -11,28 +11,36 @@
 
   <ion-list>
     <ion-card *ngFor="let item of result" >
-      <ion-card-header >
-        {{item.actividad}}
-        El estado es : {{item.estado}}
-        
-        <button *ngIf="item.estado == 1" ion-button icon-end color="checkmark-circle" clear icon-only (click)="aceptarActivity(item.actividad , item.propietario , item.idCliente)">
-          <ion-icon small  name='checkmark-circle' is-active="false"></ion-icon>
-        </button>
-        <button  *ngIf="item.estado == 1" ion-button icon-end color="danger" clear icon-only (click)="declinarActivity(item.actividad , item.propietario , item.idCliente)">
-          <ion-icon small  name='close-circle' is-active="false"></ion-icon>
-        </button>
-        <button *ngIf="item.estado == 2 && item.propietario == nickUsuario" ion-button color="green" (click)="finalitzarActivity(item.actividad , item.propietario , item.idCliente)">
-        Finalizar</button>
-        <button *ngIf="item.estado == 3" ion-button icon-end color="dark" clear icon-only (click)="finalitzarActivity(item.actividad , item.propietario , item.idCliente)">
-          <ion-icon small  name='pulse' is-active="false"></ion-icon>
-        </button>
-        <li *ngIf="item.estado == 1" class="c1">hola</li>
-        <li *ngIf="item.estado == 10" class="c1"></li>
-        <li *ngIf="item.estado == 2"class="c2"></li>
-        <li *ngIf="item.estado == 4"class="c4">pringui</li>
-        
-        
-      </ion-card-header>
+      <ion-item>
+          <button *ngIf="item.estado == 1" ion-button item-end color="checkmark-circle" clear icon-only (click)="aceptarActivity(item.actividad , item.propietario , item.idCliente)">
+            <ion-icon small  name='checkmark-circle' is-active="false"></ion-icon>
+          </button>
+          <button  *ngIf="item.estado == 1" ion-button item-end color="danger" clear icon-only (click)="declinarActivity(item.actividad , item.propietario , item.idCliente)">
+            <ion-icon small  name='close-circle' is-active="false"></ion-icon>
+          </button>
+          <button *ngIf="item.estado == 2 && item.propietario == nickUsuario" ion-button item-end class="finalizar" (click)="finalitzarActivity(item.actividad , item.propietario , item.idCliente)">
+          Finalizar</button>
+          <button *ngIf="item.estado == 3 && item.propietario != nickUsuario" ion-button item-end color="dark" clear icon-only (click)="valorarActividad(item.actividad , item.propietario , item.idCliente)">
+            <ion-icon small  name='stats' is-active="false"></ion-icon>
+          </button>
+          <!--Estado de la actividad-->
+          <button *ngIf="item.estado == 10" ion-button item-end class="c1">
+            <ion-icon small  name='eye' is-active="false"> En espera</ion-icon>
+          </button>
+          <button *ngIf="item.estado == 2" ion-button item-end class="c2">
+            <ion-icon small  name='eye' is-active="false"> En curso</ion-icon>
+          </button>
+          <button *ngIf="item.estado == 3" ion-button item-end class="c2">
+            <ion-icon small  name='eye' is-active="false"> Pendiente de valorar</ion-icon>
+          </button>
+          <button *ngIf="item.estado == 4" ion-button item-end class="c4">
+            <ion-icon small  name='eye' is-active="false"> Finalizado</ion-icon>
+          </button>
+          <ion-card-header >
+            {{item.actividad}}
+          </ion-card-header>
+      </ion-item>
+      
       <ion-card-content>
 
         <ul><li> El propietario es {{item.propietario}}</li>

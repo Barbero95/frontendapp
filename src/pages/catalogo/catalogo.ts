@@ -108,7 +108,6 @@ export class CatalogoPage {
   goToEditarActividad(actividad: Actividad){
     this.navCtrl.push(EditarActividadPage, {'act': actividad});
 
-
   }
 
   contactar(from : ChatUser, to : ChatUser, actividad) {

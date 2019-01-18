@@ -10,6 +10,7 @@ import { AlertController } from 'ionic-angular';
 import { EditarActividadPage } from "../editar-actividad/editar-actividad";
 
 import { PerfilAjenoPage } from "../perfil-ajeno/perfil-ajeno";
+import { ValorarPage } from '../valorar/valorar';
 
 /**
  * Generated class for the ActividadesEnCursoPage page.
@@ -186,7 +187,8 @@ export class ActividadesEnCursoPage {
             d.estado = 3;
           }
           else{
-            d.estado = 4;
+            //d.estado = 4;
+            d.estado = 2;
           }
           
 
@@ -207,9 +209,13 @@ export class ActividadesEnCursoPage {
 
   }
 
-
+  valorarActividad(titulo: string , propi: string , clienId: string){
+    this.activityServiceProvider.getActividadDePropietarioByName(propi,titulo).subscribe( data =>{
+      this.navCtrl.push(ValorarPage, {'actividad': data});
+    })  
+  }
   
-  declinarACtivity(actividad: Actividad, ind:number){
+  declinarActivity(actividad: Actividad, ind:number){
     actividad.clientes[ind].estado = 2;
     this.activityServiceProvider.updateActividad(actividad,actividad.titulo).subscribe( data => {
       if(data != null){
