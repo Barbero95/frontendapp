@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
@@ -49,7 +50,16 @@ export class ActividadesEnCursoPage {
   result: ActividadesUsuario[] = [];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userServiceProvider: UserServiceProvider, private activityServiceProvider: ActivityServiceProvider, public storage: Storage, public alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private userServiceProvider: UserServiceProvider, 
+    private activityServiceProvider: ActivityServiceProvider, 
+    public storage: Storage, 
+    public alertCtrl: AlertController,
+    public events: Events,
+    private zone: NgZone) 
+    {
     //es como iniciaar el local storage si no no obtenemos lso datos
     this.actividades = []; this.actividades2 = [];
     this.storage.get('nick').then( (nick) => {
@@ -63,6 +73,15 @@ export class ActividadesEnCursoPage {
       })
       this.inicio();
     });
+    //refresh page
+    this.events.subscribe('updateScreen', () => {
+      this.zone.run(() => {
+        console.log('force update the screen');
+      });
+    });
+    
+    //on volguem obligar a refresh page posem:
+    //this.events.publish('updateScreen');
   }
 
 
@@ -143,16 +162,16 @@ export class ActividadesEnCursoPage {
       //console.log(dat);
       this.activityServiceProvider.updateActividad(dat,dat.titulo).subscribe( data => {
       if(data != null){
-        this.showAlert1();
+        //this.showAlert1();
+        //refresh page
+        //this.inicio();
+        //this.events.publish('updateScreen');
       }else{
         this.showAlert3();
       }
     });
-
-
     })
     
-  
   }
   finalitzarActivity(nombre: string , propi: string , clienId: string){
     //console.log("la actividad del usuario es :" + nombre);
@@ -178,11 +197,14 @@ export class ActividadesEnCursoPage {
       this.activityServiceProvider.updateActividad(dat,dat.titulo).subscribe( data => {
       if(data != null){
         this.showAlert1();
+        //refresh page
+        //this.inicio;
       }else{
         this.showAlert3();
       }
     });
     })
+
   }
 
 
@@ -192,6 +214,8 @@ export class ActividadesEnCursoPage {
     this.activityServiceProvider.updateActividad(actividad,actividad.titulo).subscribe( data => {
       if(data != null){
         this.showAlert1();
+        //refresh page
+        //this.inicio;
       }else{
         this.showAlert3();
       }

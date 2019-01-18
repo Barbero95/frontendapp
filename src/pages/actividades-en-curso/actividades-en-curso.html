@@ -21,7 +21,9 @@
         <button  *ngIf="item.estado == 1" ion-button icon-end color="danger" clear icon-only (click)="declinarActivity(item.actividad , item.propietario , item.idCliente)">
           <ion-icon small  name='close-circle' is-active="false"></ion-icon>
         </button>
-        <button *ngIf="item.estado == 2 || item.estado == 3" ion-button icon-end color="dark" clear icon-only (click)="finalitzarActivity(item.actividad , item.propietario , item.idCliente)">
+        <button *ngIf="item.estado == 2 && item.propietario == nickUsuario" ion-button color="green" (click)="finalitzarActivity(item.actividad , item.propietario , item.idCliente)">
+        Finalizar</button>
+        <button *ngIf="item.estado == 3" ion-button icon-end color="dark" clear icon-only (click)="finalitzarActivity(item.actividad , item.propietario , item.idCliente)">
           <ion-icon small  name='pulse' is-active="false"></ion-icon>
         </button>
         <li *ngIf="item.estado == 1" class="c1">hola</li>
