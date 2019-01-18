@@ -48,9 +48,9 @@
 
         <ul><li> El propietario es {{item.propietario}}</li>
             <li><a routerLink="" (click)="perfilAjeno(item)"> El cliente es {{item.cliente}}</a></li>
-            <li *ngIf="item.propietario == nickUsuario" color = "green"> Horas actividad = + {{item.horasActividad}}</li>
-            <li *ngIf="item.propietario != nickUsuario" color = "red"> Horas actividad = - {{item.horasActividad}}</li>
-            <li > Horas Totales : {{item.horasTotal}}</li>
+            <li *ngIf="item.propietario == nickUsuario && item.estado == 4" color = "green"> Horas actividad = + {{item.horasActividad}}</li>
+            <li *ngIf="item.propietario != nickUsuario && item.estado == 4" color = "red"> Horas actividad = - {{item.horasActividad}}</li>
+            <li *ngIf= "item.estado == 4"> Horas Totales : {{item.horasTotal}}</li>
           </ul>
 
       </ion-card-content>

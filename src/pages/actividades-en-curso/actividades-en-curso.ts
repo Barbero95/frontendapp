@@ -105,7 +105,9 @@ export class ActividadesEnCursoPage {
           o.estado = c.estado;
           o.propietario = this.nickUsuario;
           o.horasActividad = a.horasActividad;
-          this.horaspropietario = this.horaspropietario + a.horasActividad;
+          if(o.estado == 4){
+            this.horaspropietario = this.horaspropietario - a.horasActividad;
+          }
           o.horasTotal = this.horaspropietario;
           this.result.push(o);
         }
@@ -130,7 +132,9 @@ export class ActividadesEnCursoPage {
             o.idCliente = c.idCliente;
             o.estado = c.estado;
             o.horasActividad = a.horasActividad;
-            this.horaspropietario = this.horaspropietario - a.horasActividad;
+            if(o.estado == 4){
+              this.horaspropietario = this.horaspropietario + a.horasActividad;
+            }
             o.horasTotal = this.horaspropietario;
             o.cliente = this.nickUsuario;
           //si soy el cliente no me debe salir la opción de poder aceptar o rechazar la actividad y ahora esta saliendo
@@ -206,14 +210,30 @@ export class ActividadesEnCursoPage {
       }
       //console.log(dat);
       this.activityServiceProvider.updateActividad(dat,dat.titulo).subscribe( data => {
-      if(data != null){
-        this.showAlert1();
-        //refresh page
-        //this.inicio;
-      }else{
-        this.showAlert3();
-      }
-    });
+        if(data != null){
+          this.showAlert1();
+          //refresh page
+          //this.inicio;
+        }else{
+          this.showAlert3();
+        }
+      })
+      this.userServiceProvider.getUsuario(propi).subscribe( data1 => {
+          console.log("------------------------");
+          console.log(data1.nick + data1.horasUsuario);
+          data1.horasUsuario = data1.horasUsuario + dat.horasActividad;
+          console.log(data1.nick + data1.horasUsuario);
+          this.userServiceProvider.updateUsuario(data1).subscribe();
+        
+      })
+      this.userServiceProvider.getUserById(clienId).subscribe(data2 => {
+          console.log("------------------------");
+          console.log(data2.nick + data2.horasUsuario);
+          data2.horasUsuario = data2.horasUsuario - dat.horasActividad;
+          console.log(data2.nick + data2.horasUsuario);
+          this.userServiceProvider.updateUsuario(data2).subscribe();
+        
+      })
     })
 
   }
