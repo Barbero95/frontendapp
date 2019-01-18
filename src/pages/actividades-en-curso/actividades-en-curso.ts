@@ -190,7 +190,6 @@ export class ActividadesEnCursoPage {
             //d.estado = 4;
             d.estado = 2;
           }
-          
 
         }
 
