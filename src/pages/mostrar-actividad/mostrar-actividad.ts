@@ -13,6 +13,7 @@ import {ChatPage} from "../chat/chat";
 import {Usuario} from "../../app/usuario";
 import {ValorarPage} from "../valorar/valorar";
 import {Valoracion} from "../../app/valoracion";
+import {Observable} from "rxjs";
 
 @IonicPage()
 @Component({
@@ -36,6 +37,8 @@ export class MostrarActividadPage {
   usuario: Usuario;
   propietario: Usuario;
 
+  rating: number;
+
   constructor(public navCtrl: NavController, 
     public socket: Socket,
     public navParams: NavParams,  private activityServiceProvider: ActivityServiceProvider, private userServiceProvider: UserServiceProvider,public storage: Storage, public alertCtrl: AlertController) {
@@ -57,6 +60,10 @@ export class MostrarActividadPage {
     this.notificaciones = new Notificaciones();
     this.getUser(this.actividad.propietario);
     this.getValoraciones();
+
+    console.log("el rating de esta actividad es : " + this.rating);
+
+
   }
 
   getUser(nick: string) {
@@ -67,13 +74,23 @@ export class MostrarActividadPage {
 
 
   getValoraciones(){
+    let suma: number = 0;
+    let mitja:number;
     if(this.actividad.valoraciones) {
       for (let i=0; i < this.actividad.valoraciones.length; i++){
         this.activityServiceProvider.getValoracion(this.actividad.valoraciones[i]).subscribe( (valoracio) => {
           if (valoracio != null){
             console.log("titulo"+ valoracio.titulo);
             console.log("estrellas"+ valoracio.estrellas);
+            suma=suma+valoracio.estrellas;
+            console.log("la suma es a dins de l'if:"+ suma);
             this.vals.push(valoracio);
+
+
+            console.log("la suma a fora es:"+ suma);
+            mitja=suma/this.actividad.valoraciones.length;
+            console.log("la mitja es:"+ mitja);
+            this.rating=mitja;
           }else{
 
             this.showAlert3();
@@ -83,7 +100,12 @@ export class MostrarActividadPage {
           this.showAlert2();
         });
       }
+
+
+
     }
+
+
   }
 
 
