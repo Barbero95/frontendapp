@@ -37,7 +37,6 @@ export class MostrarActividadPage {
   usuario: Usuario;
   propietario: Usuario;
 
-  rating: number;
 
   constructor(public navCtrl: NavController, 
     public socket: Socket,
@@ -61,7 +60,7 @@ export class MostrarActividadPage {
     this.getUser(this.actividad.propietario);
     this.getValoraciones();
 
-    console.log("el rating de esta actividad es : " + this.rating);
+
 
 
   }
@@ -83,14 +82,10 @@ export class MostrarActividadPage {
             console.log("titulo"+ valoracio.titulo);
             console.log("estrellas"+ valoracio.estrellas);
             suma=suma+valoracio.estrellas;
-            console.log("la suma es a dins de l'if:"+ suma);
             this.vals.push(valoracio);
-
-
-            console.log("la suma a fora es:"+ suma);
             mitja=suma/this.actividad.valoraciones.length;
             console.log("la mitja es:"+ mitja);
-            this.rating=mitja;
+            this.actividad.estrellas=mitja;
           }else{
 
             this.showAlert3();
