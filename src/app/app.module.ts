@@ -6,7 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule, HTTP_INTERCEPTORS }    from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { StarRatingModule } from 'ionic3-star-rating';
-import { Geolocation } from '@ionic-native/geolocation'
+import { Geolocation } from '@ionic-native/geolocation';
+import { Facebook } from '@ionic-native/facebook';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -100,6 +102,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     ActivityServiceProvider,
     Geolocation,
     WrappedSocket,
+    Facebook,
+    SocialSharing,
     ChatServiceProvider
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

@@ -54,6 +54,31 @@
           </ul>
 
       </ion-card-content>
+      <!-- Sharing Icons -->
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-only (click)="regularShare(item)" color="primary" clear>
+          <ion-icon class="share-icon" name="share"></ion-icon>
+        </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-only (click)="whatsappShare(item)" color="primary" clear>
+          <ion-icon class="share-icon" name="logo-whatsapp"></ion-icon>
+        </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-only (click)="facebookShare(item)" color="primary" clear>
+          <ion-icon  class="share-icon" name="logo-facebook"></ion-icon>
+        </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-only (click)="twitterShare(item)" color="primary" clear>
+          <ion-icon class="share-icon" name="logo-twitter"></ion-icon>
+        </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card>
   </ion-list>
 

@@ -8,6 +8,7 @@ import { Usuario } from '../../app/usuario';
 import { Actividad } from '../../app/actividad';
 import { AlertController } from 'ionic-angular';
 import { EditarActividadPage } from "../editar-actividad/editar-actividad";
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { PerfilAjenoPage } from "../perfil-ajeno/perfil-ajeno";
 import { ValorarPage } from '../valorar/valorar';
@@ -62,6 +63,7 @@ export class ActividadesEnCursoPage {
     public storage: Storage, 
     public alertCtrl: AlertController,
     public events: Events,
+    public socialSharing : SocialSharing,
     private zone: NgZone) 
     {
     //es como iniciaar el local storage si no no obtenemos lso datos
@@ -274,6 +276,40 @@ export class ActividadesEnCursoPage {
         return 'green';
     }
   }
+  regularShare(actividad: Actividad){
+    var msg  = ("He realizado la actividad: "+ actividad.titulo + "gracias a la aplicación Time4Time");
+    this.socialSharing.share(msg, null, null, null).then(() => {
+      // Success
+     }).catch((e) => {
+      // Error!
+    });
+  }
+
+  whatsappShare(actividad: Actividad){
+    var msg  = ("He realizado la actividad: "+ actividad.titulo + "gracias a la aplicación Time4Time");
+     this.socialSharing.shareViaWhatsApp(msg, null, null).then(() => {
+      // Success
+     }).catch((e) => {
+      // Error!
+    });
+  }
+   
+  twitterShare(actividad: Actividad){
+    var msg  = ("He realizado la actividad: "+ actividad.titulo + "gracias a la aplicación Time4Time");
+    this.socialSharing.shareViaTwitter(msg, null, null).then(() => {
+      // Success
+     }).catch((e) => {
+      // Error!
+    });
+  }
+  facebookShare(actividad: Actividad){
+    var msg  = ("He realizado la actividad: "+ actividad.titulo + "gracias a la aplicación Time4Time");
+     this.socialSharing.shareViaFacebook(msg, null, null).then(() => {
+      // Success
+     }).catch((e) => {
+      // Error!
+    });
+   }
 
   showAlert3() {
     const alert = this.alertCtrl.create({
