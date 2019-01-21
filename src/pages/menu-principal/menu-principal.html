@@ -39,14 +39,7 @@
       <ion-card-content>
         Descripción: {{item.descripcion}} <hr>
         Horas: {{item.horasActividad}} <hr>
-        <ionic3-star-rating
-          activeIcon = "ios-star"
-          defaultIcon = "ios-star-outline"
-          activeColor = "#488aff"
-          defaultColor = "#968A8A"
-          readonly="true"
-          [rating]= "item.estrellas">
-        </ionic3-star-rating> <hr>
+
         Tags: {{item.tags}} <hr>
         <ion-chip class="listaTags" *ngFor="let tag of item.tags">
             <ion-label>{{tag}}</ion-label>

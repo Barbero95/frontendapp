@@ -17,17 +17,17 @@
           <ion-row>
             <ion-col col-2 class="no-pad-top no-pad-bot">
               <ion-avatar no-margin>
-                <img src="../../../assets/imgs/logo.png"/>
+                <img src="{{usr.userFoto}}"/>
               </ion-avatar>
             </ion-col>
             <ion-col col-6 class="no-pad-top no-pad-bot small-pad-left">
               {{usr.userName}}
-              <p>{{chat.lastMessage}}</p>
+              <p> {{chat.lastMessage}} </p>
             </ion-col>
             <ion-col col-4 class="time-chat no-pad-top no-pad-bot no-pad-right"
                      *ngIf="chat.lastMessageDate">
               <div class="time-chat">
-                {{chat.lastMessageDate | date:'shortTime'}}
+                {{chat.lastMessageDateString}}
               </div>
             </ion-col>
             <!--<ion-col col-4 class="time-chat no-pad-top no-pad-bot no-pad-right"

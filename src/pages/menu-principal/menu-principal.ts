@@ -118,6 +118,8 @@ export class MenuPrincipalPage {
     });
   }
 
+
+
   //Barra de busqueda: buscamos por palabra clave
   goSearch(){
     if(this.searchString.length == 0){

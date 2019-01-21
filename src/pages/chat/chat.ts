@@ -62,11 +62,14 @@ export class ChatPage {
       this.chatService.getMessages(room).subscribe(async messages => {
         this.messages = messages.messages;
       });
-      this.chat = {
-        room: this.room,
-        user: this.user._id,
-        lastView: Date.now()
-      };
+      if(this.user) {
+        this.chat = {
+          room: this.room,
+          user: this.user._id,
+          lastView: Date.now()
+        };
+      }
+
       this.chatService.lastView(this.chat).subscribe();
     });
   }

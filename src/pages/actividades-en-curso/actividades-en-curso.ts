@@ -13,12 +13,6 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { PerfilAjenoPage } from "../perfil-ajeno/perfil-ajeno";
 import { ValorarPage } from '../valorar/valorar';
 
-/**
- * Generated class for the ActividadesEnCursoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 class ActividadesUsuario {
     actividad: string;
