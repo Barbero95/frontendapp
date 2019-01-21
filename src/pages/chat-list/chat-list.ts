@@ -8,7 +8,7 @@ import {Socket} from "ng-socket-io";
 import {Observable} from "rxjs/Observable";
 import {ChatPage} from "../chat/chat";
 import {Storage} from "@ionic/storage";
-
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -78,12 +78,16 @@ export class ChatListPage {
   }
 
   reloadChats() {
-    this.chatService.getChats(this.user).subscribe(chats => {
+    this.chatService.getChats(this.user).subscribe(async chats => {
       this.chats = chats;
-      this.chats.sort((a: Chat, b: Chat) => {
+      await this.chats.sort((a: Chat, b: Chat) => {
         return new Date(b.lastMessageDate).getTime() - new Date(a.lastMessageDate).getTime();
+      });
+      console.log(this.chats);
+      this.chats.forEach(chat => {
+        chat.lastMessageDate = new Date(chat.lastMessageDate);
+        chat.lastMessageDate = moment(chat.lastMessageDate).fromNow();
       });
     });
   }
-
 }
