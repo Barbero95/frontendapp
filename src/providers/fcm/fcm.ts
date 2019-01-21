@@ -40,6 +40,11 @@
 //
 //     return devicesRef.doc(token).set(docData);
 //   }
+
+//   constructor(public firebaseNative: Firebase,
+//               //public afs: AngularFirestore,
+//               private platform: Platform) {
+//   }
 //
 //   listenToNotifications() {
 //     return this.firebaseNative.onNotificationOpen();
