@@ -3,4 +3,5 @@ export class ChatUser {
   userName: String;
   userConnected: Boolean;
   lastView: Date;
+  //check
 }
