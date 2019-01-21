@@ -85,7 +85,7 @@ export class ChatListPage {
       });
       console.log(this.chats);
       this.chats.forEach(chat => {
-        chat.lastMessageDate = new Date(chat.lastMessageDate);
+        //chat.lastMessageDate = new Date(chat.lastMessageDate);
         chat.lastMessageDate = moment(chat.lastMessageDate).fromNow();
       });
     });
