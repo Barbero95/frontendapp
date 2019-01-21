@@ -8,4 +8,5 @@ export class Chat {
   messages: Message[];
   lastMessage: String;
   lastMessageDate: Date;
+  lastMessageDateString: String;
 }

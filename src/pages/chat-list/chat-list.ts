@@ -34,11 +34,11 @@ export class ChatListPage {
               public chatService: ChatServiceProvider) {
     this.user = this.navParams.get('usuario');
     this.storage.get('nick').then( (nick) => {
-      console.log("propietario valor directo de storage: " + nick);
+      console.log("propietario valor directo de storage: ", nick);
       this.nick = nick;
     });
     this.getUsers().subscribe(data => {
-      console.log(data);
+      console.log('holaa', data);
     });
   }
 
@@ -83,10 +83,14 @@ export class ChatListPage {
       await this.chats.sort((a: Chat, b: Chat) => {
         return new Date(b.lastMessageDate).getTime() - new Date(a.lastMessageDate).getTime();
       });
-      console.log(this.chats);
       this.chats.forEach(chat => {
-        chat.lastMessageDate = new Date(chat.lastMessageDate);
-        chat.lastMessageDate = moment(chat.lastMessageDate).fromNow();
+        chat.users.forEach(user => {
+          this.userService.getUsuario(user.userName).subscribe(usr => {
+            user.userFoto = usr.imagen;
+          });
+        });
+        //chat.lastMessageDate = new Date(chat.lastMessageDate);
+        chat.lastMessageDateString = moment(chat.lastMessageDate).fromNow();
       });
     });
   }
